@@ -22,3 +22,17 @@
               map = <RC(0,0)>;
       };
 };
+
+/ {
+      aliases {
+              led-red = &led0;
+              led-green = &led1;
+              led-blue = &led2;
+      };
+
+      leds { status = "okay"; };
+};
+
+&led0 { gpios = <&gpio1 13 GPIO_ACTIVE_HIGH>; };    // D8  = P1.13
+&led1 { gpios = <&gpio1 14 GPIO_ACTIVE_HIGH>; };    // D9  = P1.14
+&led2 { gpios = <&gpio1 15 GPIO_ACTIVE_HIGH>; };    // D10 = P1.15
