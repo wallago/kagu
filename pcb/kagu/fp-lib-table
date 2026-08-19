@@ -1,4 +1,5 @@
 (fp_lib_table
 	(version 7)
 	(lib (name "XIAO nRF52840") (type "KiCad") (uri "/home/wallago/Personal-Projects/kagu/pcb/assets/footprint/Seeed_Studio_XIAO_Series.pretty") (options "") (descr ""))
+	(lib (name "kagu") (type "KiCad") (uri "/home/wallago/Personal-Projects/kagu/pcb/assets/footprint/kagu.pretty") (options "") (descr ""))
 )
