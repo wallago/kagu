@@ -682,7 +682,7 @@
         "uuid": "76cc5b2d-b244-46a4-af46-8895b5741e3a"
       }
     ],
-    "used_designators": "#FLG1-2,Battery_LED1,Battery1,Switch1,R1,GND_Pad1,#PWR1-9,U1-2,J1-3,Battery_Pad1,D1-18,SW1-18",
+    "used_designators": "GND_HW1,#FLG1-2,I2S_SCK1,Uart_Pad3-5,H1-8,Battery_LED1,J1-3,UART2,Reset_Pad2,Switch_Con1,#PWR1-10,Switch1,Bat_HW1,SW1-19,RESET_HW1,SPI_MISO1,Spi_Pad4,SPI_MOSI1,Battery_Pad1,UART_RX1,UART_TX1,I2S_WS1,I2s_Pad2-5,Battery1,GND_Pad1-2,U1-2,I2S_SD1,Bat_LED_Con1,D1-18,R1,SPI_SCK1,Bat_Con1",
     "variants": []
   },
   "sheets": [
