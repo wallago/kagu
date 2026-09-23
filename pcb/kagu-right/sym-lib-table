@@ -1,0 +1,4 @@
+(sym_lib_table
+	(version 7)
+	(lib (name "XIAO nRF52840") (type "KiCad") (uri "/home/wallago/Personal-Projects/kagu/pcb/assets/symbols/XIAO nRF52840_kagu.kicad_sym") (options "") (descr ""))
+)
