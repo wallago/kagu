@@ -150,7 +150,7 @@
         "min_connection": 0.0,
         "min_copper_edge_clearance": 0.25,
         "min_groove_width": 0.0,
-        "min_hole_clearance": 0.25,
+        "min_hole_clearance": 0.15,
         "min_hole_to_hole": 0.25,
         "min_microvia_diameter": 0.2,
         "min_microvia_drill": 0.1,
@@ -682,7 +682,7 @@
         "uuid": "76cc5b2d-b244-46a4-af46-8895b5741e3a"
       }
     ],
-    "used_designators": "Bat_LED_Con1,D1-18,I2S_SD1,Uart_Pad3-5,J1-3,UART2,Reset_Pad2,Switch_Con1,#PWR1-10,Switch1,Bat_HW1,R1,SPI_SCK1,SW1-19,RESET_HW1,Battery_LED1,H1-8,Bat_Con1,I2S_SCK1,#FLG1-2,GND_HW1,SPI_MISO1,Spi_Pad4,SPI_MOSI1,Battery_Pad1,UART_RX1,UART_TX1,I2S_WS1,I2s_Pad2-5,Battery1,GND_Pad1-2,U1-2",
+    "used_designators": "SPI_MOSI1,Spi_Pad4,SPI_MISO1,Bat_HW1,Switch1,#PWR1-10,J1-3,UART2,Reset_Pad2,Switch_Con1,GND_Pad1-2,SPI_SCK1,R1,Battery_Pad1,UART_RX1,UART_TX1,Uart_Pad3-5,Battery1,I2S_WS1,I2s_Pad2-5,I2S_SD1,U1-2,D1-18,Bat_LED_Con1,SW1-19,RESET_HW1,Battery_LED1,H1-8,Bat_Con1,I2S_SCK1,#FLG1-2,GND_HW1",
     "variants": []
   },
   "sheets": [
