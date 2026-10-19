@@ -5,3 +5,6 @@
 
 # ── Local development environment ────────────────────────────
 .direnv/
+
+# Rendered case models
+case/build/

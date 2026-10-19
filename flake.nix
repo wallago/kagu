@@ -60,6 +60,10 @@
                 just
                 claude
                 nodejs
+
+                # case design
+                openscad
+                python3
               ]);
           };
 
