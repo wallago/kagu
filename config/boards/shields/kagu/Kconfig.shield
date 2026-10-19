@@ -1,2 +1,5 @@
-config SHIELD_KAGU
-      def_bool $(shields_list_contains,kagu)
+config SHIELD_KAGU_LEFT
+      def_bool $(shields_list_contains,kagu_left)
+
+config SHIELD_KAGU_RIGHT
+      def_bool $(shields_list_contains,kagu_right)

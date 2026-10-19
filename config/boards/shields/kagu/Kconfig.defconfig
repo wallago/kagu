@@ -1,6 +1,17 @@
-if SHIELD_KAGU
+if SHIELD_KAGU_LEFT
 
 config ZMK_KEYBOARD_NAME
       default "kagu"
+
+# The left half is the central: it talks to the host and to the right half.
+config ZMK_SPLIT_ROLE_CENTRAL
+      default y
+
+endif
+
+if SHIELD_KAGU_LEFT || SHIELD_KAGU_RIGHT
+
+config ZMK_SPLIT
+      default y
 
 endif

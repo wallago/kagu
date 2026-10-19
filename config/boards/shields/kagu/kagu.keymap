@@ -1,12 +1,65 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/outputs.h>
+
+#define BASE 0
+#define NAV  1
+#define SYM  2
+#define SYS  3
 
 / {
+	// Holding both layer thumbs together reaches the system layer.
+	conditional_layers {
+		compatible = "zmk,conditional-layers";
+
+		tri_layer {
+			if-layers = <NAV SYM>;
+			then-layer = <SYS>;
+		};
+	};
+
 	keymap {
 		compatible = "zmk,keymap";
 
-		default_layer {
-			bindings = <&kp A>;
+		base_layer {
+			display-name = "Base";
+			bindings = <
+   &kp Q      &kp W      &kp F      &kp P      &kp B          &kp J      &kp L      &kp U      &kp Y      &kp SQT
+   &kp A      &kp R      &kp S      &kp T      &kp G          &kp M      &kp N      &kp E      &kp I      &kp O
+   &kp Z      &kp X      &kp C      &kp D      &kp V          &kp K      &kp H      &kp COMMA  &kp DOT    &kp FSLH
+                         &kp ESC    &mo NAV    &kp SPACE      &kp LSHFT  &mo SYM    &kp BSPC
+			>;
+		};
+
+		nav_layer {
+			display-name = "Nav";
+			bindings = <
+   &kp TAB    &kp ESC    &kp ENTER  &kp DEL    &kp CAPS       &kp PG_UP  &kp HOME   &kp UP     &kp END    &kp INS
+   &kp LGUI   &kp LALT   &kp LCTRL  &kp LSHFT  &trans         &kp PG_DN  &kp LEFT   &kp DOWN   &kp RIGHT  &trans
+   &kp C_PREV &kp C_NEXT &kp C_VOL_DN &kp C_VOL_UP &kp C_MUTE &kp C_PP   &trans     &trans     &trans     &trans
+                         &trans     &trans     &trans         &trans     &trans     &trans
+			>;
+		};
+
+		sym_layer {
+			display-name = "Sym";
+			bindings = <
+   &kp N1     &kp N2     &kp N3     &kp N4     &kp N5         &kp N6     &kp N7     &kp N8     &kp N9     &kp N0
+   &kp EXCL   &kp AT     &kp HASH   &kp DLLR   &kp PRCNT      &kp CARET  &kp AMPS   &kp STAR   &kp MINUS  &kp EQUAL
+   &kp GRAVE  &kp TILDE  &kp BSLH   &kp UNDER  &kp PLUS       &kp PIPE   &kp LPAR   &kp RPAR   &kp LBKT   &kp RBKT
+                         &trans     &trans     &trans         &trans     &trans     &trans
+			>;
+		};
+
+		sys_layer {
+			display-name = "Sys";
+			bindings = <
+   &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4  &none  &none  &none  &none  &bootloader
+   &out OUT_TOG &none        &none        &none        &none         &none  &none  &none  &none  &sys_reset
+   &bt BT_CLR   &bt BT_CLR_ALL &none      &none        &none         &none  &none  &none  &none  &none
+                             &trans       &trans       &trans        &trans &trans &trans
+			>;
 		};
 	};
 };

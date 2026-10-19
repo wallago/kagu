@@ -1,3 +1,9 @@
 include:
   - board: xiao_ble//zmk
-    shield: kagu rgbled_adapter
+    shield: kagu_left rgbled_adapter
+  - board: xiao_ble//zmk
+    shield: kagu_right rgbled_adapter
+  # Flash to a half to wipe stored BLE pairing, then reflash its normal
+  # firmware. Use when the halves refuse to connect to each other.
+  - board: xiao_ble//zmk
+    shield: settings_reset
