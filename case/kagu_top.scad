@@ -23,7 +23,6 @@ plate_t      = 1.3;   // Choc clips want 1.2-1.3mm
 // ---------------------------------------------------------------------------
 switch_cut   = 13.8;  // Kailh Choc v1/v2 plate cutout
 window_clear = 0.4;   // margin around tall components and the XIAO
-reset_hole_d = 4.0;   // access to the reset button
 
 // ---------------------------------------------------------------------------
 // Fasteners -- countersunk M3 (DIN 965 / ISO 7046), 90 degree head.
@@ -33,7 +32,8 @@ screw_clear_d = 3.4;
 csk_d         = 6.2;  // head diameter plus a little, so it lands flush
 
 // Same web cleanup as the old one-piece case: the battery-LED connector lands
-// 0.35mm from the SW16 cutout, leaving a sliver too thin to print. Opening the
+// 0.35mm from the SW16 cutout, so opening its window leaves a sliver too thin
+// to print. Opening the
 // profile by min_web deletes any web thinner than 2*min_web and leaves the
 // rest alone. Set to 0 to disable.
 min_web = 0.3;
@@ -64,15 +64,14 @@ module plate_profile() {
                 rotate(s[2])
                     square(switch_cut, center = true);
 
-        // The JST connectors stand well clear of the plate gap. The switch and
-        // battery-LED ones are also where the ledge will be wired from.
-        for (t = tall_parts) rect(t, window_clear);
+        // Only the battery JST gets a window. The switch and battery-LED
+        // connectors (tall_parts[0] and [2]) are left unpopulated for now and
+        // the plate covers them; open them again when the ledge is wired.
+        rect(tall_parts[1], window_clear);
 
         // Open bay over the XIAO: clears the module however deep it seats, and
         // lets its RGB status LED show.
         rect(xiao, window_clear);
-
-        translate(reset) circle(d = reset_hole_d);
     }
 }
 
