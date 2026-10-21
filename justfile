@@ -105,6 +105,18 @@ trays: case-geometry
         openscad -o case/build/kagu_${side}_tray.stl case/${side}_tray.scad; \
     done
 
+# Render the top plates into case/build/
+# Switch plate plus a short skirt that lands on the tray border. The PCB screws
+# go through it, so it is countersunk for M3 x 8 flat heads (DIN 965). Comes
+# out plate face down, ready to slice.
+[group('case')]
+tops: case-geometry
+    mkdir -p case/build
+    for side in left right; do \
+        echo "▶ $side top"; \
+        openscad -o case/build/kagu_${side}_top.stl case/${side}_top.scad; \
+    done
+
 # Render the Choc v2 keycap tilters into case/build/
 # Square and diagonal leans are separate parts: an MX cross only seats every
 # 90 degrees, so a 45 degree lean cannot be had by turning a square one.
