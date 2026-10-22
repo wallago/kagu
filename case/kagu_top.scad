@@ -35,8 +35,8 @@ csk_d         = 6.2;  // head diameter plus a little, so it lands flush
 // Supports -- pillars from the plate down onto the PCB so it does not flex
 // under typing. Left-half coordinates, mirrored for the right half (the boards
 // are mirror images). Three per column gap, where they clear the switch
-// latches by 0.5mm, plus the open stretches round the thumb cluster and next
-// to the battery connector. All land on bare PCB: the diodes and hotswap
+// latches by 0.5mm, plus the open stretches round the thumb cluster, beside
+// the outer columns and next to the battery connector. All land on bare PCB: the diodes and hotswap
 // sockets are on the back, and none of these spots touch a front pad.
 // ---------------------------------------------------------------------------
 support_d = 2.4;
@@ -45,7 +45,8 @@ supports  = [
     [42, 45.6], [42, 62.5], [42, 79.4],
     [60, 45.6], [60, 62.0], [60, 78.4],
     [78, 38.6], [78, 57.5], [78, 76.4],
-    [57, 35], [80, 30], [98, 40],
+    [57, 35], [80, 30], [95, 28], [98, 40], [97, 57], [97, 72],
+    [110, 32.3], [4, 47],
 ];
 
 // Same web cleanup as the old one-piece case: the battery-LED connector lands
