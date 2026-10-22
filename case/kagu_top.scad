@@ -31,6 +31,23 @@ spacer_d      = 6.0;  // sits on the 6mm mounting-hole pad, clear of the parts
 screw_clear_d = 3.4;
 csk_d         = 6.2;  // head diameter plus a little, so it lands flush
 
+// ---------------------------------------------------------------------------
+// Supports -- pillars from the plate down onto the PCB so it does not flex
+// under typing. Left-half coordinates, mirrored for the right half (the boards
+// are mirror images). Three per column gap, where they clear the switch
+// latches by 0.5mm, plus the open stretches round the thumb cluster and next
+// to the battery connector. All land on bare PCB: the diodes and hotswap
+// sockets are on the back, and none of these spots touch a front pad.
+// ---------------------------------------------------------------------------
+support_d = 2.4;
+supports  = [
+    [24, 39.5], [24, 53.5], [24, 67.5],
+    [42, 45.6], [42, 62.5], [42, 79.4],
+    [60, 45.6], [60, 62.0], [60, 78.4],
+    [78, 38.6], [78, 57.5], [78, 76.4],
+    [57, 35], [80, 30], [98, 40],
+];
+
 // Same web cleanup as the old one-piece case: the battery-LED connector lands
 // 0.35mm from the SW16 cutout, so opening its window leaves a sliver too thin
 // to print. Opening the
@@ -43,6 +60,7 @@ min_web = 0.3;
 // ---------------------------------------------------------------------------
 plate_z = tray_h + pcb_to_plate;   // plate underside
 top_h   = pcb_to_plate + plate_t;  // overall height of this part
+support_pts = chip_right ? supports : [for (p = supports) [board_w - p[0], p[1]]];
 
 echo(str("top: skirt ", pcb_to_plate, " + plate ", plate_t, " = ", top_h,
          "mm,  case ", tray_h + top_h, "mm tall assembled,  screws M3 x 8 csk"));
@@ -92,6 +110,9 @@ module top_plate_in_place() {
             for (p = screws)
                 translate([p[0], p[1], tray_h])
                     cylinder(d = spacer_d, h = top_h);
+            for (p = support_pts)
+                translate([p[0], p[1], tray_h])
+                    cylinder(d = support_d, h = top_h);
         }
         for (p = screws)
             translate([p[0], p[1], 0]) {
