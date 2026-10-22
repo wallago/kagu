@@ -52,8 +52,17 @@ usb_clear = 1.5;  // margin either side of the connector
 // test coupon before committing a whole tray.
 // ---------------------------------------------------------------------------
 boss_d        = 8.0;  // >= insert OD + 4mm so the boss has ~2mm of wall
+insert_od     = 4.5;  // knurl outside diameter
 insert_hole_d = 4.0;  // pilot hole for the insert
-insert_depth  = 5.0;  // how deep the insert sits
+insert_depth  = 5.0;  // insert length
+insert_melt   = 1.0;  // extra hole depth below the insert for the melt it pushes down
+
+// Pressing the insert in raises a lip of plastic round the hole. A shallow
+// counterbore at the top of the boss gives that lip somewhere to go below the
+// PCB seat, so the board still lands on the boss face. Press the insert in
+// until it is flush with the counterbore floor, not with the boss top.
+insert_relief_d = insert_od + 1.0;
+insert_relief_h = 0.6;
 
 $fn = 64;
 eps = 0.01;
@@ -136,9 +145,13 @@ module bosses() {
 }
 
 module insert_holes() {
-    for (p = screws)
-        translate([p[0], p[1], pcb_z - insert_depth])
-            cylinder(d = insert_hole_d, h = insert_depth + eps);
+    hole_h = insert_relief_h + insert_depth + insert_melt;
+    for (p = screws) {
+        translate([p[0], p[1], pcb_z - hole_h])
+            cylinder(d = insert_hole_d, h = hole_h + eps);
+        translate([p[0], p[1], pcb_z - insert_relief_h])
+            cylinder(d = insert_relief_d, h = insert_relief_h + eps);
+    }
 }
 
 // ---------------------------------------------------------------------------
