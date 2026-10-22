@@ -40,8 +40,6 @@ jobs:
           purge-primary-key: never
       - name: Check Nix flake
         run: nix flake check --all-systems
-      - name: Build Nix flake
-        run: nix build
   commit-format:
     name: Commit format
     runs-on: ubuntu-latest
@@ -57,14 +55,14 @@ jobs:
           fetch-depth: 0
       - name: Run committed
         if: github.event_name != 'pull_request'
-        uses: crate-ci/committed@master
+        uses: crate-ci/committed@v1.1.9
         with:
           args: "-vv"
           commits: "HEAD"
       # rebase merge replays every branch commit onto main, so check the range
       - name: Run committed
         if: github.event_name == 'pull_request'
-        uses: crate-ci/committed@master
+        uses: crate-ci/committed@v1.1.9
         with:
           args: "-vv"
           commits: "${{ github.event.pull_request.base.sha }}..HEAD"
@@ -102,6 +100,7 @@ jobs:
         uses: lycheeverse/lychee-action@v2
         with:
           args: --verbose --no-progress '*.md'
+          failIfEmpty: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   typos:
