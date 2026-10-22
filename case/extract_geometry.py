@@ -8,8 +8,9 @@ with the PCB instead of repeating its dimensions by hand.
 KiCad has +Y pointing down; OpenSCAD has +Y up. Points are emitted as
     x' = x - min_x
     y' = max_y - y
-which flips Y and puts the board's bounding box at the origin. That flip also
-mirrors footprint rotations, so emitted angles are negated.
+which flips Y and puts the board's bounding box at the origin. The flip does
+not mirror the drawing (KiCad draws +Y down, OpenSCAD +Y up), so footprint
+rotations, counter-clockwise on screen in both, are emitted unchanged.
 """
 
 import math
@@ -132,7 +133,7 @@ def extract(side):
         if "MountingHole" in lib:
             holes.append(P(fp["x"], fp["y"]))
         elif re.match(r"^SW([1-9]|1[0-8])$", ref):
-            switches.append((*P(fp["x"], fp["y"]), round(-fp["rot"], 3)))
+            switches.append((*P(fp["x"], fp["y"]), round(fp["rot"], 3)))
         elif ref == "U1":
             bb = [b for _, b in sexp_blocks(fp["blk"], r"\(fp_(?:line|arc)\b")
                   if '(layer "Edge.Cuts")' in b]
