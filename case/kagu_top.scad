@@ -22,7 +22,7 @@ plate_t      = 1.3;   // Choc clips want 1.2-1.3mm
 // Openings
 // ---------------------------------------------------------------------------
 switch_cut   = 13.8;  // Kailh Choc v1/v2 plate cutout
-window_clear = 0.4;   // margin around tall components and the XIAO
+window_clear = 0.4;   // margin around the XIAO
 
 // ---------------------------------------------------------------------------
 // Fasteners -- countersunk M3 (DIN 965 / ISO 7046), 90 degree head.
@@ -64,10 +64,9 @@ module plate_profile() {
                 rotate(s[2])
                     square(switch_cut, center = true);
 
-        // Only the battery JST gets a window. The switch and battery-LED
-        // connectors (tall_parts[0] and [2]) are left unpopulated for now and
-        // the plate covers them; open them again when the ledge is wired.
-        rect(tall_parts[1], window_clear);
+        // No windows over the JST footprints (tall_parts): none are fitted, and a
+        // header would hit the plate. Cut the windows again with
+        // `for (t = tall_parts) rect(t, window_clear);` when the ledge is wired.
 
         // Open bay over the XIAO: clears the module however deep it seats, and
         // lets its RGB status LED show.
