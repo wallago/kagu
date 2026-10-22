@@ -52,8 +52,38 @@ usb_clear = 1.5;  // margin either side of the connector
 // test coupon before committing a whole tray.
 // ---------------------------------------------------------------------------
 boss_d        = 8.0;  // >= insert OD + 4mm so the boss has ~2mm of wall
+insert_od     = 4.5;  // knurl outside diameter
 insert_hole_d = 4.0;  // pilot hole for the insert
-insert_depth  = 5.0;  // how deep the insert sits
+insert_depth  = 5.0;  // insert length
+insert_melt   = 1.0;  // extra hole depth below the insert for the melt it pushes down
+
+// Pressing the insert in raises a lip of plastic round the hole. A shallow
+// counterbore at the top of the boss gives that lip somewhere to go below the
+// PCB seat, so the board still lands on the boss face. Press the insert in
+// until it is flush with the counterbore floor, not with the boss top.
+insert_relief_d = insert_od + 1.0;
+insert_relief_h = 0.6;
+
+// ---------------------------------------------------------------------------
+// Mount -- a 1/4"-20 hex nut trapped in a boss on the floor, for a magic arm
+// or tripod screw coming up from underneath. The nut drops in from above
+// before the PCB goes on; tightening the screw pulls it down onto the plastic
+// under it, so nothing but the floor takes the load.
+//
+// Placed at the balance point: the mass centroid of tray, plate, PCB, 18
+// switches + caps, battery and XIAO lands near [66, 50] and the key centroid
+// near [56, 51]; the mount sits between the two so the half neither tips under
+// its own weight nor under a hand resting on the keys. Left-half coordinates,
+// mirrored for the right half. Clear of the battery, the XIAO and the bosses;
+// the boss top stays ~1.3mm under the hotswap sockets. A screw that
+// stands more than 9mm proud of the arm can reach the sockets.
+// ---------------------------------------------------------------------------
+mount_pos    = [60, 51];
+mount_hole_d = 6.6;          // 1/4" = 6.35mm
+nut_af       = 11.11 + 0.3;  // 7/16" across flats, plus fit
+nut_h        = 5.56 + 0.2;   // 7/32"
+nut_floor    = 2.0;          // plastic under the nut
+mount_wall   = 2.4;
 
 $fn = 64;
 eps = 0.01;
@@ -65,6 +95,9 @@ big = 500;
 pcb_z      = floor_t + standoff;  // PCB underside
 tray_h     = pcb_z + pcb_t;       // border top, flush with the PCB top face
 chip_right = (xiao[0] + xiao[2]) / 2 > board_w / 2;
+mount_xy   = chip_right ? mount_pos : [board_w - mount_pos[0], mount_pos[1]];
+nut_d      = nut_af / cos(30);           // across corners
+mount_top  = nut_floor + nut_h;          // boss top, from the outside face
 
 // The chip-side board edge: the run of outline the cable bow is struck across.
 inner_x  = chip_right ? board_w : 0;
@@ -136,9 +169,30 @@ module bosses() {
 }
 
 module insert_holes() {
-    for (p = screws)
-        translate([p[0], p[1], pcb_z - insert_depth])
-            cylinder(d = insert_hole_d, h = insert_depth + eps);
+    hole_h = insert_relief_h + insert_depth + insert_melt;
+    for (p = screws) {
+        translate([p[0], p[1], pcb_z - hole_h])
+            cylinder(d = insert_hole_d, h = hole_h + eps);
+        translate([p[0], p[1], pcb_z - insert_relief_h])
+            cylinder(d = insert_relief_d, h = insert_relief_h + eps);
+    }
+}
+
+// ---------------------------------------------------------------------------
+// Mount
+// ---------------------------------------------------------------------------
+module mount_boss() {
+    translate(mount_xy)
+        cylinder(d = nut_d + 2 * mount_wall, h = mount_top);
+}
+
+module mount_cut() {
+    translate(mount_xy) {
+        translate([0, 0, -eps])
+            cylinder(d = mount_hole_d, h = mount_top + 2 * eps);
+        translate([0, 0, nut_floor])
+            cylinder(d = nut_d, h = nut_h + eps, $fn = 6);
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -153,8 +207,10 @@ module bottom_tray() {
                     linear_extrude(tray_h) cavity_2d();
             }
             bosses();
+            mount_boss();
         }
         insert_holes();
+        mount_cut();
         // Border only -- the floor stays continuous under the connector.
         translate([0, 0, floor_t])
             linear_extrude(tray_h - floor_t + eps) usb_slot_2d();
