@@ -134,12 +134,18 @@ tilters:
     done
 
 # Render the Choc v2 keycap risers into case/build/
-# Straight posts, Choc v2 socket below and an MX cross on top. Printed socket
-# down, no supports.
+# Round posts, Choc v2 socket below and an MX cross on top, straight or leaned.
+# Printed socket down, no supports.
 [group('case')]
 risers:
     mkdir -p case/build
-    for h in 3 5 8; do \
+    for h in 1 3 5 8; do \
         echo "▶ riser ${h}mm"; \
         openscad -D "height=$h" -o case/build/choc_v2_riser_${h}mm.stl case/choc_v2_riser.scad; \
     done
+    echo "▶ riser 2mm 15deg square"
+    openscad -D "height=2" -D "tilt=15" -D "azimuth=0" \
+        -o case/build/choc_v2_riser_2mm_15deg.stl case/choc_v2_riser.scad
+    echo "▶ riser 2mm 15deg diagonal"
+    openscad -D "height=2" -D "tilt=15" -D "azimuth=45" \
+        -o case/build/choc_v2_riser_2mm_15deg_diag.stl case/choc_v2_riser.scad
