@@ -133,21 +133,13 @@ tilters:
             -o case/build/choc_v2_tilter_${a}deg_diag.stl case/choc_v2_tilter.scad; \
     done
 
-# Render the Choc v2 tower keycaps into case/build/
-# Printed top face down, no supports. Square and diagonal slopes are separate
-# parts for the same reason as the tilters.
+# Render the Choc v2 keycap risers into case/build/
+# Straight posts, Choc v2 socket below and an MX cross on top. Printed socket
+# down, no supports.
 [group('case')]
-towers:
+risers:
     mkdir -p case/build
-    for h in 8 11; do \
-        echo "▶ tower ${h}mm flat"; \
-        openscad -D "height=$h" -o case/build/choc_v2_tower_${h}mm.stl case/choc_v2_tower.scad; \
-        for t in 10 20; do \
-            echo "▶ tower ${h}mm ${t}deg square"; \
-            openscad -D "height=$h" -D "tilt=$t" -D "azimuth=0" \
-                -o case/build/choc_v2_tower_${h}mm_${t}deg.stl case/choc_v2_tower.scad; \
-            echo "▶ tower ${h}mm ${t}deg diagonal"; \
-            openscad -D "height=$h" -D "tilt=$t" -D "azimuth=45" \
-                -o case/build/choc_v2_tower_${h}mm_${t}deg_diag.stl case/choc_v2_tower.scad; \
-        done; \
+    for h in 3 5 8; do \
+        echo "▶ riser ${h}mm"; \
+        openscad -D "height=$h" -o case/build/choc_v2_riser_${h}mm.stl case/choc_v2_riser.scad; \
     done
