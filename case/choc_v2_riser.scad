@@ -11,7 +11,7 @@
 // As with the tilter, the cross only engages every 90 degrees: azimuth=0
 // covers the four square leans, azimuth=45 the four diagonal ones.
 //
-// Select with -D height=2 -D tilt=15 -D azimuth=45.
+// Select with -D height=1.5 -D tilt=15 -D azimuth=45.
 
 height  = 5;          // rim seat to keycap seat, at the centre
 tilt    = 0;          // degrees of lean; 0 leaves a straight riser
@@ -37,9 +37,11 @@ cross_l    = 4.00;    // cross arm span      (datasheet 2-4.00 +/-0.05)
 cross_w    = 1.30;    // cross arm width     (datasheet 2-1.30 +/-0.03)
 
 boss_h     = 2.50;    // how far the boss reaches into the slot (3.52 available)
-boss_fit   = 0.20;    // boss diameter under the bore
-socket_fit = 0.15;    // added to both cross dimensions of the hole
-cross_over = 0.20;    // hole past the shoulder, so the rim seats before the cross
+boss_fit   = 0.10;    // boss diameter under the bore
+socket_fit = 0.05;    // added to both cross dimensions of the hole -- the
+                      // tilter's 0.15 let a printed riser lift off freely
+cross_over = 0.10;    // hole past the shoulder, so the rim seats before the cross
+web        = 0.40;    // roof over the cross hole: two 0.2 layers
 
 $fn = 64;
 eps = 0.01;
@@ -55,9 +57,9 @@ hole_top = boss_h + cross_over;
 stem_l   = cap_cross_l + cap_fit;
 stem_w   = cap_cross_w + cap_fit;
 
-// The tilted top drops fastest at the post edge; keep 0.8 over the hole roof.
+// The tilted top drops fastest at the post edge; keep `web` over the hole.
 low_z = height - stem_od / 2 * tan(tilt);
-assert(low_z >= cross_over + 0.8, "post too short for this tilt");
+assert(low_z >= cross_over + web, "post too short for this tilt");
 
 // ---------------------------------------------------------------------------
 // Parts
