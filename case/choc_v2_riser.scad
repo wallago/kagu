@@ -13,7 +13,7 @@
 //
 // Select with -D height=1.5 -D tilt=15 -D azimuth=45.
 
-height  = 5;          // rim seat to keycap seat, at the centre
+height  = 0.5;        // rim seat to keycap seat, at the centre
 tilt    = 0;          // degrees of lean; 0 leaves a straight riser
 azimuth = 0;          // which way it leans, degrees CCW from +x
 
@@ -38,8 +38,8 @@ cross_w    = 1.30;    // cross arm width     (datasheet 2-1.30 +/-0.03)
 
 boss_h     = 2.50;    // how far the boss reaches into the slot (3.52 available)
 boss_fit   = 0.10;    // boss diameter under the bore
-socket_fit = 0.05;    // added to both cross dimensions of the hole -- the
-                      // tilter's 0.15 let a printed riser lift off freely
+socket_fit = 0.05;    // added to both cross dimensions of the hole -- printed
+                      // and confirmed a firm fit; the tilter's 0.15 was loose
 cross_over = 0.10;    // hole past the shoulder, so the rim seats before the cross
 web        = 0.40;    // roof over the cross hole: two 0.2 layers
 
