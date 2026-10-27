@@ -1,20 +1,28 @@
 // Choc v2 keycap riser -- a straight round post that plugs into a Kailh Choc
 // v2 (PG1353) stem and carries a plain MX cross on top, so any MX or Choc v2
-// keycap stands `height` higher.
+// keycap stands `height` higher, optionally leaned over by `tilt` degrees
+// toward the compass direction `azimuth`.
 //
 // The post is the same diameter as the stem tube it lands on, so nothing
 // overhangs: it prints socket down, straight up, with no supports, and never
-// meets the switch housing at bottom-out.
+// meets the switch housing at bottom-out. A tilted top only leans the stem,
+// which prints fine up to the usual 45 degrees.
 //
-// Select with -D height=5.
+// As with the tilter, the cross only engages every 90 degrees: azimuth=0
+// covers the four square leans, azimuth=45 the four diagonal ones.
+//
+// Select with -D height=2 -D tilt=15 -D azimuth=45.
 
-height = 5;           // rim seat to keycap seat
+height  = 5;          // rim seat to keycap seat, at the centre
+tilt    = 0;          // degrees of lean; 0 leaves a straight riser
+azimuth = 0;          // which way it leans, degrees CCW from +x
 
 // ---------------------------------------------------------------------------
-// Male stem -- same MX cross as choc_v2_tilter.scad, confirmed on real caps.
+// Male stem -- the tilter's MX cross, opened up a touch for a snugger cap.
 // ---------------------------------------------------------------------------
 cap_cross_l = 4.10;   // arm length
 cap_cross_w = 1.17;   // arm width
+cap_fit     = 0.05;   // added to both: printed caps were a touch loose
 stem_h      = 3.60;   // male stem, standing off the post top
 lead_in     = 0.10;   // chamfer on the socket mouth and on the stem tip
 
@@ -35,6 +43,7 @@ cross_over = 0.20;    // hole past the shoulder, so the rim seats before the cro
 
 $fn = 64;
 eps = 0.01;
+big = 100;
 
 // ---------------------------------------------------------------------------
 // Derived
@@ -43,8 +52,12 @@ boss_d   = stem_bore - boss_fit;
 hole_l   = cross_l + socket_fit;
 hole_w   = cross_w + socket_fit;
 hole_top = boss_h + cross_over;
+stem_l   = cap_cross_l + cap_fit;
+stem_w   = cap_cross_w + cap_fit;
 
-assert(height >= cross_over + 1, "post too short to roof the cross hole");
+// The tilted top drops fastest at the post edge; keep 0.8 over the hole roof.
+low_z = height - stem_od / 2 * tan(tilt);
+assert(low_z >= cross_over + 0.8, "post too short for this tilt");
 
 // ---------------------------------------------------------------------------
 // Parts
@@ -70,11 +83,22 @@ module bar_tip(l, w) {
     }
 }
 
-// Boss that drops into the annular slot, then the post standing on the rim.
+// Tip +z over toward `azimuth`, by turning about the horizontal axis square to
+// it. The socket below stays put -- it has to stay square to the switch.
+module lean() {
+    rotate(a = tilt, v = [-sin(azimuth), cos(azimuth), 0]) children();
+}
+
+// Boss that drops into the annular slot, then the post standing on the rim,
+// cut off by the (possibly tilted) top.
 module body() {
     cylinder(d1 = boss_d - 2 * lead_in, d2 = boss_d, h = lead_in);
     translate([0, 0, lead_in]) cylinder(d = boss_d, h = boss_h - lead_in + eps);
-    translate([0, 0, boss_h]) cylinder(d = stem_od, h = height);
+    intersection() {
+        translate([0, 0, boss_h]) cylinder(d = stem_od, h = big);
+        translate([0, 0, boss_h + height]) lean()
+            translate([0, 0, -big / 2]) cube(big, center = true);
+    }
 }
 
 module cross_hole() {
@@ -83,9 +107,13 @@ module cross_hole() {
     rotate([0, 0, 90]) bar_mouth(hole_l, hole_w);
 }
 
+// Sunk below the face by the drop under its arms, so a tilted stem has no
+// gap at its low side.
 module stem() {
-    bar_tip(cap_cross_l, cap_cross_w);
-    rotate([0, 0, 90]) bar_tip(cap_cross_l, cap_cross_w);
+    sink = stem_l / 2 * tan(tilt) + eps;
+    bar_tip(stem_l, stem_w);
+    rotate([0, 0, 90]) bar_tip(stem_l, stem_w);
+    translate([0, 0, -sink]) linear_extrude(sink + eps) cross_2d(stem_l, stem_w);
 }
 
 // ---------------------------------------------------------------------------
@@ -94,7 +122,7 @@ module stem() {
 difference() {
     union() {
         body();
-        translate([0, 0, boss_h + height]) stem();
+        translate([0, 0, boss_h + height]) lean() stem();
     }
     cross_hole();
 }
