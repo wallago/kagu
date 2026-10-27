@@ -16,6 +16,8 @@
 height  = 0.5;        // rim seat to keycap seat, at the centre
 tilt    = 0;          // degrees of lean; 0 leaves a straight riser
 azimuth = 0;          // which way it leans, degrees CCW from +x
+collar  = true;       // false: post as thin as the boss, no ring on the rim;
+                      // the riser then seats on the cross top instead
 
 // ---------------------------------------------------------------------------
 // Male stem -- the tilter's MX cross, thickened a touch for a snugger cap.
@@ -56,9 +58,10 @@ hole_w   = cross_w + socket_fit;
 hole_top = boss_h + cross_over;
 stem_l   = cap_cross_l + cap_fit;
 stem_w   = cap_cross_w + cap_fit;
+post_d   = collar ? stem_od : boss_d;
 
 // The tilted top drops fastest at the post edge; keep `web` over the hole.
-low_z = height - stem_od / 2 * tan(tilt);
+low_z = height - post_d / 2 * tan(tilt);
 assert(low_z >= cross_over + web, "post too short for this tilt");
 
 // ---------------------------------------------------------------------------
@@ -97,7 +100,7 @@ module body() {
     cylinder(d1 = boss_d - 2 * lead_in, d2 = boss_d, h = lead_in);
     translate([0, 0, lead_in]) cylinder(d = boss_d, h = boss_h - lead_in + eps);
     intersection() {
-        translate([0, 0, boss_h]) cylinder(d = stem_od, h = big);
+        translate([0, 0, boss_h]) cylinder(d = post_d, h = big);
         translate([0, 0, boss_h + height]) lean()
             translate([0, 0, -big / 2]) cube(big, center = true);
     }
