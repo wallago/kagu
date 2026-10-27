@@ -4,9 +4,9 @@
 // compass direction `azimuth`.
 //
 // The post is no wider than what it plugs into, so nothing overhangs: it
-// prints socket down, straight up, with no supports, and never meets the
-// switch housing at bottom-out. A tilted top only leans the stem, which
-// prints fine up to the usual 45 degrees.
+// prints with no supports and never meets the switch housing at bottom-out.
+// A straight riser prints socket down; a tilted one prints on its stem tip,
+// see the assembly below.
 //
 // As with the tilter, the cross only engages every 90 degrees: azimuth=0
 // covers the four square leans, azimuth=45 the four diagonal ones.
@@ -19,6 +19,7 @@ tilt    = 0;          // degrees of lean; 0 leaves a straight riser
 azimuth = 0;          // which way it leans, degrees CCW from +x
 collar  = false;      // true: post widens to the ø6.50 rim and seats on it;
                       // false: post as thin as the boss, seats on the cross top
+stem_down = tilt > 0; // print orientation: true stands it on the MX stem tip
 
 // ---------------------------------------------------------------------------
 // Male stem -- the tilter's MX cross, thickened a touch for a snugger cap.
@@ -123,13 +124,26 @@ module stem() {
     translate([0, 0, -sink]) linear_extrude(sink + eps) cross_2d(stem_l, stem_w);
 }
 
-// ---------------------------------------------------------------------------
-// Assembly -- socket mouth down on the bed.
-// ---------------------------------------------------------------------------
-difference() {
-    union() {
-        body();
-        translate([0, 0, boss_h + top_z]) lean() stem();
+module riser() {
+    difference() {
+        union() {
+            body();
+            translate([0, 0, boss_h + top_z]) lean() stem();
+        }
+        cross_hole();
     }
-    cross_hole();
 }
+
+// ---------------------------------------------------------------------------
+// Assembly -- socket mouth down on the bed, or for a tilted riser upside down
+// on the stem tip. A leaning stem prints its 1.2 mm arms as stringy, sagging
+// slivers; stood on its tip the cross goes straight up and the round boss
+// leans instead, which it does cleanly. The face under the stem then bridges
+// at most ~1.3 mm between the arms, hidden under the keycap. Use a brim.
+// ---------------------------------------------------------------------------
+if (stem_down)
+    rotate([180, 0, 0]) translate([0, 0, -stem_h])
+        rotate(a = -tilt, v = [-sin(azimuth), cos(azimuth), 0])
+            translate([0, 0, -(boss_h + top_z)]) riser();
+else
+    riser();
