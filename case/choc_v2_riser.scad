@@ -18,7 +18,7 @@ tilt    = 0;          // degrees of lean; 0 leaves a straight riser
 azimuth = 0;          // which way it leans, degrees CCW from +x
 
 // ---------------------------------------------------------------------------
-// Male stem -- the tilter's MX cross, opened up a touch for a snugger cap.
+// Male stem -- the tilter's MX cross, thickened a touch for a snugger cap.
 // ---------------------------------------------------------------------------
 cap_cross_l = 4.10;   // arm length
 cap_cross_w = 1.17;   // arm width
