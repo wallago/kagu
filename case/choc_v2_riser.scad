@@ -1,23 +1,24 @@
 // Choc v2 keycap riser -- a straight round post that plugs into a Kailh Choc
 // v2 (PG1353) stem and carries a plain MX cross on top, so any MX or Choc v2
-// keycap stands `height` higher, optionally leaned over by `tilt` degrees
-// toward the compass direction `azimuth`.
+// keycap stands higher, optionally leaned over by `tilt` degrees toward the
+// compass direction `azimuth`.
 //
-// The post is the same diameter as the stem tube it lands on, so nothing
-// overhangs: it prints socket down, straight up, with no supports, and never
-// meets the switch housing at bottom-out. A tilted top only leans the stem,
-// which prints fine up to the usual 45 degrees.
+// The post is no wider than what it plugs into, so nothing overhangs: it
+// prints socket down, straight up, with no supports, and never meets the
+// switch housing at bottom-out. A tilted top only leans the stem, which
+// prints fine up to the usual 45 degrees.
 //
 // As with the tilter, the cross only engages every 90 degrees: azimuth=0
 // covers the four square leans, azimuth=45 the four diagonal ones.
 //
-// Select with -D height=1.5 -D tilt=15 -D azimuth=45.
+// Select with -D tilt=25 -D azimuth=45.
 
-height  = 0.5;        // rim seat to keycap seat, at the centre
+height  = 0.5;        // post above the seat, at its lowest edge -- 0.5 is
+                      // the printed-and-confirmed straight riser
 tilt    = 0;          // degrees of lean; 0 leaves a straight riser
 azimuth = 0;          // which way it leans, degrees CCW from +x
-collar  = true;       // false: post as thin as the boss, no ring on the rim;
-                      // the riser then seats on the cross top instead
+collar  = false;      // true: post widens to the ø6.50 rim and seats on it;
+                      // false: post as thin as the boss, seats on the cross top
 
 // ---------------------------------------------------------------------------
 // Male stem -- the tilter's MX cross, thickened a touch for a snugger cap.
@@ -31,10 +32,10 @@ lead_in     = 0.10;   // chamfer on the socket mouth and on the stem tip
 // ---------------------------------------------------------------------------
 // Switch side -- same socket as choc_v2_tilter.scad; see the datasheet notes
 // there. The boss drops into the annular slot of the v2 stem tube and the
-// post underside lands on the ø6.50 tube rim.
+// post (with a collar) lands on the ø6.50 tube rim.
 // ---------------------------------------------------------------------------
 stem_bore  = 5.50;    // bore the boss drops into
-stem_od    = 6.50;    // tube outside diameter -- also the post diameter
+stem_od    = 6.50;    // tube outside diameter -- the post diameter with a collar
 cross_l    = 4.00;    // cross arm span      (datasheet 2-4.00 +/-0.05)
 cross_w    = 1.30;    // cross arm width     (datasheet 2-1.30 +/-0.03)
 
@@ -60,9 +61,10 @@ stem_l   = cap_cross_l + cap_fit;
 stem_w   = cap_cross_w + cap_fit;
 post_d   = collar ? stem_od : boss_d;
 
-// The tilted top drops fastest at the post edge; keep `web` over the hole.
-low_z = height - post_d / 2 * tan(tilt);
-assert(low_z >= cross_over + web, "post too short for this tilt");
+// The tilted top drops fastest at the post edge, so `height` is taken there
+// and the centre rises with the tilt. Keep `web` over the hole.
+top_z = height + post_d / 2 * tan(tilt);
+assert(height >= cross_over + web, "post too short to roof the cross hole");
 
 // ---------------------------------------------------------------------------
 // Parts
@@ -101,7 +103,7 @@ module body() {
     translate([0, 0, lead_in]) cylinder(d = boss_d, h = boss_h - lead_in + eps);
     intersection() {
         translate([0, 0, boss_h]) cylinder(d = post_d, h = big);
-        translate([0, 0, boss_h + height]) lean()
+        translate([0, 0, boss_h + top_z]) lean()
             translate([0, 0, -big / 2]) cube(big, center = true);
     }
 }
@@ -127,7 +129,7 @@ module stem() {
 difference() {
     union() {
         body();
-        translate([0, 0, boss_h + height]) lean() stem();
+        translate([0, 0, boss_h + top_z]) lean() stem();
     }
     cross_hole();
 }

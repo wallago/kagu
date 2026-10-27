@@ -139,16 +139,13 @@ tilters:
 [group('case')]
 risers:
     mkdir -p case/build
-    for h in 0.5 1 3 5; do \
-        echo "▶ riser ${h}mm"; \
-        openscad -D "height=$h" -o case/build/choc_v2_riser_${h}mm.stl case/choc_v2_riser.scad; \
+    echo "▶ riser straight"
+    openscad -o case/build/choc_v2_riser.stl case/choc_v2_riser.scad
+    for a in 15 25 35; do \
+        echo "▶ riser ${a}deg square"; \
+        openscad -D "tilt=$a" -D "azimuth=0" \
+            -o case/build/choc_v2_riser_${a}deg.stl case/choc_v2_riser.scad; \
+        echo "▶ riser ${a}deg diagonal"; \
+        openscad -D "tilt=$a" -D "azimuth=45" \
+            -o case/build/choc_v2_riser_${a}deg_diag.stl case/choc_v2_riser.scad; \
     done
-    echo "▶ riser 0.5mm no collar"
-    openscad -D "height=0.5" -D "collar=false" \
-        -o case/build/choc_v2_riser_0.5mm_nocollar.stl case/choc_v2_riser.scad
-    echo "▶ riser 1.5mm 15deg square"
-    openscad -D "height=1.5" -D "tilt=15" -D "azimuth=0" \
-        -o case/build/choc_v2_riser_1.5mm_15deg.stl case/choc_v2_riser.scad
-    echo "▶ riser 1.5mm 15deg diagonal"
-    openscad -D "height=1.5" -D "tilt=15" -D "azimuth=45" \
-        -o case/build/choc_v2_riser_1.5mm_15deg_diag.stl case/choc_v2_riser.scad
