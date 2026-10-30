@@ -13,9 +13,9 @@
 //
 // Select with -D tilt=25 -D azimuth=45.
 
-height  = 0.5;        // post above the seat, at its lowest edge -- 0.5 is
-                      // the printed-and-confirmed straight riser
 tilt    = 0;          // degrees of lean; 0 leaves a straight riser
+height  = tilt > 0 ? 2 : 0.5; // post above the seat, at its lowest edge --
+                      // both printed and confirmed: 0.5 straight, 2 at 15 deg
 azimuth = 0;          // which way it leans, degrees CCW from +x
 collar  = false;      // true: post widens to the ø6.50 rim and seats on it;
                       // false: post as thin as the boss, seats on the cross top
