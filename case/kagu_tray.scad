@@ -4,8 +4,8 @@
 // defines: outline, screws, xiao, usb, board_w, board_h.  See case/left_tray.scad
 // and case/right_tray.scad.
 //
-// Not the case in kagu_case.scad: no plate rebate, no reset hole. The border
-// stops flush with the top face of the PCB, and kagu_top.scad sits on it.
+// No plate rebate, no reset hole. The border stops flush with the top face
+// of the PCB, and kagu_top.scad sits on it.
 //
 // Why one design covers both halves:
 //
