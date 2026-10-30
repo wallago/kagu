@@ -8,8 +8,9 @@
 // A straight riser prints socket down; a tilted one prints on its stem tip,
 // see the assembly below.
 //
-// As with the tilter, the cross only engages every 90 degrees: azimuth=0
-// covers the four square leans, azimuth=45 the four diagonal ones.
+// An MX cross only engages every 90 degrees, so the lean direction is built
+// into the part: azimuth=0 covers the four square leans, azimuth=45 the four
+// diagonal ones.
 //
 // Select with -D tilt=25 -D azimuth=45.
 
@@ -22,7 +23,7 @@ collar  = false;      // true: post widens to the ø6.50 rim and seats on it;
 stem_down = tilt > 0; // print orientation: true stands it on the MX stem tip
 
 // ---------------------------------------------------------------------------
-// Male stem -- the tilter's MX cross, thickened a touch for a snugger cap.
+// Male stem -- a Cherry MX cross, thickened a touch for a snugger cap.
 // ---------------------------------------------------------------------------
 cap_cross_l = 4.10;   // arm length
 cap_cross_w = 1.17;   // arm width
@@ -31,9 +32,14 @@ stem_h      = 3.60;   // male stem, standing off the post top
 lead_in     = 0.10;   // chamfer on the socket mouth and on the stem tip
 
 // ---------------------------------------------------------------------------
-// Switch side -- same socket as choc_v2_tilter.scad; see the datasheet notes
-// there. The boss drops into the annular slot of the v2 stem tube and the
-// post (with a collar) lands on the ø6.50 tube rim.
+// Switch side, from the PG1353 datasheet (CPG135301D01 rev A, sheets 1-2).
+//
+// The v2 stem is not a bare cross. It is a tube: ø6.50 outside, ø5.50 bore,
+// with the 4.00 x 1.30 cross standing inside it and a ~0.75 annular slot
+// between the two. Cross and rim finish flush, so there is nothing to grip
+// above the rim. The boss reaches DOWN into the slot, exactly as an MX cap
+// does, and the post (with a collar) lands on the rim, or (without) on the
+// cross top.
 // ---------------------------------------------------------------------------
 stem_bore  = 5.50;    // bore the boss drops into
 stem_od    = 6.50;    // tube outside diameter -- the post diameter with a collar
@@ -43,7 +49,7 @@ cross_w    = 1.30;    // cross arm width     (datasheet 2-1.30 +/-0.03)
 boss_h     = 2.50;    // how far the boss reaches into the slot (3.52 available)
 boss_fit   = 0.10;    // boss diameter under the bore
 socket_fit = 0.05;    // added to both cross dimensions of the hole -- printed
-                      // and confirmed a firm fit; the tilter's 0.15 was loose
+                      // and confirmed a firm fit; 0.15 was loose
 cross_over = 0.10;    // hole past the shoulder, so the rim seats before the cross
 web        = 0.40;    // roof over the cross hole: two 0.2 layers
 

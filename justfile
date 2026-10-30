@@ -79,18 +79,6 @@ jj-publish VERSION:
 case-geometry:
     python3 case/extract_geometry.py
 
-# Render all case STLs into case/build/
-[group('case')]
-case: case-geometry
-    mkdir -p case/build
-    for side in left right; do \
-        for part in bottom plate; do \
-            echo "▶ $side $part"; \
-            openscad -D "part=\"$part\"" \
-                -o case/build/kagu_${side}_${part}.stl case/${side}.scad; \
-        done; \
-    done
-
 # Render the bottom trays into case/build/
 # Floor, border flush with the PCB top face, five M3 bosses, and a cable gap
 # on the chip side. The right PCB has its XIAO on the back layer, so the tray
@@ -117,25 +105,9 @@ tops: case-geometry
         openscad -o case/build/kagu_${side}_top.stl case/${side}_top.scad; \
     done
 
-# Render the Choc v2 keycap tilters into case/build/
-# Square and diagonal leans are separate parts: an MX cross only seats every
-# 90 degrees, so a 45 degree lean cannot be had by turning a square one.
-[group('case')]
-tilters:
-    mkdir -p case/build
-    openscad -D "tilt=0" -o case/build/choc_v2_tilter_0deg.stl case/choc_v2_tilter.scad
-    for a in 10 15 25 35; do \
-        echo "▶ tilter ${a}deg square"; \
-        openscad -D "tilt=$a" -D "azimuth=0" \
-            -o case/build/choc_v2_tilter_${a}deg.stl case/choc_v2_tilter.scad; \
-        echo "▶ tilter ${a}deg diagonal"; \
-        openscad -D "tilt=$a" -D "azimuth=45" \
-            -o case/build/choc_v2_tilter_${a}deg_diag.stl case/choc_v2_tilter.scad; \
-    done
-
 # Render the Choc v2 keycap risers into case/build/
 # Round posts, Choc v2 socket below and an MX cross on top, straight or leaned.
-# Printed socket down, no supports.
+# Straight ones print socket down, leaned ones on the stem tip; no supports.
 [group('case')]
 risers:
     mkdir -p case/build
