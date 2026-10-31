@@ -22,11 +22,20 @@
 //   CS       <- D6 (P1.11)
 //   RES      <- "i2s sd" pad   (D11, P0.15)
 //   VCC      <- 3V3, GND <- GND
-//   BLK      <- 3V3 through a resistor for now (backlight always on)
+//   BLK      <- "i2s ws" pad   (D13, P1.01), PWM; the module switches the
+//               LED itself, BLK only draws ~2.4 mA
 
 / {
     chosen {
         zephyr,display = &st7789;
+        zmk,backlight = &backlight;
+    };
+
+    backlight: backlight_pwmleds {
+        compatible = "pwm-leds";
+        pwm_led_backlight: pwm_led_backlight {
+            pwms = <&pwm1 0 PWM_MSEC(1) PWM_POLARITY_NORMAL>;
+        };
     };
 
     mipi_dbi {
@@ -71,6 +80,19 @@
 };
 
 &pinctrl {
+    pwm1_backlight_default: pwm1_backlight_default {
+        group1 {
+            psels = <NRF_PSEL(PWM_OUT0, 1, 1)>;
+        };
+    };
+
+    pwm1_backlight_sleep: pwm1_backlight_sleep {
+        group1 {
+            psels = <NRF_PSEL(PWM_OUT0, 1, 1)>;
+            low-power-enable;
+        };
+    };
+
     spi2_display_default: spi2_display_default {
         group1 {
             psels = <NRF_PSEL(SPIM_SCK, 1, 3)>,
@@ -95,6 +117,14 @@
     pinctrl-1 = <&spi2_display_sleep>;
     pinctrl-names = "default", "sleep";
     cs-gpios = <&xiao_d 6 GPIO_ACTIVE_LOW>;
+};
+
+// pwm0 drives the board's own LED, so the backlight gets pwm1.
+&pwm1 {
+    status = "okay";
+    pinctrl-0 = <&pwm1_backlight_default>;
+    pinctrl-1 = <&pwm1_backlight_sleep>;
+    pinctrl-names = "default", "sleep";
 };
 
 // The board's default i2c1 claims D4/D5 (col5 and the display's DC).
