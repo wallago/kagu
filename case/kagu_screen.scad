@@ -118,8 +118,8 @@ module screen_cup() {
             // insert holes
             hole_pts() translate([0, 0, -lcd_pcb_t - insert_h])
                 cylinder(d = insert_d, h = insert_h + 1);
-            // wire notch in the rim at the XIAO end, closed over by the bezel
-            translate([pod_w / 2 - pod_wall - wire_notch[0] - 2, -1, -wire_notch[1]])
+            // wire notch in the rim toward the XIAO, clear of the post, closed over by the bezel
+            translate([lcd_holes[0] / 2 - post_d / 2 - 5 - wire_notch[0], -1, -wire_notch[1]])
                 cube([wire_notch[0], pod_wall + 2, wire_notch[1] + 1]);
         }
     }
