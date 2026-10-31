@@ -42,6 +42,10 @@ bezel_t     = 3.4;            // glass pocket + lip in front of the glass
 bezel_lip   = 1.0;
 glass_clear = 0.3;
 window_margin = 0.4;
+window_r    = 2.0;            // rounded window corners
+header_relief = [23, 2.6];    // pocket for the pin header's solder joints on the
+                              // board front: length x depth, on both long edges
+                              // so the board can go in either way up
 
 post_d      = 6.4;            // merges into the side walls
 insert_d    = 3.2;            // M2 heat-set insert, ~3.5mm OD
@@ -132,9 +136,15 @@ module screen_bezel_flat() {   // in the face frame, sitting on z = 0
     difference() {
         linear_extrude(bezel_t) rim_2d();
         // window
-        translate([0, lcd_v, 0])
-            cube([lcd_active[0] + 2 * window_margin, lcd_active[1] + 2 * window_margin,
-                  3 * bezel_t], center = true);
+        translate([0, lcd_v, -1]) linear_extrude(bezel_t + 2)
+            offset(r = window_r) offset(delta = -window_r)
+                square([lcd_active[0] + 2 * window_margin, lcd_active[1] + 2 * window_margin],
+                       center = true);
+        // header solder joints, between the screw holes along each long edge,
+        // running from the glass pocket out past the board edge
+        for (sy = [-1, 1])
+            translate([-header_relief[0] / 2, lcd_v + sy * (lcd_board[1] / 2 + 0.5) - (sy > 0 ? 6 : 0), -1])
+                cube([header_relief[0], 6, header_relief[1] + 1]);
         // glass pocket underneath, the lip stays in front
         translate([-(lcd_glass[0] / 2 + glass_clear), lcd_v - lcd_glass[1] / 2 - glass_clear, -1])
             cube([lcd_glass[0] + 2 * glass_clear, lcd_glass[1] + 2 * glass_clear,
