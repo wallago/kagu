@@ -63,7 +63,8 @@
             pwctrl1-param = [52 a1];
             pvgam-param = [D0 00 02 07 0B 1A 31 54 40 29 12 12 12 17];
             nvgam-param = [D0 00 02 07 05 15 2D 44 44 1C 18 16 1C 1D];
-            ram-param = [00 F8];
+            // F0 (not Zephyr's F8): MSB-first RGB565, else colours come out byte-swapped.
+            ram-param = [00 F0];
             rgb-param = [CD 08 14];
         };
     };
