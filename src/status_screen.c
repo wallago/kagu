@@ -207,7 +207,7 @@ static struct battery_state battery_get_state(const zmk_event_t *eh) {
 }
 
 static void battery_update_cb(struct battery_state state) {
-    static const lv_color_t fill[2] = {MINT, CYAN};
+    const lv_color_t fill[2] = {MINT, CYAN};
 
     for (int g = 0; g < 2; g++) {
         uint8_t level = state.level[g];
