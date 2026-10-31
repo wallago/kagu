@@ -22,7 +22,8 @@
 // ---------------------------------------------------------------------------
 lcd_board   = [37.5, 30.0];   // landscape: long side across the keyboard
 lcd_pcb_t   = 1.6;
-lcd_holes   = [32.5, 25.5];   // M2 hole spacing, centred on the board
+lcd_holes   = [33.0, 25.5];   // M2 hole spacing, centred on the board (x
+                              // checked against a print, +0.5mm)
 lcd_glass   = [36.2, 19.8];   // glass outline
 lcd_glass_t = 2.4;            // glass + backlight stack above the board
 lcd_active  = [32.4, 17.4];   // visible pixels
@@ -54,9 +55,8 @@ header_relief = [23, 2.6];    // pocket for the pin header's solder joints on th
 post_d      = 6.4;            // merges into the side walls
 insert_d    = 3.2;            // M2 heat-set insert, ~3.5mm OD
 insert_h    = 4.5;
-m2_clear    = 2.4;
-m2_head_d   = 4.2;            // counterbore for the screw head
-m2_head_h   = 1.4;
+m2_clear    = 2.6;
+m2_head_d   = 4.4;            // shallow 90 degree countersink for the screw head
 
 wire_notch  = [8, 3];         // in the rim at the XIAO end: w x depth
 
@@ -157,7 +157,8 @@ module screen_bezel_flat() {   // in the face frame, sitting on z = 0
         // M2 screws, heads sunk into the top
         hole_pts() {
             translate([0, 0, -1]) cylinder(d = m2_clear, h = bezel_t + 2);
-            translate([0, 0, bezel_t - m2_head_h]) cylinder(d = m2_head_d, h = m2_head_h + 1);
+            translate([0, 0, bezel_t - (m2_head_d - m2_clear) / 2])
+                cylinder(d1 = m2_clear, d2 = m2_head_d, h = (m2_head_d - m2_clear) / 2 + 0.01);
         }
     }
 }
