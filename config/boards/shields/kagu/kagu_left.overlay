@@ -1,4 +1,5 @@
 #include "kagu.dtsi"
+#include <zephyr/dt-bindings/mipi_dbi/mipi_dbi.h>
 
 &kscan0 {
     // Left half: physical left-to-right is col5 -> col1, i.e. D4 -> D0.
@@ -9,4 +10,124 @@
         , <&xiao_d 1 GPIO_ACTIVE_HIGH>   // col2
         , <&xiao_d 0 GPIO_ACTIVE_HIGH>   // col1
         ;
+};
+
+// 1.47" 172x320 ST7789 IPS TFT on the left (central) half, showing the
+// stock ZMK status screen (active layer name, battery, output).
+//
+// Wiring (XIAO nRF52840 Plus; back-pad port/pins from Seeed's Plus variant):
+//   SCL/SCK  <- "spi sck" pad  (D19, P1.03)
+//   SDA/MOSI <- "spi mosi" pad (D17, P1.07)
+//   DC       <- D5 (P0.05)
+//   CS       <- D6 (P1.11)
+//   RES      <- "i2s sd" pad   (D11, P0.15)
+//   VCC      <- 3V3, GND <- GND
+//   BLK      <- "i2s ws" pad   (D13, P1.01), PWM; the module switches the
+//               LED itself, BLK only draws ~2.4 mA
+
+/ {
+    chosen {
+        zephyr,display = &st7789;
+        zmk,backlight = &backlight;
+    };
+
+    backlight: backlight_pwmleds {
+        compatible = "pwm-leds";
+        pwm_led_backlight: pwm_led_backlight {
+            pwms = <&pwm1 0 PWM_MSEC(1) PWM_POLARITY_NORMAL>;
+        };
+    };
+
+    mipi_dbi {
+        compatible = "zephyr,mipi-dbi-spi";
+        spi-dev = <&spi2>;
+        dc-gpios = <&xiao_d 5 GPIO_ACTIVE_HIGH>;
+        reset-gpios = <&gpio0 15 GPIO_ACTIVE_LOW>;
+        write-only;
+        #address-cells = <1>;
+        #size-cells = <0>;
+
+        // Panel init values are the ones Zephyr uses for a 170x320 ST7789V
+        // panel (st7789v_tl019fqv01); adjust if colours or gamma look off.
+        st7789: st7789v@0 {
+            compatible = "sitronix,st7789v";
+            mipi-max-frequency = <8000000>;
+            mipi-mode = "MIPI_DBI_MODE_SPI_4WIRE";
+            reg = <0>;
+            width = <320>;
+            height = <172>;
+            x-offset = <0>;
+            y-offset = <34>;
+            vcom = <0x2b>;
+            gctrl = <0x35>;
+            vrhs = <0x0f>;
+            vdvs = <0x20>;
+            // Landscape: 0x60 = MX|MV. Use 0xA0 (MY|MV) to flip it 180 degrees.
+            mdac = <0x60>;
+            gamma = <0x01>;
+            colmod = <0x55>;
+            lcm = <0x2c>;
+            porch-param = [0c 0c 00 33 33];
+            cmd2en-param = [5a 69 02 01];
+            pwctrl1-param = [52 a1];
+            pvgam-param = [D0 00 02 07 0B 1A 31 54 40 29 12 12 12 17];
+            nvgam-param = [D0 00 02 07 05 15 2D 44 44 1C 18 16 1C 1D];
+            // F8 = little-endian RGB565, matching what LVGL 9 renders.
+            ram-param = [00 F8];
+            rgb-param = [CD 08 14];
+        };
+    };
+};
+
+&pinctrl {
+    pwm1_backlight_default: pwm1_backlight_default {
+        group1 {
+            psels = <NRF_PSEL(PWM_OUT0, 1, 1)>;
+        };
+    };
+
+    pwm1_backlight_sleep: pwm1_backlight_sleep {
+        group1 {
+            psels = <NRF_PSEL(PWM_OUT0, 1, 1)>;
+            low-power-enable;
+        };
+    };
+
+    spi2_display_default: spi2_display_default {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK, 1, 3)>,
+                <NRF_PSEL(SPIM_MOSI, 1, 7)>;
+        };
+    };
+
+    spi2_display_sleep: spi2_display_sleep {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK, 1, 3)>,
+                <NRF_PSEL(SPIM_MOSI, 1, 7)>;
+            low-power-enable;
+        };
+    };
+};
+
+// The board's default spi2 sits on D8-D10, which are matrix rows here.
+&spi2 {
+    compatible = "nordic,nrf-spim";
+    status = "okay";
+    pinctrl-0 = <&spi2_display_default>;
+    pinctrl-1 = <&spi2_display_sleep>;
+    pinctrl-names = "default", "sleep";
+    cs-gpios = <&xiao_d 6 GPIO_ACTIVE_LOW>;
+};
+
+// pwm0 drives the board's own LED, so the backlight gets pwm1.
+&pwm1 {
+    status = "okay";
+    pinctrl-0 = <&pwm1_backlight_default>;
+    pinctrl-1 = <&pwm1_backlight_sleep>;
+    pinctrl-names = "default", "sleep";
+};
+
+// The board's default i2c1 claims D4/D5 (col5 and the display's DC).
+&i2c1 {
+    status = "disabled";
 };
