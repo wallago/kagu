@@ -3,8 +3,8 @@
 // the typist. Two printed parts:
 //
 //   cup    an open box whose rim is the tilted face. Four posts inside carry
-//          M2 heat-set inserts. Printed on its floor, then melted onto the
-//          back of the case: its front follows the case's far side.
+//          M2 heat-set inserts. Printed on its floor; plain flat walls for
+//          now, attached to the case by hand behind the far wall.
 //   bezel  a flat frame with the window, screwed onto the rim. It clamps the
 //          display board onto the posts, glass up through the window.
 //
@@ -14,7 +14,7 @@
 // the XIAO end of the rim and drop into the open bay over the XIAO.
 //
 // This file expects the geometry file, kagu_tray.scad and kagu_top.scad to be
-// included first (case outline and heights). Left-half coordinates.
+// included first (case heights, where the far wall is). Left-half coordinates.
 
 // ---------------------------------------------------------------------------
 // Display module -- MEASURE YOURS. Board from the photo, hole spacing
@@ -37,7 +37,6 @@ face_len  = 40;               // rim, along the slope; leaves room at the back
 corner_r  = 4;
 pod_wall  = 2.0;              // leaves ~0.5mm round the board inside
 pod_floor = 2.0;
-case_fit  = 0.2;              // gap to the case, filled when it is welded on
 
 bezel_t     = 3.4;            // glass pocket + lip in front of the glass
 bezel_lip   = 1.0;
@@ -105,16 +104,8 @@ module screen_cup() {
             difference() {
                 down_to(0);
                 // hollow, open through the rim
-                difference() {
-                    union() {
-                        down_to(pod_floor, pod_wall);
-                        on_face() translate([0, 0, -0.01]) linear_extrude(5) rim_2d(pod_wall);
-                    }
-                    // the wall steps back where the case juts in
-                    translate([0, 0, -1])
-                        linear_extrude(case_top + case_fit + 1)
-                            offset(r = case_fit + pod_wall) shell_2d();
-                }
+                down_to(pod_floor, pod_wall);
+                on_face() translate([0, 0, -0.01]) linear_extrude(5) rim_2d(pod_wall);
             }
             // posts, square to the face, from the floor up to the board's back
             intersection() {
@@ -131,9 +122,6 @@ module screen_cup() {
             translate([pod_w / 2 - pod_wall - wire_notch[0] - 2, -1, -wire_notch[1]])
                 cube([wire_notch[0], pod_wall + 2, wire_notch[1] + 1]);
         }
-        // follow the case's far side, where the middle column juts out
-        translate([0, 0, -1])
-            linear_extrude(case_top + case_fit + 1) offset(r = case_fit) shell_2d();
     }
 }
 

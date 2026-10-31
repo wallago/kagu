@@ -104,7 +104,7 @@ tops: case-geometry
     done
 
 # Render the left screen cup and its bezel into case/build/
-# An open cup with four M2 insert posts, welded onto the back of the case behind
+# An open cup with four M2 insert posts, to sit behind the case
 # the index columns, and a screw-on bezel that clamps the 1.47" ST7789 module.
 [group('case')]
 screen: case-geometry
