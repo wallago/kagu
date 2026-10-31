@@ -30,12 +30,13 @@ lcd_active  = [32.4, 17.4];   // visible pixels
 // ---------------------------------------------------------------------------
 // Pod
 // ---------------------------------------------------------------------------
-pod_x     = [62.0, 104.5];    // stops short of the USB-C notch on the right
+pod_x     = [61.5, 104.5];    // stops short of the USB-C notch on the right
 face_tilt = 30;               // face angle from the desk
 face_len  = 40;               // rim, along the slope; leaves room at the back
                               // for the back inserts, which lean into it
 corner_r  = 4;
-pod_wall  = 2.0;              // leaves ~0.5mm round the board inside
+pod_wall  = 2.0;              // leaves ~0.75mm each side of the board inside:
+                              // room for the flex tail on the right
 pod_floor = 2.0;
 
 bezel_t     = 3.4;            // glass pocket + lip in front of the glass
@@ -43,6 +44,7 @@ bezel_lip   = 1.0;
 glass_clear = 0.3;
 window_margin = 0.4;
 window_r    = 2.0;            // rounded window corners
+window_trim_left = 0.5;       // hides the panel's dead edge on the left
 header_relief = [23, 2.6];    // pocket for the pin header's solder joints on the
                               // board front: length x depth, on both long edges
                               // so the board can go in either way up
@@ -63,8 +65,7 @@ pod_w    = pod_x[1] - pod_x[0];
 pod_cx   = (pod_x[0] + pod_x[1]) / 2;
 far_y    = 82.5 + pcb_clear + wall;              // far wall beside the XIAO
 case_top = tray_h + pcb_to_plate + plate_t;      // top of the assembled case
-lcd_v    = lcd_board[1] / 2 + pod_wall + 0.5;    // board centre, up the slope:
-                                                 // as low as the front wall allows
+lcd_v    = face_len / 2;                         // board centred on the bezel
 
 echo(str("screen pod: ", pod_w, " wide, ",
          round(face_len * cos(face_tilt)), " deep, ",
@@ -136,9 +137,10 @@ module screen_bezel_flat() {   // in the face frame, sitting on z = 0
     difference() {
         linear_extrude(bezel_t) rim_2d();
         // window
-        translate([0, lcd_v, -1]) linear_extrude(bezel_t + 2)
+        translate([window_trim_left / 2, lcd_v, -1]) linear_extrude(bezel_t + 2)
             offset(r = window_r) offset(delta = -window_r)
-                square([lcd_active[0] + 2 * window_margin, lcd_active[1] + 2 * window_margin],
+                square([lcd_active[0] + 2 * window_margin - window_trim_left,
+                        lcd_active[1] + 2 * window_margin],
                        center = true);
         // header solder joints, between the screw holes along each long edge,
         // running from the glass pocket out past the board edge
