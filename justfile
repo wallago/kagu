@@ -54,8 +54,6 @@ typos:
 [group('release')]
 jj-publish VERSION:
     @test -z "$(jj diff --name-only)" || (echo "✗ working copy has uncommitted changes — commit or abandon them first" && exit 1)
-    @echo "▶ bump version → {{ VERSION }}"
-    cargo set-version {{ VERSION }}
     @echo "▶ regenerate changelog"
     @if command -v git-cliff >/dev/null 2>&1; then \
         git-cliff --tag v{{ VERSION }} -o CHANGELOG.md; \
