@@ -42,6 +42,8 @@ pod_floor = 2.0;
 bezel_t     = 3.4;            // glass pocket + lip in front of the glass
 bezel_lip   = 1.0;
 glass_clear = 0.3;
+glass_side_clear = 2.0;       // extra each side, left and right: the glass
+                              // would not go in with glass_clear alone
 window_margin = 0.4;
 window_r    = 2.0;            // rounded window corners
 window_trim_left = 0.5;       // hides the panel's dead edge on the left
@@ -148,8 +150,9 @@ module screen_bezel_flat() {   // in the face frame, sitting on z = 0
             translate([-header_relief[0] / 2, lcd_v + sy * (lcd_board[1] / 2 + 0.5) - (sy > 0 ? 6 : 0), -1])
                 cube([header_relief[0], 6, header_relief[1] + 1]);
         // glass pocket underneath, the lip stays in front
-        translate([-(lcd_glass[0] / 2 + glass_clear), lcd_v - lcd_glass[1] / 2 - glass_clear, -1])
-            cube([lcd_glass[0] + 2 * glass_clear, lcd_glass[1] + 2 * glass_clear,
+        translate([-(lcd_glass[0] / 2 + glass_clear + glass_side_clear),
+                   lcd_v - lcd_glass[1] / 2 - glass_clear, -1])
+            cube([lcd_glass[0] + 2 * (glass_clear + glass_side_clear), lcd_glass[1] + 2 * glass_clear,
                   bezel_t - bezel_lip + 1]);
         // M2 screws, heads sunk into the top
         hole_pts() {
