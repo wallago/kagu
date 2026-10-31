@@ -1,17 +1,17 @@
-// Kagu screen pod -- a wedge on the back of the left tray, above the index
-// columns and beside the XIAO, holding the 1.47" 172x320 ST7789 module in
-// landscape, its face tilted back toward the typist.
+// Kagu screen pod -- a separate wedge printed on its own and welded onto the
+// back of the left case, above the index columns and beside the XIAO, holding
+// the 1.47" 172x320 ST7789 module in landscape, its face tilted back toward the
+// typist.
 //
-// This file expects the geometry file and kagu_tray.scad (and kagu_top.scad,
-// for the plate height) to be included first. It is part of the tray print:
-// it stands on the tray floor behind the far wall, so nothing new has to be
-// fastened, and its hollow joins the case cavity through a wire slot under the
-// PCB. Above the tray border it stays outside the border's footprint, which is
-// where the top plate's skirt sits.
+// This file expects the geometry file, kagu_tray.scad and kagu_top.scad to be
+// included first: the pod's front hugs the assembled case's far side (tray
+// border plus top plate skirt) with a small gap, so it can be pressed against
+// it and melted on with a soldering iron. Neither tray nor plate changes.
 //
 // Left-half coordinates (chip on the +x edge). The module mounts from behind
 // on four M2 screws, glass first into a pocket behind the bezel; a back cover
-// on two M2 screws closes the pod.
+// on two M2 screws closes the pod. The leads leave through a notch at the foot
+// of the face and drop into the open bay over the XIAO.
 
 // ---------------------------------------------------------------------------
 // Display module -- MEASURE YOURS. Board and hole spacing taken from the photo
@@ -28,7 +28,7 @@ lcd_active = [32.4, 17.4];   // visible pixels
 // Pod
 // ---------------------------------------------------------------------------
 pod_x     = [62.5, 104.5];   // stops short of the USB-C notch on the right
-face_tilt = 55;              // face angle from the desk
+face_tilt = 30;              // face angle from the desk
 face_len  = 40;              // along the slope
 face_t    = 2.4;             // bezel thickness at the window
 pod_wall  = 2.0;
@@ -36,7 +36,9 @@ pod_cap   = 4.0;             // flat top behind the face
 glass_clear = 0.3;
 bezel_lip = 1.0;             // plastic left in front of the glass
 window_margin = 0.4;         // window a hair bigger than the active area
-wire_slot = [10, 5];         // through the far wall, under the PCB: w x h
+pod_floor = 2.0;
+case_fit  = 0.2;             // gap to the case, filled when it is welded on
+wire_notch = [8, 4];         // at the foot of the face, next to the XIAO: w x h
 
 m2_pilot = 1.7;
 m2_clear = 2.3;
@@ -47,7 +49,8 @@ m2_clear = 2.3;
 pod_w  = pod_x[1] - pod_x[0];
 pod_cx = (pod_x[0] + pod_x[1]) / 2;
 far_y  = 82.5 + pcb_clear + wall;                 // far wall beside the XIAO
-face_z = tray_h + pcb_to_plate + plate_t;         // face starts at plate-top height
+case_top = tray_h + pcb_to_plate + plate_t;       // top of the assembled case
+face_z = case_top;                                // face starts at plate-top height
 face_y = far_y;
 face_top = [face_y + face_len * cos(face_tilt), face_z + face_len * sin(face_tilt)];
 pod_back = face_top[0] + pod_cap;
@@ -67,7 +70,7 @@ module on_face() {
 
 module pod_profile() {   // in (y, z)
     polygon([
-        [far_y - 2, 0], [far_y - 2, face_z], [face_y, face_z],
+        [far_y, 0], [face_y, face_z],
         face_top, [pod_back, pod_h], [pod_back, 0],
     ]);
 }
@@ -78,11 +81,11 @@ module pod_inside() {
         translate([pod_x[0] + pod_wall, 0, 0])
             rotate([90, 0, 90]) linear_extrude(pod_w - 2 * pod_wall)
                 offset(delta = -pod_wall) pod_profile();
-        translate([0, far_y + 1.5, floor_t]) cube([big, big, big]);
+        translate([0, 0, pod_floor]) cube([big, big, big]);
     }
     // back opening
-    translate([pod_x[0] + pod_wall, pod_back - pod_wall - eps, floor_t])
-        cube([pod_w - 2 * pod_wall, pod_wall + 2 * eps, pod_h - floor_t - pod_wall]);
+    translate([pod_x[0] + pod_wall, pod_back - pod_wall - eps, pod_floor])
+        cube([pod_w - 2 * pod_wall, pod_wall + 2 * eps, pod_h - pod_floor - pod_wall]);
 }
 
 // The board's front face lands at depth bezel_lip + lcd_glass_t behind the
@@ -115,14 +118,14 @@ module lcd_cuts() {
 }
 
 // Two bosses inside the back opening for the cover screws.
-cover_pts = [[pod_x[0] + pod_wall + 3, floor_t + 4], [pod_x[1] - pod_wall - 3, floor_t + 4]];
+cover_pts = [[pod_x[0] + pod_wall + 3, pod_floor + 4], [pod_x[1] - pod_wall - 3, pod_floor + 4]];
 module screen_pod() {
     difference() {
         union() {
             difference() {
                 translate([pod_x[0], 0, 0])
                     rotate([90, 0, 90]) linear_extrude(pod_w) pod_profile();
-                pod_inside();
+                difference() { pod_inside(); pod_case_relief(); }
             }
             intersection() {
                 lcd_standoffs();
@@ -130,31 +133,41 @@ module screen_pod() {
                     rotate([90, 0, 90]) linear_extrude(pod_w) pod_profile();
             }
             for (p = cover_pts)
-                translate([p[0] - 3, pod_back - pod_wall - 6, floor_t])
-                    cube([6, 6, p[1] + 3 - floor_t]);
+                translate([p[0] - 3, pod_back - pod_wall - 6, pod_floor])
+                    cube([6, 6, p[1] + 3 - pod_floor]);
         }
         lcd_cuts();
         // cover screw holes, coming in from the back
         for (p = cover_pts)
             translate([p[0], pod_back + eps, p[1]]) rotate([90, 0, 0])
                 cylinder(d = m2_pilot, h = 10);
-        // keep clear of the case: its cavity, and the border above tray height
-        // where the top plate's skirt lands
-        translate([0, 0, floor_t]) linear_extrude(big) cavity_2d();
-        translate([0, 0, tray_h]) linear_extrude(big) shell_2d();
+        // follow the case's far side, where the middle column juts out
+        translate([0, 0, -eps])
+            linear_extrude(case_top + case_fit) offset(r = case_fit) shell_2d();
+        // wire notch at the foot of the face, on the XIAO side
+        translate([pod_x[1] - pod_wall - wire_notch[0], far_y - 1, case_top - eps])
+            cube([wire_notch[0], pod_wall + 4, wire_notch[1]]);
     }
 }
 
-// The far wall, opened under the PCB so the display leads reach the XIAO.
-module screen_wire_slot() {
-    translate([pod_cx - wire_slot[0] / 2, far_y - wall - 1, floor_t])
-        cube([wire_slot[0], wall + 3, wire_slot[1]]);
+// Where the case juts into the pod, the hollow steps back so the wall stays
+// pod_wall thick all round.
+module pod_case_relief() {
+    translate([0, 0, -eps])
+        linear_extrude(case_top + case_fit + pod_wall)
+            offset(r = case_fit + pod_wall) shell_2d();
+}
+
+// Printed standing on its open back: the face comes out at 60 degrees, the
+// floor and cap as walls, and only the short front wall bridges.
+module screen_pod_print() {
+    rotate([-90, 0, 0]) translate([0, -pod_back, 0]) screen_pod();
 }
 
 module screen_cover() {
     difference() {
-        translate([pod_x[0] + pod_wall + 0.2, pod_back - pod_wall, floor_t + 0.2])
-            cube([pod_w - 2 * pod_wall - 0.4, pod_wall, pod_h - floor_t - pod_wall - 0.4]);
+        translate([pod_x[0] + pod_wall + 0.2, pod_back - pod_wall, pod_floor + 0.2])
+            cube([pod_w - 2 * pod_wall - 0.4, pod_wall, pod_h - pod_floor - pod_wall - 0.4]);
         for (p = cover_pts)
             translate([p[0], pod_back + eps, p[1]]) rotate([90, 0, 0])
                 cylinder(d = m2_clear, h = 10);

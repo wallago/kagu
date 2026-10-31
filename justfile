@@ -103,12 +103,13 @@ tops: case-geometry
         openscad -o case/build/kagu_${side}_top.stl case/${side}_top.scad; \
     done
 
-# Render the left tray with the screen pod, and the pod's back cover, into case/build/
-# A wedge behind the index columns holding the 1.47" ST7789 module, face tilted 55 degrees.
+# Render the left screen pod and its back cover into case/build/
+# A separate wedge welded onto the back of the case behind the index columns,
+# holding the 1.47" ST7789 module with its face tilted 30 degrees.
 [group('case')]
 screen: case-geometry
     mkdir -p case/build
-    openscad -o case/build/kagu_left_tray_screen.stl case/left_tray_screen.scad
+    openscad -o case/build/kagu_left_screen_pod.stl case/left_screen_pod.scad
     openscad -o case/build/kagu_left_screen_cover.stl case/left_screen_cover.scad
 
 # Render the Choc v2 keycap risers into case/build/
