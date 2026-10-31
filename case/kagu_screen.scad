@@ -22,8 +22,8 @@
 // ---------------------------------------------------------------------------
 lcd_board   = [37.5, 30.0];   // landscape: long side across the keyboard
 lcd_pcb_t   = 1.6;
-lcd_holes   = [33.0, 25.5];   // M2 hole spacing, centred on the board (x
-                              // checked against a print, +0.5mm)
+lcd_holes   = [33.0, 26.0];   // M2 hole spacing, centred on the board (both
+                              // checked against a print, +0.5mm each way)
 lcd_glass   = [36.2, 19.8];   // glass outline
 lcd_glass_t = 2.4;            // glass + backlight stack above the board
 lcd_active  = [32.4, 17.4];   // visible pixels
