@@ -22,8 +22,8 @@
 // ---------------------------------------------------------------------------
 lcd_board   = [37.5, 30.0];   // landscape: long side across the keyboard
 lcd_pcb_t   = 1.6;
-lcd_holes   = [33.0, 26.0];   // M2 hole spacing, centred on the board (both
-                              // checked against a print, +0.5mm each way)
+lcd_holes   = [32.0, 25.0];   // M2 hole spacing, centred on the board (both
+                              // checked against a print, -0.5mm each way)
 lcd_glass   = [36.2, 19.8];   // glass outline
 lcd_glass_t = 2.4;            // glass + backlight stack above the board
 lcd_active  = [32.4, 17.4];   // visible pixels
@@ -52,7 +52,7 @@ header_relief = [23, 2.6];    // pocket for the pin header's solder joints on th
                               // board front: length x depth, on both long edges
                               // so the board can go in either way up
 
-post_d      = 6.4;            // merges into the side walls
+post_d      = 7.2;            // merges into the side walls
 insert_d    = 3.2;            // M2 heat-set insert, ~3.5mm OD
 insert_h    = 4.5;
 m2_clear    = 2.6;
