@@ -105,21 +105,36 @@ module hole_pts() {
 // ---------------------------------------------------------------------------
 // Cup
 // ---------------------------------------------------------------------------
-module screen_cup() {
+// base: height of the cup's underside. 0 stands it on the desk; the top plate
+// version hangs it off the plate, level with the bottom of the plate's spacers.
+module screen_cup(base = 0) {
     difference() {
         union() {
             difference() {
-                down_to(0);
+                down_to(base);
                 // hollow, open through the rim
-                down_to(pod_floor, pod_wall);
-                on_face() translate([0, 0, -0.01]) linear_extrude(5) rim_2d(pod_wall);
+                difference() {
+                    union() {
+                        down_to(base + pod_floor, pod_wall);
+                        on_face() translate([0, 0, -0.01]) linear_extrude(5) rim_2d(pod_wall);
+                    }
+                    // on the plate: leave the plate and its skirt alone
+                    if (base > 0)
+                        translate([0, 0, base - 1]) linear_extrude(case_top - base + 1) shell_2d();
+                }
             }
             // posts, square to the face, from the floor up to the board's back
             intersection() {
                 on_face() hole_pts()
                     translate([0, 0, -lcd_pcb_t - 60]) cylinder(d = post_d, h = 60);
-                down_to(0);
+                down_to(base);
             }
+        }
+        // on the plate: keep out of the case under the plate, and off the
+        // tray border below the skirt
+        if (base > 0) {
+            translate([0, 0, base - 1]) linear_extrude(plate_z - base + 1) cavity_2d();
+            translate([0, 0, base - 1]) linear_extrude(tray_h + skirt_gap - base + 1) shell_2d();
         }
         on_face() {
             // insert holes

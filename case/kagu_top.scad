@@ -43,6 +43,9 @@ csk_d         = 6.2;  // head diameter plus a little, so it lands flush
 // the outer columns and next to the battery connector. All land on bare PCB: the diodes and hotswap
 // sockets are on the back, and none of these spots touch a front pad.
 // ---------------------------------------------------------------------------
+use_supports = false;  // off: the switches clipped in the plate and seated in
+                       // their sockets carry it, and the pillars kept the PCB
+                       // from closing up on the switch pins
 support_d = 2.4;
 supports  = [
     [24, 39.5], [24, 53.5], [24, 67.5],
@@ -65,7 +68,8 @@ min_web = 0.3;
 // ---------------------------------------------------------------------------
 plate_z = tray_h + pcb_to_plate;   // plate underside
 top_h   = pcb_to_plate + plate_t;  // overall height of this part
-support_pts = chip_right ? supports : [for (p = supports) [board_w - p[0], p[1]]];
+support_pts = !use_supports ? []
+            : chip_right ? supports : [for (p = supports) [board_w - p[0], p[1]]];
 
 echo(str("top: skirt ", pcb_to_plate, " + plate ", plate_t, " = ", top_h,
          "mm,  case ", tray_h + top_h, "mm tall assembled,  screws M3 x 8 csk"));
