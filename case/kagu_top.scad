@@ -17,7 +17,7 @@
 // ---------------------------------------------------------------------------
 pcb_to_plate = 2.2;   // PCB top -> plate underside, set by the Choc switch body
 plate_t      = 1.3;   // Choc clips want 1.2-1.3mm
-skirt_gap    = 0.5;   // the skirt stops this far above the tray border, so the
+skirt_gap    = 1.0;   // the skirt stops this far above the tray border, so the
                       // screws clamp plate, switches and PCB together instead of
                       // the skirt landing on the border first (on the first print
                       // some hotswap sockets lost contact). The screw spacers
