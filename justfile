@@ -103,16 +103,14 @@ tops: case-geometry
         openscad -o case/build/kagu_${side}_top.stl case/${side}_top.scad; \
     done
 
-# Render the left screen cup, its bezel, and the left top plate with the cup
-# built on, into case/build/
-# An open cup with four M2 insert posts, to sit behind the case
-# the index columns, and a screw-on bezel that clamps the 1.47" ST7789 module.
+# Render the left screen cup and its bezel into case/build/
+# An open cup with four M2 insert posts, to sit behind the case's index columns,
+# and a screw-on bezel that clamps the 1.47" ST7789 module.
 [group('case')]
 screen: case-geometry
     mkdir -p case/build
     openscad -o case/build/kagu_left_screen_pod.stl case/left_screen_pod.scad
     openscad -o case/build/kagu_left_screen_bezel.stl case/left_screen_bezel.scad
-    openscad -o case/build/kagu_left_top_screen.stl case/left_top_screen.scad
 
 # Render the Choc v2 keycap risers into case/build/
 # Round posts, Choc v2 socket below and an MX cross on top, straight or leaned.
