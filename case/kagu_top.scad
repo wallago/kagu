@@ -44,9 +44,9 @@ csk_d         = 6.2;  // head diameter plus a little, so it lands flush
 // the outer columns and next to the battery connector. All land on bare PCB: the diodes and hotswap
 // sockets are on the back, and none of these spots touch a front pad.
 // ---------------------------------------------------------------------------
-use_supports = false;  // off: the switches clipped in the plate and seated in
-                       // their sockets carry it, and the pillars kept the PCB
-                       // from closing up on the switch pins
+use_supports = true;   // they stop skirt_gap short of the PCB, like the skirt
+                       // and the screw spacers, so they cannot hold the PCB
+                       // off the switch pins
 support_d = 2.4;
 supports  = [
     [24, 39.5], [24, 53.5], [24, 67.5],
@@ -121,8 +121,8 @@ module top_plate_in_place() {
                 translate([p[0], p[1], tray_h + skirt_gap])
                     cylinder(d = spacer_d, h = top_h - skirt_gap);
             for (p = support_pts)
-                translate([p[0], p[1], tray_h])
-                    cylinder(d = support_d, h = top_h);
+                translate([p[0], p[1], tray_h + skirt_gap])
+                    cylinder(d = support_d, h = top_h - skirt_gap);
         }
         for (p = screws)
             translate([p[0], p[1], 0]) {
