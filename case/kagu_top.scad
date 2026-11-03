@@ -17,6 +17,10 @@
 // ---------------------------------------------------------------------------
 pcb_to_plate = 2.2;   // PCB top -> plate underside, set by the Choc switch body
 plate_t      = 1.3;   // Choc clips want 1.2-1.3mm
+skirt_gap    = 0.5;   // the skirt stops this far above the tray border, so the
+                      // screws clamp plate, switches and PCB together instead of
+                      // the skirt landing on the border first (on the first print
+                      // some hotswap sockets lost contact)
 
 // ---------------------------------------------------------------------------
 // Openings
@@ -100,8 +104,8 @@ module top_plate_in_place() {
     difference() {
         union() {
             // skirt, the same skin as the tray border
-            translate([0, 0, tray_h])
-                linear_extrude(pcb_to_plate)
+            translate([0, 0, tray_h + skirt_gap])
+                linear_extrude(pcb_to_plate - skirt_gap)
                     difference() { shell_2d(); cavity_2d(); }
             translate([0, 0, plate_z])
                 linear_extrude(plate_t)
