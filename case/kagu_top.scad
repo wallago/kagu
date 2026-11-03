@@ -20,7 +20,8 @@ plate_t      = 1.3;   // Choc clips want 1.2-1.3mm
 skirt_gap    = 1.0;   // the skirt stops this far above the tray border, so the
                       // screws clamp plate, switches and PCB together instead of
                       // the skirt landing on the border first (on the first print
-                      // some hotswap sockets lost contact)
+                      // some hotswap sockets lost contact). The screw spacers
+                      // stop at the same height.
 
 // ---------------------------------------------------------------------------
 // Openings
@@ -117,8 +118,8 @@ module top_plate_in_place() {
                     else plate_profile();
             // spacers that let the screws clamp the plate down onto the PCB
             for (p = screws)
-                translate([p[0], p[1], tray_h])
-                    cylinder(d = spacer_d, h = top_h);
+                translate([p[0], p[1], tray_h + skirt_gap])
+                    cylinder(d = spacer_d, h = top_h - skirt_gap);
             for (p = support_pts)
                 translate([p[0], p[1], tray_h])
                     cylinder(d = support_d, h = top_h);
