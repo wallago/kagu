@@ -72,8 +72,9 @@
             pwctrl1-param = [52 a1];
             pvgam-param = [D0 00 02 07 0B 1A 31 54 40 29 12 12 12 17];
             nvgam-param = [D0 00 02 07 05 15 2D 44 44 1C 18 16 1C 1D];
-            // F8 = little-endian RGB565, matching what LVGL 9 renders.
-            ram-param = [00 F8];
+            // F0 is the only value that shows an image on this panel; the byte
+            // swap LVGL needs is done by CONFIG_LV_COLOR_16_SWAP instead.
+            ram-param = [00 F0];
             rgb-param = [CD 08 14];
         };
     };
