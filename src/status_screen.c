@@ -1,7 +1,7 @@
 /*
  * Kagu status screen for the 1.47" 320x172 ST7789 on the left half.
  *
- *   [batt] 91%           o o o            [BT] o
+ *   KAGU                 o o o            [BT] o
  *   ----------------------------------------
  *                     BASE
  *      L       91%             R       88%
@@ -29,14 +29,18 @@
 #include <zmk/keymap.h>
 #include <zmk/split/central.h>
 
+#include "icons.h"
+
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
-#define WHITE lv_color_hex(0xf2f2f2)
-#define GREY lv_color_hex(0x8a8f98)
-#define DARK lv_color_hex(0x3a3d44)
-#define MINT lv_color_hex(0x4cf5a6)
-#define CYAN lv_color_hex(0x5bd3f5)
-#define BLUE lv_color_hex(0x3d6bff)
+/* Hugo's theme */
+#define WHITE lv_color_hex(0xffffff) /* text-primary */
+#define GREY lv_color_hex(0x8b96a8)  /* text-secondary */
+#define DARK lv_color_hex(0x303945)  /* track / divider */
+#define MINT lv_color_hex(0x36efa6)
+#define CYAN lv_color_hex(0x27d9f5)
+#define BLUE lv_color_hex(0x168bff)
+#define GREEN lv_color_hex(0x36d98b)
 #define AMBER lv_color_hex(0xffb000)
 
 #define W 320
@@ -47,8 +51,6 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #define BAR_Y 114
 #define BAR_H 10
 
-static lv_obj_t *top_batt_icon;
-static lv_obj_t *top_batt_label;
 static lv_obj_t *profile_dot[ZMK_BLE_PROFILE_COUNT];
 static lv_obj_t *link_dot;
 static lv_obj_t *layer_name_label;
@@ -89,17 +91,12 @@ static lv_obj_t *rect(lv_obj_t *parent, int32_t x, int32_t y, int32_t w, int32_t
     return obj;
 }
 
-static const char *battery_symbol(uint8_t level) {
-    if (level > 90) {
-        return LV_SYMBOL_BATTERY_FULL;
-    } else if (level > 60) {
-        return LV_SYMBOL_BATTERY_3;
-    } else if (level > 35) {
-        return LV_SYMBOL_BATTERY_2;
-    } else if (level > 10) {
-        return LV_SYMBOL_BATTERY_1;
-    }
-    return LV_SYMBOL_BATTERY_EMPTY;
+static lv_obj_t *icon(lv_obj_t *parent, const lv_image_dsc_t *src, lv_color_t color) {
+    lv_obj_t *img = lv_image_create(parent);
+    lv_image_set_src(img, src);
+    lv_obj_set_style_image_recolor(img, color, LV_PART_MAIN);
+    lv_obj_set_style_image_recolor_opa(img, LV_OPA_COVER, LV_PART_MAIN);
+    return img;
 }
 
 /* Layer */
@@ -161,7 +158,7 @@ static void output_update_cb(struct output_state state) {
         lv_obj_set_style_bg_color(profile_dot[i], i == state.profile ? MINT : DARK, LV_PART_MAIN);
     }
 
-    lv_color_t link = state.connected ? MINT : (state.bonded ? DARK : AMBER);
+    lv_color_t link = state.connected ? GREEN : (state.bonded ? DARK : AMBER);
     lv_obj_set_style_bg_color(link_dot, link, LV_PART_MAIN);
 
     enum zmk_transport transport = state.selected.transport;
@@ -171,9 +168,9 @@ static void output_update_cb(struct output_state state) {
     bool ble = transport == ZMK_TRANSPORT_BLE;
 
     lv_label_set_text_fmt(bt_label, "BT %d", state.profile + 1);
-    lv_obj_set_style_text_color(bt_icon, ble ? BLUE : DARK, LV_PART_MAIN);
+    lv_obj_set_style_image_recolor(bt_icon, ble ? BLUE : GREY, LV_PART_MAIN);
     lv_obj_set_style_text_color(bt_label, ble ? WHITE : GREY, LV_PART_MAIN);
-    lv_obj_set_style_text_color(usb_icon, ble ? DARK : WHITE, LV_PART_MAIN);
+    lv_obj_set_style_image_recolor(usb_icon, ble ? GREY : WHITE, LV_PART_MAIN);
     lv_obj_set_style_text_color(usb_label, ble ? GREY : WHITE, LV_PART_MAIN);
 }
 
@@ -217,9 +214,6 @@ static void battery_update_cb(struct battery_state state) {
             lv_label_set_text_fmt(bar_label[g], "%d%%", level);
         }
     }
-
-    lv_label_set_text(top_batt_icon, battery_symbol(state.level[0]));
-    lv_label_set_text_fmt(top_batt_label, "%d%%", state.level[0]);
 }
 
 ZMK_DISPLAY_WIDGET_LISTENER(kagu_battery, struct battery_state, battery_update_cb,
@@ -230,10 +224,9 @@ ZMK_SUBSCRIPTION(kagu_battery, zmk_peripheral_battery_state_changed);
 /* Layout */
 
 static void top_bar(lv_obj_t *screen) {
-    top_batt_icon = text(screen, &lv_font_montserrat_24, MINT, LV_SYMBOL_BATTERY_FULL);
-    lv_obj_set_pos(top_batt_icon, 8, 3);
-    top_batt_label = text(screen, &lv_font_montserrat_24, WHITE, "");
-    lv_obj_set_pos(top_batt_label, 46, 3);
+    lv_obj_t *name = text(screen, &lv_font_montserrat_24, WHITE, "KAGU");
+    lv_obj_set_style_text_letter_space(name, 2, LV_PART_MAIN);
+    lv_obj_set_pos(name, 12, 3);
 
     const int32_t size = 10, gap = 18;
     int32_t x0 = W / 2 - (ZMK_BLE_PROFILE_COUNT - 1) * gap / 2 - size / 2;
@@ -242,8 +235,8 @@ static void top_bar(lv_obj_t *screen) {
         lv_obj_set_pos(profile_dot[i], x0 + i * gap, 10);
     }
 
-    lv_obj_t *bt = text(screen, &lv_font_montserrat_24, BLUE, LV_SYMBOL_BLUETOOTH);
-    lv_obj_set_pos(bt, W - 46, 3);
+    lv_obj_t *bt = icon(screen, &icon_bt, BLUE);
+    lv_obj_set_pos(bt, W - 50, 4);
     link_dot = dot(screen, 12, DARK);
     lv_obj_set_pos(link_dot, W - 22, 9);
 
@@ -262,25 +255,26 @@ static void battery_bar(lv_obj_t *screen, int g, int32_t x, lv_color_t color, co
 }
 
 static void bottom_bar(lv_obj_t *screen) {
-    const int32_t y = 142;
+    /* Columns sized to their text: "BT 1" | "USB" | "LAYER 0". */
+    const int32_t y = 142, sep1 = 92, sep2 = 192;
     rect(screen, 6, 132, W - 12, 2, DARK);
-    rect(screen, W / 3, 139, 2, 26, DARK);
-    rect(screen, 2 * W / 3, 139, 2, 26, DARK);
+    rect(screen, sep1, 139, 2, 26, DARK);
+    rect(screen, sep2, 139, 2, 26, DARK);
 
-    bt_icon = text(screen, &lv_font_montserrat_20, BLUE, LV_SYMBOL_BLUETOOTH);
-    lv_obj_set_pos(bt_icon, 14, y);
+    bt_icon = icon(screen, &icon_bt, BLUE);
+    lv_obj_set_pos(bt_icon, 8, y - 1);
     bt_label = text(screen, &lv_font_montserrat_20, WHITE, "BT 1");
     lv_obj_set_pos(bt_label, 36, y);
 
-    usb_icon = text(screen, &lv_font_montserrat_20, GREY, LV_SYMBOL_USB);
-    lv_obj_set_pos(usb_icon, W / 3 + 14, y);
+    usb_icon = icon(screen, &icon_usb, GREY);
+    lv_obj_set_pos(usb_icon, sep1 + 10, y - 1);
     usb_label = text(screen, &lv_font_montserrat_20, GREY, "USB");
-    lv_obj_set_pos(usb_label, W / 3 + 44, y);
+    lv_obj_set_pos(usb_label, sep1 + 38, y);
 
-    lv_obj_t *layers = text(screen, &lv_font_montserrat_20, MINT, LV_SYMBOL_KEYBOARD);
-    lv_obj_set_pos(layers, 2 * W / 3 + 8, y);
+    lv_obj_t *layers = icon(screen, &icon_layers, MINT);
+    lv_obj_set_pos(layers, sep2 + 8, y - 1);
     layer_index_label = text(screen, &lv_font_montserrat_20, WHITE, "");
-    lv_obj_set_pos(layer_index_label, 2 * W / 3 + 38, y);
+    lv_obj_set_pos(layer_index_label, sep2 + 36, y);
 }
 
 lv_obj_t *zmk_display_status_screen() {
