@@ -55,14 +55,14 @@ jobs:
           fetch-depth: 0
       - name: Run committed
         if: github.event_name != 'pull_request'
-        uses: crate-ci/committed@v1.1.9
+        uses: crate-ci/committed@v1.1.11
         with:
           args: "-vv"
           commits: "HEAD"
       # rebase merge replays every branch commit onto main, so check the range
       - name: Run committed
         if: github.event_name == 'pull_request'
-        uses: crate-ci/committed@v1.1.9
+        uses: crate-ci/committed@v1.1.11
         with:
           args: "-vv"
           commits: "${{ github.event.pull_request.base.sha }}..HEAD"
