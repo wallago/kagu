@@ -5,6 +5,8 @@
 # Example:
 # ratatui = "ratatui"
 # kubernetes = "kubernetes"
+# Seeed's XIAO footprint name, MOUDLE23P-XIAO-HALF-HOLE
+moudle = "moudle"
 
 [files]
 # Exclude files or directories from checking

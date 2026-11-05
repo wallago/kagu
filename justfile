@@ -54,8 +54,6 @@ typos:
 [group('release')]
 jj-publish VERSION:
     @test -z "$(jj diff --name-only)" || (echo "✗ working copy has uncommitted changes — commit or abandon them first" && exit 1)
-    @echo "▶ bump version → {{ VERSION }}"
-    cargo set-version {{ VERSION }}
     @echo "▶ regenerate changelog"
     @if command -v git-cliff >/dev/null 2>&1; then \
         git-cliff --tag v{{ VERSION }} -o CHANGELOG.md; \
@@ -72,3 +70,52 @@ jj-publish VERSION:
     jj git push --bookmark main
     git push origin v{{ VERSION }}
     @echo "✅ published v{{ VERSION }}"
+
+
+# Regenerate case geometry from the KiCad PCBs
+[group('case')]
+case-geometry:
+    python3 case/extract_geometry.py
+
+# Render the bottom trays into case/build/
+# Floor, border flush with the PCB top face, five M3 bosses, and a cable gap
+# on the chip side. The right PCB has its XIAO on the back layer, so the tray
+# clears the board by enough to swallow the module either way up and the USB
+# notch spans the whole border height; that is what makes the two halves plain
+# mirrors of each other.
+[group('case')]
+trays: case-geometry
+    mkdir -p case/build
+    for side in left right; do \
+        echo "▶ $side tray"; \
+        openscad -o case/build/kagu_${side}_tray.stl case/${side}_tray.scad; \
+    done
+
+# Render the top plates into case/build/
+# Switch plate plus a short skirt that lands on the tray border. The PCB screws
+# go through it, so it is countersunk for M3 x 8 flat heads (DIN 965). Comes
+# out plate face down, ready to slice.
+[group('case')]
+tops: case-geometry
+    mkdir -p case/build
+    for side in left right; do \
+        echo "▶ $side top"; \
+        openscad -o case/build/kagu_${side}_top.stl case/${side}_top.scad; \
+    done
+
+# Render the Choc v2 keycap risers into case/build/
+# Round posts, Choc v2 socket below and an MX cross on top, straight or leaned.
+# Straight ones print socket down, leaned ones on the stem tip; no supports.
+[group('case')]
+risers:
+    mkdir -p case/build
+    echo "▶ riser straight"
+    openscad -o case/build/choc_v2_riser.stl case/choc_v2_riser.scad
+    for a in 15 25 35; do \
+        echo "▶ riser ${a}deg square"; \
+        openscad -D "tilt=$a" -D "azimuth=0" \
+            -o case/build/choc_v2_riser_${a}deg.stl case/choc_v2_riser.scad; \
+        echo "▶ riser ${a}deg diagonal"; \
+        openscad -D "tilt=$a" -D "azimuth=45" \
+            -o case/build/choc_v2_riser_${a}deg_diag.stl case/choc_v2_riser.scad; \
+    done

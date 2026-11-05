@@ -1,6 +1,0 @@
-if SHIELD_KAGU
-
-config ZMK_KEYBOARD_NAME
-      default "kagu"
-
-endif

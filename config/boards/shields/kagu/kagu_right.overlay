@@ -1,0 +1,16 @@
+#include "kagu.dtsi"
+
+&default_transform {
+    col-offset = <5>;
+};
+
+&kscan0 {
+    // Right half: physical left-to-right is col1 -> col5, i.e. D0 -> D4.
+    col-gpios
+        = <&xiao_d 0 GPIO_ACTIVE_HIGH>   // col1
+        , <&xiao_d 1 GPIO_ACTIVE_HIGH>   // col2
+        , <&xiao_d 2 GPIO_ACTIVE_HIGH>   // col3
+        , <&xiao_d 3 GPIO_ACTIVE_HIGH>   // col4
+        , <&xiao_d 4 GPIO_ACTIVE_HIGH>   // col5
+        ;
+};
