@@ -47,8 +47,10 @@ glass_side_clear = 2.0;       // extra each side, left and right: the glass
                               // would not go in with glass_clear alone
 window_margin = 0.4;
 window_r    = 2.0;            // rounded window corners
-window_len  = 34.7;           // long side of the window, centred: 2mm longer
-                              // than the first print's, which hid pixels
+window_len  = 32.7;           // long side of the window
+window_shift = -1.75;         // the panel's pixels sit off-centre, away from the
+                              // flex end (+x): a print showed pixels cut at -x
+                              // and a 2mm dark strip at +x with the window at +0.25
 header_relief = [23, 2.6];    // pocket for the pin header's solder joints on the
                               // board front: length x depth, on both long edges
                               // so the board can go in either way up
@@ -140,7 +142,7 @@ module screen_bezel_flat() {   // in the face frame, sitting on z = 0
     difference() {
         linear_extrude(bezel_t) rim_2d();
         // window
-        translate([0, lcd_v, -1]) linear_extrude(bezel_t + 2)
+        translate([window_shift, lcd_v, -1]) linear_extrude(bezel_t + 2)
             offset(r = window_r) offset(delta = -window_r)
                 square([window_len,
                         lcd_active[1] + 2 * window_margin],
