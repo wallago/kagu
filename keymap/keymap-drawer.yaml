@@ -2,6 +2,20 @@
 # `just keymap`, which parses the generated kagu.keymap and draws
 # keymap/keymap.svg from it.
 parse_config:
+  # Hyper keys draw as ✦ plus the key, so they fit on a keycap.
+  modifier_fn_map:
+    left_ctrl: Ctl
+    right_ctrl: Ctl
+    left_shift: Sft
+    right_shift: Sft
+    left_alt: Alt
+    right_alt: AltGr
+    left_gui: Gui
+    right_gui: Gui
+    keycode_combiner: "{mods}{key}"
+    mod_combiner: "{mod_1}+{mod_2}"
+    special_combinations:
+      left_ctrl+left_alt+left_gui+left_shift: "✦"
   # This map replaces keymap-drawer's default one, so its symbols are kept
   # first, then Kagu's own labels.
   zmk_keycode_map:
@@ -99,9 +113,6 @@ parse_config:
     "&kp LA(RIGHT)": {t: "$$mdi:arrow-u-right-top$$", s: forward}
     "&kp LC(PG_UP)": {t: "$$mdi:tab-minus$$", s: prev tab}
     "&kp LC(PG_DN)": {t: "$$mdi:tab-plus$$", s: next tab}
-    "&kp LC(LA(LS(LG(LBKT))))": {t: "[", s: hyper}
-    "&kp LC(LA(LS(LG(BSLH))))": {t: "\\", s: hyper}
-    "&kp LC(LA(LS(LG(RBKT))))": {t: "]", s: hyper}
     "&bt BT_CLR": {t: "$$mdi:bluetooth-off$$", s: clear}
     "&bt BT_SEL 0": {t: "$$mdi:bluetooth$$", s: "0"}
     "&bt BT_SEL 1": {t: "$$mdi:bluetooth$$", s: "1"}

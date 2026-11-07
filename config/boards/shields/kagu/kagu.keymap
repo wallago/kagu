@@ -12,6 +12,7 @@
 #define APP   3
 #define OS    4
 #define SYS   5
+#define HYP   6
 
 // Key positions (see the matrix transform in kagu.dtsi):
 //   0  1  2  3  4     5  6  7  8  9
@@ -152,7 +153,7 @@
    &kp Q        &kp W        &kp F         &kp P            &kp B           &kp J        &kp L       &kp U             &kp Y        &kp SQT
    &hml LSHFT A &hml LCTRL R &hml LALT S   &hml LGUI T      &kp G           &kp M        &hmr RGUI N &hmr LALT E       &hmr RCTRL I &hmr RSHFT O
    &lt SYS Z    &kp X        &lt_app APP C &lt_os OS D      &kp V           &kp K        &lt_os OS H &lt_app APP COMMA &kp DOT      &lt SYS FSLH
-                             &kp BSPC      &osm LSHFT LSHFT &osl LWR LWR    &osl RSE RSE &kp SPACE   &none
+                             &kp BSPC      &osm LSHFT LSHFT &osl LWR LWR    &osl RSE RSE &kp SPACE   &mo HYP
 			>;
 		};
 
@@ -203,6 +204,16 @@
    &bt BT_CLR   &none        &none        &none &none    &none &none &none &none &none
    &none        &none        &none        &none &none    &none &none &none &none &none
                              &none        &none &none    &none &none &none
+			>;
+		};
+
+		hyp_layer {
+			display-name = "Hyp";
+			bindings = <
+   &kp LC(LA(LS(LG(Q)))) &kp LC(LA(LS(LG(W)))) &kp LC(LA(LS(LG(F))))   &kp LC(LA(LS(LG(P)))) &kp LC(LA(LS(LG(B))))      &kp LC(LA(LS(LG(N1))))  &kp LC(LA(LS(LG(N2))))    &kp LC(LA(LS(LG(N3))))   &kp LC(LA(LS(LG(N4))))    &kp LC(LA(LS(LG(N5))))
+   &kp LC(LA(LS(LG(A)))) &kp LC(LA(LS(LG(R)))) &kp LC(LA(LS(LG(S))))   &kp LC(LA(LS(LG(T)))) &kp LC(LA(LS(LG(G))))      &none                   &kp LC(LA(LS(LG(LEFT))))  &kp LC(LA(LS(LG(UP))))   &kp LC(LA(LS(LG(RIGHT)))) &none
+   &kp LC(LA(LS(LG(Z)))) &kp LC(LA(LS(LG(X)))) &kp LC(LA(LS(LG(C))))   &kp LC(LA(LS(LG(D)))) &kp LC(LA(LS(LG(V))))      &none                   &kp LC(LA(LS(LG(SEMI))))  &kp LC(LA(LS(LG(DOWN)))) &kp LC(LA(LS(LG(SQT))))   &none
+                                               &kp LC(LA(LS(LG(ESC)))) &none                 &kp LC(LA(LS(LG(TAB))))    &kp LC(LA(LS(LG(RET)))) &kp LC(LA(LS(LG(SPACE)))) &trans
 			>;
 		};
 	};

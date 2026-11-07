@@ -27,7 +27,7 @@ layers:
     - {t: Lwr, h: Lwr}
     - {t: Rse, h: Rse}
     - $$mdi:keyboard-space$$
-    - ''
+    - Hyp
   Rse:
   - - ''
     - '7'
@@ -55,9 +55,9 @@ layers:
     - '3'
     - ''
     - {t: '$$mdi:tab-minus$$', s: prev tab}
-    - {t: '[', s: hyper}
-    - {t: \, s: hyper}
-    - {t: ']', s: hyper}
+    - ✦[
+    - ✦\
+    - ✦]
     - {t: '$$mdi:tab-plus$$', s: next tab}
   - - $$mdi:keyboard-esc$$
     - ''
@@ -126,6 +126,16 @@ layers:
     - ''
     - ''
   - ['', '', '', '', '', '']
+  Hyp:
+  - [✦Q, ✦W, ✦F, ✦P, ✦B, ✦1, ✦2, ✦3, ✦4, ✦5]
+  - [✦A, ✦R, ✦S, ✦T, ✦G, '', '✦$$mdi:arrow-left$$', '✦$$mdi:arrow-up$$', '✦$$mdi:arrow-right$$', '']
+  - [✦Z, ✦X, ✦C, ✦D, ✦V, '', ✦;, '✦$$mdi:arrow-down$$', ✦', '']
+  - - ✦$$mdi:keyboard-esc$$
+    - ''
+    - ✦$$mdi:keyboard-tab$$
+    - ✦$$mdi:keyboard-return$$
+    - ✦$$mdi:keyboard-space$$
+    - {type: held}
 combos:
 - p: [1, 2]
   k: $$mdi:keyboard-esc$$

@@ -58,12 +58,12 @@ overlay right_mods
 
 // Colemak-DH. Z and / hold sys, C and , hold app (Ctrl), D and H hold os
 // (Super). Bksp, one-shot Shift and one-shot lwr on the left thumbs; one-shot
-// rse and Space on the right.
+// rse, Space and hyp on the right.
 layer base: left_mods, right_mods
   Q      W        F      P     B          J        L     U      Y     '
   A      R        S      T     G          M        N     E      I     O
   Z/sys  X        C/app  D/os  V          K        H/os  ,/app  .     \//sys
-                  BSPC   LSHFT/LSHFT  lwr/lwr     rse/rse  SPC   _
+                  BSPC   LSHFT/LSHFT  lwr/lwr     rse/rse  SPC   _/hyp
 
 // Numbers on the left, navigation on the right, with three Hyper keys for
 // niri below the arrows. Esc and Enter on the left thumbs. The arrows drop the home row holds so they repeat when held.
@@ -102,6 +102,15 @@ layer sys
   BT_CLR  _     _     _  _          _  _  _  _  _
   _       _     _     _  _          _  _  _  _  _
                 _     _  _          _  _  _
+
+// Hyper (Ctrl+Alt+Shift+Super) shortcuts for niri, held from the right
+// outer thumb. Same keys as dubu36's hyp layer: letters on the left, 1-5 on
+// the right, and an inverted T with Up on E.
+layer hyp
+  HYP_Q  HYP_W  HYP_F    HYP_P  HYP_B      HYP_1    HYP_2     HYP_3     HYP_4      HYP_5
+  HYP_A  HYP_R  HYP_S    HYP_T  HYP_G      _        HYP_LEFT  HYP_UP    HYP_RIGHT  _
+  HYP_Z  HYP_X  HYP_C    HYP_D  HYP_V      _        HYP_;     HYP_DOWN  HYP_'      _
+                HYP_ESC  _      HYP_TAB    HYP_RET  HYP_SPC   TRNS
 
 // Esc and Enter as chords. W+F and U+Y are pairs Colemak-DH rarely rolls
 // (U+Y does occur in "buy"). They also fire on app and os, with the modifier.
