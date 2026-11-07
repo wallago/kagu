@@ -13,7 +13,7 @@ layers:
     - {t: I, h: Ctrl}
     - {t: O, h: '$$mdi:apple-keyboard-shift$$'}
   - - {t: Z, h: Sys}
-    - {t: X, h: Mouse}
+    - X
     - {t: C, h: Ctrl+app}
     - {t: D, h: Super+os}
     - V
@@ -27,13 +27,13 @@ layers:
     - {t: Lwr, h: Lwr}
     - {t: Rse, h: Rse}
     - $$mdi:keyboard-space$$
-    - {t: '$$mdi:backspace-reverse-outline$$', h: Fun}
+    - ''
   Rse:
   - - ''
     - '7'
     - '8'
     - '9'
-    - PgUp
+    - ''
     - Home
     - {t: '$$mdi:arrow-collapse-left$$', s: word}
     - $$mdi:arrow-up$$
@@ -43,7 +43,7 @@ layers:
     - {t: '4', h: Ctrl}
     - {t: '5', h: Alt}
     - {t: '6', h: '$$mdi:linux$$'}
-    - PgDn
+    - ''
     - {t: '$$mdi:arrow-u-left-top$$', s: back}
     - $$mdi:arrow-left$$
     - $$mdi:arrow-down$$
@@ -55,9 +55,9 @@ layers:
     - '3'
     - ''
     - {t: '$$mdi:tab-minus$$', s: prev tab}
-    - $$mdi:volume-minus$$
-    - $$mdi:volume-off$$
-    - $$mdi:volume-plus$$
+    - ''
+    - ''
+    - ''
     - {t: '$$mdi:tab-plus$$', s: next tab}
   - - $$mdi:keyboard-esc$$
     - ''
@@ -85,76 +85,47 @@ layers:
     - $$mdi:keyboard-tab$$
     - ''
   App:
-  - [Q, W, F, P, B, J, L, '$$mdi:arrow-up$$', Y, '''']
+  - [Q, W, F, P, B, J, ;, '$$mdi:arrow-up$$', '''', '''']
   - [A, R, S, T, G, '[', '$$mdi:arrow-left$$', '$$mdi:arrow-down$$', '$$mdi:arrow-right$$', ']']
   - [Z, X, C, D, V, K, H, ',', ., /]
   - ['$$mdi:backspace-outline$$', '', '', '', '$$mdi:keyboard-space$$', '']
   Os:
-  - [Q, W, F, P, B, J, L, '$$mdi:arrow-up$$', Y, '''']
+  - [Q, W, F, P, B, J, ;, '$$mdi:arrow-up$$', '''', '''']
   - [A, R, S, T, G, '[', '$$mdi:arrow-left$$', '$$mdi:arrow-down$$', '$$mdi:arrow-right$$', ']']
   - [Z, X, C, D, V, K, H, ',', ., /]
   - ['$$mdi:backspace-outline$$', '', '', '', '$$mdi:keyboard-space$$', '']
-  Fun:
-  - [F12, F7, F8, F9, PrtSc, '', '$$mdi:skip-previous$$', '$$mdi:play-pause$$', '$$mdi:skip-next$$', '$$mdi:stop$$']
-  - [F11, F4, F5, F6, ScrLk, '', '$$mdi:linux$$', Alt, Ctrl, '$$mdi:apple-keyboard-shift$$']
-  - [F10, F1, F2, F3, Pause, '', '', '', '', '']
-  - - Menu
-    - $$mdi:keyboard-space$$
-    - $$mdi:keyboard-tab$$
-    - ''
-    - ''
-    - {type: held}
-  Mouse:
-  - ['', '', '', '', '', Redo, Paste, Copy, Cut, Undo]
-  - - $$mdi:apple-keyboard-shift$$
-    - Ctrl
-    - Alt
-    - $$mdi:linux$$
-    - ''
-    - ''
-    - {t: '$$mdi:arrow-left$$', s: mouse}
-    - {t: '$$mdi:arrow-down$$', s: mouse}
-    - {t: '$$mdi:arrow-up$$', s: mouse}
-    - {t: '$$mdi:arrow-right$$', s: mouse}
-  - - ''
-    - {type: held}
-    - ''
-    - ''
-    - ''
-    - ''
-    - {t: '$$mdi:arrow-left-bold-outline$$', s: scroll}
-    - {t: '$$mdi:arrow-down-bold-outline$$', s: scroll}
-    - {t: '$$mdi:arrow-up-bold-outline$$', s: scroll}
-    - {t: '$$mdi:arrow-right-bold-outline$$', s: scroll}
-  - ['', '', '', '$$mdi:mouse-right-click$$', '$$mdi:mouse-left-click$$', '$$mdi:mouse-scroll-wheel$$']
   Sys:
-  - [Boot, '', '', '', '', '', '', '', '', Boot]
   - - {t: '$$mdi:bluetooth$$', s: '0'}
     - {t: '$$mdi:bluetooth$$', s: '1'}
     - {t: '$$mdi:bluetooth$$', s: '2'}
-    - {t: '$$mdi:bluetooth$$', s: '3'}
-    - {t: '$$mdi:bluetooth$$', s: '4'}
-    - $$mdi:usb$$
-    - $$mdi:bluetooth$$
-    - ''
-    - ''
-    - ''
-  - - {t: '$$mdi:bluetooth-off$$', s: clear, type: held}
-    - {t: '$$mdi:bluetooth$$', s: prev}
-    - {t: '$$mdi:bluetooth$$', s: next}
     - ''
     - ''
     - ''
     - ''
     - ''
     - ''
-    - {t: '$$mdi:bluetooth-off$$', s: clear all}
+    - ''
+  - - {t: '$$mdi:bluetooth-off$$', s: clear}
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+  - - {type: held}
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
   - ['', '', '', '', '', '']
-  Extra:
-  - [Q, W, F, P, B, J, L, U, Y, '''']
-  - [A, R, S, T, G, M, N, E, I, O]
-  - [Z, X, C, D, V, K, H, ',', ., /]
-  - ['$$mdi:keyboard-esc$$', '$$mdi:keyboard-space$$', '$$mdi:keyboard-tab$$', '$$mdi:keyboard-return$$', '$$mdi:backspace-outline$$', '$$mdi:backspace-reverse-outline$$']
 combos:
 - p: [1, 2]
   k: $$mdi:keyboard-esc$$
@@ -162,9 +133,3 @@ combos:
 - p: [7, 8]
   k: $$mdi:keyboard-return$$
   l: [Base, App, Os]
-- p: [2, 7]
-  k: {t: Extra, h: toggle}
-  l: [Base]
-- p: [3, 6]
-  k: {t: Base, h: toggle}
-  l: [Extra]

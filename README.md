@@ -19,9 +19,7 @@ writing sit on the thumbs, which keeps hold-tap timing out of the way. Some note
 - **rse**: numbers on the left, navigation on the right. **lwr**: symbols.
 - **app** and **os**: held from C and `,` (app) or D and H (os). They keep Ctrl or Super down for
   the whole hold, so every key is sent with that modifier, including the arrows on U N E I.
-- **fun**: held from Del. For Ctrl+Alt+F1 (TTY switching), hold Del, I and E, then tap the F-key.
-- **sys**: held from Z or `/`. Each half's bootloader key resets that half.
-- **extra**: no mods or layer-taps, for games. F+U switches to it and P+L comes back.
+- **sys**: Bluetooth profiles, held from Z or `/`.
 - Combos: W+F types Esc, and U+Y types Enter.
 
 ## Editing the keymap
@@ -33,8 +31,8 @@ the six thumbs.
 layer base: left_mods, right_mods
   Q      W        F      P     B          J        L     U      Y     '
   A      R        S      T     G          M        N     E      I     O
-  Z/sys  X/mouse  C/app  D/os  V          K        H/os  ,/app  .     \//sys
-                  BSPC   LSHFT/LSHFT  lwr/lwr     rse/rse  SPC   DEL/fun
+  Z/sys  X        C/app  D/os  V          K        H/os  ,/app  .     \//sys
+                  BSPC   LSHFT/LSHFT  lwr/lwr     rse/rse  SPC   _
 ```
 
 ```

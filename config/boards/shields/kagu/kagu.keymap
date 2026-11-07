@@ -11,10 +11,7 @@
 #define LWR   2
 #define APP   3
 #define OS    4
-#define FUN   5
-#define MOUSE 6
-#define SYS   7
-#define EXTRA 8
+#define SYS   5
 
 // Key positions (see the matrix transform in kagu.dtsi):
 //   0  1  2  3  4     5  6  7  8  9
@@ -144,21 +141,6 @@
 			bindings = <&kp RET>;
 			layers = <BASE APP OS>;
 		};
-
-		combo_2 {
-			timeout-ms = <50>;
-			key-positions = <2 7>;
-			bindings = <&to EXTRA>;
-			layers = <BASE>;
-			require-prior-idle-ms = <300>;
-		};
-
-		combo_3 {
-			timeout-ms = <50>;
-			key-positions = <3 6>;
-			bindings = <&to BASE>;
-			layers = <EXTRA>;
-		};
 	};
 
 	keymap {
@@ -169,18 +151,18 @@
 			bindings = <
    &kp Q        &kp W        &kp F         &kp P            &kp B           &kp J        &kp L       &kp U             &kp Y        &kp SQT
    &hml LSHFT A &hml LCTRL R &hml LALT S   &hml LGUI T      &kp G           &kp M        &hmr RGUI N &hmr LALT E       &hmr RCTRL I &hmr RSHFT O
-   &lt SYS Z    &lt MOUSE X  &lt_app APP C &lt_os OS D      &kp V           &kp K        &lt_os OS H &lt_app APP COMMA &kp DOT      &lt SYS FSLH
-                             &kp BSPC      &osm LSHFT LSHFT &osl LWR LWR    &osl RSE RSE &kp SPACE   &lt FUN DEL
+   &lt SYS Z    &kp X        &lt_app APP C &lt_os OS D      &kp V           &kp K        &lt_os OS H &lt_app APP COMMA &kp DOT      &lt SYS FSLH
+                             &kp BSPC      &osm LSHFT LSHFT &osl LWR LWR    &osl RSE RSE &kp SPACE   &none
 			>;
 		};
 
 		rse_layer {
 			display-name = "Rse";
 			bindings = <
-   &none     &kp N7        &kp N8       &kp N9       &kp PG_UP    &kp HOME      &kp LC(LEFT) &kp UP     &kp LC(RIGHT) &kp END
-   &kp LSHFT &hml LCTRL N4 &hml LALT N5 &hml LGUI N6 &kp PG_DN    &kp LA(LEFT)  &kp LEFT     &kp DOWN   &kp RIGHT     &kp LA(RIGHT)
-   &kp N0    &kp N1        &kp N2       &kp N3       &none        &kp LC(PG_UP) &kp C_VOL_DN &kp C_MUTE &kp C_VOL_UP  &kp LC(PG_DN)
-                           &kp ESC      &none        &kp RET      &none         &none        &none
+   &none     &kp N7        &kp N8       &kp N9       &none      &kp HOME      &kp LC(LEFT) &kp UP   &kp LC(RIGHT) &kp END
+   &kp LSHFT &hml LCTRL N4 &hml LALT N5 &hml LGUI N6 &none      &kp LA(LEFT)  &kp LEFT     &kp DOWN &kp RIGHT     &kp LA(RIGHT)
+   &kp N0    &kp N1        &kp N2       &kp N3       &none      &kp LC(PG_UP) &none        &none    &none         &kp LC(PG_DN)
+                           &kp ESC      &none        &kp RET    &none         &none        &none
 			>;
 		};
 
@@ -197,7 +179,7 @@
 		app_layer {
 			display-name = "App";
 			bindings = <
-   &kp Q &kp W &kp F    &kp P &kp B    &kp J    &kp L     &kp UP    &kp Y     &kp SQT
+   &kp Q &kp W &kp F    &kp P &kp B    &kp J    &kp SEMI  &kp UP    &kp SQT   &kp SQT
    &kp A &kp R &kp S    &kp T &kp G    &kp LBKT &kp LEFT  &kp DOWN  &kp RIGHT &kp RBKT
    &kp Z &kp X &kp C    &kp D &kp V    &kp K    &kp H     &kp COMMA &kp DOT   &kp FSLH
                &kp BSPC &none &none    &none    &kp SPACE &none
@@ -207,50 +189,20 @@
 		os_layer {
 			display-name = "Os";
 			bindings = <
-   &kp Q &kp W &kp F    &kp P &kp B    &kp J    &kp L     &kp UP    &kp Y     &kp SQT
+   &kp Q &kp W &kp F    &kp P &kp B    &kp J    &kp SEMI  &kp UP    &kp SQT   &kp SQT
    &kp A &kp R &kp S    &kp T &kp G    &kp LBKT &kp LEFT  &kp DOWN  &kp RIGHT &kp RBKT
    &kp Z &kp X &kp C    &kp D &kp V    &kp K    &kp H     &kp COMMA &kp DOT   &kp FSLH
                &kp BSPC &none &none    &none    &kp SPACE &none
 			>;
 		};
 
-		fun_layer {
-			display-name = "Fun";
-			bindings = <
-   &kp F12 &kp F7 &kp F8    &kp F9    &kp PSCRN          &none &kp C_PREV &kp C_PP &kp C_NEXT &kp C_STOP
-   &kp F11 &kp F4 &kp F5    &kp F6    &kp SLCK           &none &kp RGUI   &kp LALT &kp RCTRL  &kp RSHFT
-   &kp F10 &kp F1 &kp F2    &kp F3    &kp PAUSE_BREAK    &none &none      &none    &none      &none
-                  &kp K_APP &kp SPACE &kp TAB            &none &none      &none
-			>;
-		};
-
-		mouse_layer {
-			display-name = "Mouse";
-			bindings = <
-   &none     &none     &none    &none    &none    &kp LC(LS(Z)) &kp LC(V)      &kp LC(C)      &kp LC(X)    &kp LC(Z)
-   &kp LSHFT &kp LCTRL &kp LALT &kp LGUI &none    &none         &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_UP &mmv MOVE_RIGHT
-   &none     &none     &none    &none    &none    &none         &msc SCRL_LEFT &msc SCRL_DOWN &msc SCRL_UP &msc SCRL_RIGHT
-                       &none    &none    &none    &mkp MB2      &mkp MB1       &mkp MB3
-			>;
-		};
-
 		sys_layer {
 			display-name = "Sys";
 			bindings = <
-   &bootloader  &none        &none        &none        &none           &none        &none        &none &none &bootloader
-   &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4    &out OUT_USB &out OUT_BLE &none &none &none
-   &bt BT_CLR   &bt BT_PRV   &bt BT_NXT   &none        &none           &none        &none        &none &none &bt BT_CLR_ALL
-                             &none        &none        &none           &none        &none        &none
-			>;
-		};
-
-		extra_layer {
-			display-name = "Extra";
-			bindings = <
-   &kp Q &kp W &kp F   &kp P     &kp B      &kp J   &kp L    &kp U     &kp Y   &kp SQT
-   &kp A &kp R &kp S   &kp T     &kp G      &kp M   &kp N    &kp E     &kp I   &kp O
-   &kp Z &kp X &kp C   &kp D     &kp V      &kp K   &kp H    &kp COMMA &kp DOT &kp FSLH
-               &kp ESC &kp SPACE &kp TAB    &kp RET &kp BSPC &kp DEL
+   &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &none &none    &none &none &none &none &none
+   &bt BT_CLR   &none        &none        &none &none    &none &none &none &none &none
+   &none        &none        &none        &none &none    &none &none &none &none &none
+                             &none        &none &none    &none &none &none
 			>;
 		};
 	};
