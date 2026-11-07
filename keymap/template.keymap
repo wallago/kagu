@@ -24,17 +24,6 @@
 };
 
 / {
-	// Hold NAV (Space), then SYM (Enter), to reach the system layer. The
-	// other order types ")" because SYM has symbols on the left thumbs.
-	conditional_layers {
-		compatible = "zmk,conditional-layers";
-
-		tri_layer {
-			if-layers = <NAV SYM>;
-			then-layer = <SYS>;
-		};
-	};
-
 	behaviors {
 		// Home row mods. A mod only fires when the next key is on the other
 		// hand (or a thumb), so same-hand rolls like "st" stay letters.

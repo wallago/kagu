@@ -27,73 +27,94 @@
 // since the last key press. The two keys are named by what they tap on the
 // first layer listed.
 //
-// The first layer is the default one. Layer names become the BASE, NAV, ...
-// defines the template uses, so keep nav, sym and sys for the tri-layer.
+// A cell that repeats its label, `LSHFT/LSHFT` or `sym/sym`, is one-shot on
+// tap and momentary on hold. `layer name + MOD` holds MOD for as long as the
+// layer is held from a hold-tap, so every key on it is sent with MOD.
+//
+// The first layer is the default one. Layer names become the BASE, RSE, ...
+// defines in kagu.keymap.
 
-// Home row mods, GACS from the pinky in, mirrored on the right. A mod only
-// fires when the next key is on the other hand or a thumb.
+// Layout after dubu36: modifiers used in shortcuts sit on the home row,
+// while shift and the layers used in fluent writing sit on the thumbs, which
+// keeps hold-tap timing out of the way while typing.
+
+// Home row mods, pinky to index: Shift, Ctrl, Alt, Super, mirrored on the
+// right. The right hand holds left Alt, since right Alt is AltGr on Linux. A
+// mod only fires when the next key is on the other hand or a thumb.
 overlay left_mods
-  _        _        _         _         _          _  _         _         _        _
-  LGUI:hm  LALT:hm  LCTRL:hm  LSHFT:hm  _          _  _         _         _        _
-  _        _        _         _         _          _  _         _         _        _
-                    _         _         _          _  _         _
+  _         _         _        _        _          _  _  _  _  _
+  LSHFT:hm  LCTRL:hm  LALT:hm  LGUI:hm  _          _  _  _  _  _
+  _         _         _        _        _          _  _  _  _  _
+                      _        _        _          _  _  _
 
 overlay right_mods
-  _  _  _  _  _          _  _         _         _        _
-  _  _  _  _  _          _  RSHFT:hm  RCTRL:hm  RALT:hm  RGUI:hm
-  _  _  _  _  _          _  _         _         _        _
-        _  _  _          _  _         _
+  _  _  _  _  _          _  _        _        _         _
+  _  _  _  _  _          _  RGUI:hm  LALT:hm  RCTRL:hm  RSHFT:hm
+  _  _  _  _  _          _  _        _        _         _
+        _  _  _          _  _        _
 
-// Colemak-DH. Each thumb taps a key and holds a layer.
+// Colemak-DH. Z and / hold sys, X holds mouse, C and , hold app (Ctrl), D
+// and H hold os (Super). Bksp, one-shot Shift and one-shot lwr on the left
+// thumbs; one-shot rse, Space and Del (hold: fun) on the right.
 layer base: left_mods, right_mods
-  Q          W          F          P          B          J        L          U          Y          '
-  A          R          S          T          G          M        N          E          I          O
-  Z          X          C          D          V          K        H          ,          .          \/
-                        ESC/media  SPC/nav    TAB/mouse  RET/sym  BSPC/num   DEL/fun
+  Q      W        F      P     B          J        L     U      Y     '
+  A      R        S      T     G          M        N     E      I     O
+  Z/sys  X/mouse  C/app  D/os  V          K        H/os  ,/app  .     \//sys
+                  BSPC   LSHFT/LSHFT  lwr/lwr     rse/rse  SPC   DEL/fun
 
-layer media: left_mods
-  _  _  _  _  _          _     _     _     _     _
-  _  _  _  _  _          _     PREV  VOL-  VOL+  NEXT
-  _  _  _  _  _          _     _     _     _     _
-        _  _  _          STOP  PLAY  MUTE
+// Numbers on the left, navigation on the right. Esc and Enter on the left
+// thumbs. The arrows drop the home row holds so they repeat when held.
+layer rse: left_mods, right_mods
+  _      7      8      9      PGUP       HOME    WORD_L   UP       WORD_R   END
+  _      4      5      6      PGDN       BACK/_  LEFT/_   DOWN/_   RIGHT/_  FWD/_
+  0      1      2      3      _          TAB_L   VOL-     MUTE     VOL+     TAB_R
+                ESC    _      RET        _       _        _
 
-layer nav: left_mods
-  TAB   ESC   RET   DEL   CAPS       PGUP  HOME  UP    END    INS
-  _     _     _     _     _          PGDN  LEFT  DOWN  RIGHT  _
-  PREV  NEXT  VOL-  VOL+  MUTE       PLAY  _     _     _      _
-              TRNS  TRNS  TRNS       TRNS  TRNS  TRNS
+// Symbols.
+layer lwr: left_mods, right_mods
+  ~      ^      @      $      %          &      \/     \\     PIPE   `
+  ESC    <      [      (      {          -      \_     \:     ;      #
+  _      >      ]      )      }          +      =      ?      !      "
+                _      _      _          STAB   TAB    _
 
-layer mouse: left_mods
-  _  _  _  _  _          REDO  PASTE  COPY  CUT   UNDO
-  _  _  _  _  _          _     MS_L   MS_D  MS_U  MS_R
-  _  _  _  _  _          _     WH_L   WH_D  WH_U  WH_R
-        _  _  _          BTN2  BTN1   BTN3
+// Ctrl shortcuts, held from C or ,. Ctrl stays down for the whole hold, so
+// every key here is sent with it, arrows included: N E I U are the same
+// inverted T as rse, with [ and ] on M and O.
+layer app + LCTRL
+  Q      W      F      P      B          J      L      UP     Y      '
+  A      R      S      T      G          [      LEFT   DOWN   RIGHT  ]
+  Z      X      C      D      V          K      H      ,      .      \/
+                BSPC   _      _          _      SPC    _
 
-layer sym: right_mods
-  {   &   *   (   }          _  _  _  _  _
-  \:  $   %   ^   +          _  _  _  _  _
-  ~   !   @   #   PIPE       _  _  _  _  _
-          (   )   \_         _  _  _
+// The same keys with Super held, for niri: focus and workspaces.
+layer os + LGUI
+  Q      W      F      P      B          J      L      UP     Y      '
+  A      R      S      T      G          [      LEFT   DOWN   RIGHT  ]
+  Z      X      C      D      V          K      H      ,      .      \/
+                BSPC   _      _          _      SPC    _
 
-layer num: right_mods
-  [   7  8  9  ]          _  _  _  _  _
-  ;   4  5  6  =          _  _  _  _  _
-  `   1  2  3  \\         _  _  _  _  _
-         .  0  -          _  _  _
-
+// F-keys on the left, held from Del. The right home row is plain mods, so
+// Ctrl+Alt+F1..F12 switches TTY: hold Del, I (Ctrl) and E (Alt), tap an F-key.
 layer fun: right_mods
-  F12  F7  F8   F9   PSCRN       _  _  _  _  _
-  F11  F4  F5   F6   SLCK        _  _  _  _  _
-  F10  F1  F2   F3   PAUSE       _  _  _  _  _
-           APP  SPC  TAB         _  _  _
+  F12    F7     F8     F9     PSCRN      _      PREV   PLAY   NEXT   STOP
+  F11    F4     F5     F6     SLCK       _      _      _      _      _
+  F10    F1     F2     F3     PAUSE      _      _      _      _      _
+                APP    SPC    TAB        _      _      _
 
-// Hold nav, then sym. Both halves get their own bootloader key: it resets the
-// half it is pressed on.
+// Mouse keys and the trackpad buttons, held from X.
+layer mouse: left_mods
+  _      _      _      _      _          REDO   PASTE  COPY   CUT    UNDO
+  _      _      _      _      _          _      MS_L   MS_D   MS_U   MS_R
+  _      _      _      _      _          _      WH_L   WH_D   WH_U   WH_R
+                _      _      _          BTN2   BTN1   BTN3
+
+// Bluetooth, output and bootloader, held from Z or /. Both halves get their
+// own bootloader key: it resets the half it is pressed on.
 layer sys
-  BOOT    _     _     _     _          _        _        _  _  BOOT
-  BT_0    BT_1  BT_2  BT_3  BT_4       OUT_USB  OUT_BLE  _  _  _
-  BT_CLR  BT_PRV BT_NXT _   _          _        _        _  _  BT_CLR_ALL
-                TRNS  TRNS  TRNS       TRNS     TRNS     TRNS
+  BOOT    _       _       _     _          _        _        _  _  BOOT
+  BT_0    BT_1    BT_2    BT_3  BT_4       OUT_USB  OUT_BLE  _  _  _
+  BT_CLR  BT_PRV  BT_NXT  _     _          _        _        _  _  BT_CLR_ALL
+                  _       _     _          _        _        _
 
 // No mods or layer-taps, for games and other people's hands.
 layer extra
@@ -101,6 +122,12 @@ layer extra
   A  R  S    T    G          M    N     E    I  O
   Z  X  C    D    V          K    H     ,    .  \/
         ESC  SPC  TAB        RET  BSPC  DEL
+
+// Esc and Enter as chords. W+F and U+Y are pairs Colemak-DH rarely rolls
+// (U+Y does occur in "buy"). They also fire on app and os, with the modifier.
+combos: base, app, os
+  W F -> ESC
+  U Y -> RET
 
 // F + U switches to extra, P + L comes back.
 combos: base idle=300
