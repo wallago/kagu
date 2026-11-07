@@ -137,7 +137,7 @@ layers:
     - ✦ $$mdi:keyboard-space$$
     - {type: held}
   Mou:
-  - [Ctl Q, Ctl W, '', '', '', '', '', '', '', '']
+  - [Ctl+Alt F2, Ctl+Alt F3, '', '', '', '', '', '', '', '']
   - ['', '', Ctl S, Ctl T, '', '', '', '', '', '']
   - - Ctl Z
     - {type: held}

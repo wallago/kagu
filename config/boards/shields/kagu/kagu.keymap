@@ -221,10 +221,10 @@
 		mou_layer {
 			display-name = "Mou";
 			bindings = <
-   &kp LC(Q) &kp LC(W) &none     &none     &none        &none &none &none &none &none
-   &none     &none     &kp LC(S) &kp LC(T) &none        &none &none &none &none &none
-   &kp LC(Z) &trans    &kp LC(C) &none     &kp LC(V)    &none &none &none &none &none
-                       &trans    &none     &none        &none &none &none
+   &kp LC(LA(F2)) &kp LC(LA(F3)) &none     &none     &none        &none &none &none &none &none
+   &none          &none          &kp LC(S) &kp LC(T) &none        &none &none &none &none &none
+   &kp LC(Z)      &trans         &kp LC(C) &none     &kp LC(V)    &none &none &none &none &none
+                                 &trans    &none     &none        &none &none &none
 			>;
 		};
 	};
