@@ -2,7 +2,7 @@
 # `just keymap`, which parses the generated kagu.keymap and draws
 # keymap/keymap.svg from it.
 parse_config:
-  # Hyper keys draw as ✦ plus the key, so they fit on a keycap.
+  # Modifier combos draw as "Ctl Q", and Hyper as "✦ Q", so they fit on a keycap.
   modifier_fn_map:
     left_ctrl: Ctl
     right_ctrl: Ctl
@@ -12,7 +12,7 @@ parse_config:
     right_alt: AltGr
     left_gui: Gui
     right_gui: Gui
-    keycode_combiner: "{mods}{key}"
+    keycode_combiner: "{mods} {key}"
     mod_combiner: "{mod_1}+{mod_2}"
     special_combinations:
       left_ctrl+left_alt+left_gui+left_shift: "✦"

@@ -94,6 +94,9 @@ class ZmkTest(unittest.TestCase):
         self.assertEqual(self.zmk.key(Key("A", "LGUI", None), 0), "&mt LGUI A")
         self.assertEqual(self.zmk.key(Key("", "LGUI", "hm"), 0), "&kp LGUI")
 
+    def test_ctrl(self) -> None:
+        self.assertEqual(self.zmk.binding("CTL_Q"), "&kp LC(Q)")
+
     def test_hyper(self) -> None:
         self.assertEqual(self.zmk.binding("HYP_["), "&kp LC(LA(LS(LG(LBKT))))")
 

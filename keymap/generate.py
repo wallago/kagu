@@ -374,6 +374,9 @@ def key_code(label: str) -> str | None:
         return f"N{label}"
     if re.fullmatch(r"F([1-9]|1[0-9]|2[0-4])", label):
         return label
+    if label.startswith("CTL_"):
+        code = key_code(label.removeprefix("CTL_"))
+        return f"LC({code})" if code else None
     if label.startswith("HYP_"):
         # Hyper: Ctrl+Alt+Shift+Super, free for window manager bindings.
         code = key_code(label.removeprefix("HYP_"))

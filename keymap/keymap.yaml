@@ -22,7 +22,7 @@ layers:
     - {t: ',', h: Ctrl+app}
     - .
     - {t: /, h: Sys}
-  - - $$mdi:backspace-outline$$
+  - - {t: '$$mdi:backspace-outline$$', h: Mou}
     - {t: '$$mdi:apple-keyboard-shift$$', h: '$$mdi:apple-keyboard-shift$$'}
     - {t: Lwr, h: Lwr}
     - {t: Rse, h: Rse}
@@ -55,9 +55,9 @@ layers:
     - '3'
     - ''
     - {t: '$$mdi:tab-minus$$', s: prev tab}
-    - ✦[
-    - ✦\
-    - ✦]
+    - ✦ [
+    - ✦ \
+    - ✦ ]
     - {t: '$$mdi:tab-plus$$', s: next tab}
   - - $$mdi:keyboard-esc$$
     - ''
@@ -127,15 +127,25 @@ layers:
     - ''
   - ['', '', '', '', '', '']
   Hyp:
-  - [✦Q, ✦W, ✦F, ✦P, ✦B, ✦1, ✦2, ✦3, ✦4, ✦5]
-  - [✦A, ✦R, ✦S, ✦T, ✦G, '', '✦$$mdi:arrow-left$$', '✦$$mdi:arrow-up$$', '✦$$mdi:arrow-right$$', '']
-  - [✦Z, ✦X, ✦C, ✦D, ✦V, '', ✦;, '✦$$mdi:arrow-down$$', ✦', '']
-  - - ✦$$mdi:keyboard-esc$$
+  - [✦ Q, ✦ W, ✦ F, ✦ P, ✦ B, ✦ 1, ✦ 2, ✦ 3, ✦ 4, ✦ 5]
+  - [✦ A, ✦ R, ✦ S, ✦ T, ✦ G, '', '✦ $$mdi:arrow-left$$', '✦ $$mdi:arrow-up$$', '✦ $$mdi:arrow-right$$', '']
+  - [✦ Z, ✦ X, ✦ C, ✦ D, ✦ V, '', ✦ ;, '✦ $$mdi:arrow-down$$', ✦ ', '']
+  - - ✦ $$mdi:keyboard-esc$$
     - ''
-    - ✦$$mdi:keyboard-tab$$
-    - ✦$$mdi:keyboard-return$$
-    - ✦$$mdi:keyboard-space$$
+    - ✦ $$mdi:keyboard-tab$$
+    - ✦ $$mdi:keyboard-return$$
+    - ✦ $$mdi:keyboard-space$$
     - {type: held}
+  Mou:
+  - [Ctl Q, Ctl W, '', '', '', '', '', '', '', '']
+  - ['', '', Ctl S, Ctl T, '', '', '', '', '', '']
+  - [Ctl Z, Ctl X, Ctl C, '', Ctl V, '', '', '', '', '']
+  - - {type: held}
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
 combos:
 - p: [1, 2]
   k: $$mdi:keyboard-esc$$
