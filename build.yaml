@@ -1,6 +1,9 @@
 include:
   - board: xiao_ble//zmk
     shield: kagu_left rgbled_adapter
+    # ZMK Studio runs on the central (left) half only, over USB.
+    snippet: studio-rpc-usb-uart
+    cmake-args: -DCONFIG_ZMK_STUDIO=y
   - board: xiao_ble//zmk
     shield: kagu_right rgbled_adapter
   # Flash to a half to wipe stored BLE pairing, then reflash its normal
