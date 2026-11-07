@@ -1,3 +1,5 @@
+// Generated from keymap.txt by keymap/generate.py. Do not edit.
+
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
@@ -67,13 +69,30 @@
 			hold-trigger-key-positions = <KEYS_L THUMBS>;
 			hold-trigger-on-release;
 		};
+
+		// One-shot keys (`LSHFT/LSHFT`, `sym/sym`): a tap applies the modifier
+		// or layer to the next key press, a hold is momentary.
+		omt: oneshot_mod_tap {
+			compatible = "zmk,behavior-hold-tap";
+			#binding-cells = <2>;
+			flavor = "tap-preferred";
+			tapping-term-ms = <200>;
+			bindings = <&kp>, <&sk>;
+		};
+
+		olt: oneshot_layer_tap {
+			compatible = "zmk,behavior-hold-tap";
+			#binding-cells = <2>;
+			flavor = "tap-preferred";
+			tapping-term-ms = <200>;
+			bindings = <&mo>, <&sl>;
+		};
 	};
 
 	combos {
 		compatible = "zmk,combos";
 
-		// F + U switches to the plain EXTRA layer, P + L comes back.
-		combo_extra {
+		combo_0 {
 			timeout-ms = <50>;
 			key-positions = <2 7>;
 			bindings = <&to EXTRA>;
@@ -81,7 +100,7 @@
 			require-prior-idle-ms = <300>;
 		};
 
-		combo_exit_extra {
+		combo_1 {
 			timeout-ms = <50>;
 			key-positions = <3 6>;
 			bindings = <&to BASE>;
@@ -95,9 +114,9 @@
 		base_layer {
 			display-name = "Base";
 			bindings = <
-   &kp Q       &kp W       &kp F        &kp P        &kp B             &kp J       &kp L        &kp U        &kp Y       &kp SQT
-   &hml LGUI A &hml LALT R &hml LCTRL S &hml LSHFT T &kp G             &kp M       &hmr RSHFT N &hmr RCTRL E &hmr RALT I &hmr RGUI O
-   &kp Z       &kp X       &kp C        &kp D        &kp V             &kp K       &kp H        &kp COMMA    &kp DOT     &kp FSLH
+   &kp Q       &kp W       &kp F         &kp P         &kp B            &kp J       &kp L        &kp U        &kp Y       &kp SQT
+   &hml LGUI A &hml LALT R &hml LCTRL S  &hml LSHFT T  &kp G            &kp M       &hmr RSHFT N &hmr RCTRL E &hmr RALT I &hmr RGUI O
+   &kp Z       &kp X       &kp C         &kp D         &kp V            &kp K       &kp H        &kp COMMA    &kp DOT     &kp FSLH
                            &lt MEDIA ESC &lt NAV SPACE &lt MOUSE TAB    &lt SYM RET &lt NUM BSPC &lt FUN DEL
 			>;
 		};
@@ -105,76 +124,73 @@
 		media_layer {
 			display-name = "Media";
 			bindings = <
-   &none     &none     &none      &none      &none          &none      &none      &none        &none        &none
-   &kp LGUI  &kp LALT  &kp LCTRL  &kp LSHFT  &none          &none      &kp C_PREV &kp C_VOL_DN &kp C_VOL_UP &kp C_NEXT
-   &none     &none     &none      &none      &none          &none      &none      &none        &none        &none
-                       &none      &none      &none          &kp C_STOP &kp C_PP   &kp C_MUTE
+   &none    &none    &none     &none     &none    &none      &none      &none        &none        &none
+   &kp LGUI &kp LALT &kp LCTRL &kp LSHFT &none    &none      &kp C_PREV &kp C_VOL_DN &kp C_VOL_UP &kp C_NEXT
+   &none    &none    &none     &none     &none    &none      &none      &none        &none        &none
+                     &none     &none     &none    &kp C_STOP &kp C_PP   &kp C_MUTE
 			>;
 		};
 
 		nav_layer {
 			display-name = "Nav";
 			bindings = <
-   &kp TAB    &kp ESC    &kp ENTER    &kp DEL      &kp CAPS       &kp PG_UP  &kp HOME   &kp UP     &kp END    &kp INS
-   &kp LGUI   &kp LALT   &kp LCTRL    &kp LSHFT    &none          &kp PG_DN  &kp LEFT   &kp DOWN   &kp RIGHT  &none
-   &kp C_PREV &kp C_NEXT &kp C_VOL_DN &kp C_VOL_UP &kp C_MUTE     &kp C_PP   &none      &none      &none      &none
-                         &trans       &trans       &trans         &trans     &trans     &trans
+   &kp TAB    &kp ESC    &kp RET      &kp DEL      &kp CAPS      &kp PG_UP &kp HOME &kp UP   &kp END   &kp INS
+   &kp LGUI   &kp LALT   &kp LCTRL    &kp LSHFT    &none         &kp PG_DN &kp LEFT &kp DOWN &kp RIGHT &none
+   &kp C_PREV &kp C_NEXT &kp C_VOL_DN &kp C_VOL_UP &kp C_MUTE    &kp C_PP  &none    &none    &none     &none
+                         &trans       &trans       &trans        &trans    &trans   &trans
 			>;
 		};
 
 		mouse_layer {
 			display-name = "Mouse";
 			bindings = <
-   &none     &none     &none      &none      &none          &kp LC(LS(Z)) &kp LC(V)      &kp LC(C)      &kp LC(X)    &kp LC(Z)
-   &kp LGUI  &kp LALT  &kp LCTRL  &kp LSHFT  &none          &none         &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_UP &mmv MOVE_RIGHT
-   &none     &none     &none      &none      &none          &none         &msc SCRL_LEFT &msc SCRL_DOWN &msc SCRL_UP &msc SCRL_RIGHT
-                       &none      &none      &none          &mkp MB2      &mkp MB1       &mkp MB3
+   &none    &none    &none     &none     &none    &kp LC(LS(Z)) &kp LC(V)      &kp LC(C)      &kp LC(X)    &kp LC(Z)
+   &kp LGUI &kp LALT &kp LCTRL &kp LSHFT &none    &none         &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_UP &mmv MOVE_RIGHT
+   &none    &none    &none     &none     &none    &none         &msc SCRL_LEFT &msc SCRL_DOWN &msc SCRL_UP &msc SCRL_RIGHT
+                     &none     &none     &none    &mkp MB2      &mkp MB1       &mkp MB3
 			>;
 		};
 
 		sym_layer {
 			display-name = "Sym";
 			bindings = <
-   &kp LBRC  &kp AMPS &kp STAR  &kp LPAR  &kp RBRC     &none  &none      &none      &none     &none
-   &kp COLON &kp DLLR &kp PRCNT &kp CARET &kp PLUS     &none  &kp RSHFT  &kp RCTRL  &kp RALT  &kp RGUI
-   &kp TILDE &kp EXCL &kp AT    &kp HASH  &kp PIPE     &none  &none      &none      &none     &none
-                      &kp LPAR  &kp RPAR  &kp UNDER    &none  &none      &none
+   &kp LBRC  &kp AMPS &kp STAR  &kp LPAR  &kp RBRC     &none &none     &none     &none    &none
+   &kp COLON &kp DLLR &kp PRCNT &kp CARET &kp PLUS     &none &kp RSHFT &kp RCTRL &kp RALT &kp RGUI
+   &kp TILDE &kp EXCL &kp AT    &kp HASH  &kp PIPE     &none &none     &none     &none    &none
+                      &kp LPAR  &kp RPAR  &kp UNDER    &none &none     &none
 			>;
 		};
 
 		num_layer {
 			display-name = "Num";
 			bindings = <
-   &kp LBKT  &kp N7 &kp N8  &kp N9 &kp RBKT     &none  &none      &none      &none     &none
-   &kp SEMI  &kp N4 &kp N5  &kp N6 &kp EQUAL    &none  &kp RSHFT  &kp RCTRL  &kp RALT  &kp RGUI
-   &kp GRAVE &kp N1 &kp N2  &kp N3 &kp BSLH     &none  &none      &none      &none     &none
-                    &kp DOT &kp N0 &kp MINUS    &none  &none      &none
+   &kp LBKT  &kp N7 &kp N8  &kp N9 &kp RBKT     &none &none     &none     &none    &none
+   &kp SEMI  &kp N4 &kp N5  &kp N6 &kp EQUAL    &none &kp RSHFT &kp RCTRL &kp RALT &kp RGUI
+   &kp GRAVE &kp N1 &kp N2  &kp N3 &kp BSLH     &none &none     &none     &none    &none
+                    &kp DOT &kp N0 &kp MINUS    &none &none     &none
 			>;
 		};
 
 		fun_layer {
 			display-name = "Fun";
 			bindings = <
-   &kp F12   &kp F7 &kp F8    &kp F9  &kp PSCRN       &none  &none      &none      &none     &none
-   &kp F11   &kp F4 &kp F5    &kp F6  &kp SLCK        &none  &kp RSHFT  &kp RCTRL  &kp RALT  &kp RGUI
-   &kp F10   &kp F1 &kp F2    &kp F3  &kp PAUSE_BREAK &none  &none      &none      &none     &none
-                    &kp K_APP &kp SPACE &kp TAB       &none  &none      &none
+   &kp F12 &kp F7 &kp F8    &kp F9    &kp PSCRN          &none &none     &none     &none    &none
+   &kp F11 &kp F4 &kp F5    &kp F6    &kp SLCK           &none &kp RSHFT &kp RCTRL &kp RALT &kp RGUI
+   &kp F10 &kp F1 &kp F2    &kp F3    &kp PAUSE_BREAK    &none &none     &none     &none    &none
+                  &kp K_APP &kp SPACE &kp TAB            &none &none     &none
 			>;
 		};
 
-		// Both halves get their own bootloader key: it resets the half it is
-		// pressed on.
 		sys_layer {
 			display-name = "Sys";
 			bindings = <
-   &bootloader  &none        &none        &none        &none           &none        &none        &none  &none  &bootloader
-   &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4    &out OUT_USB &out OUT_BLE &none  &none  &none
-   &bt BT_CLR   &bt BT_PRV   &bt BT_NXT   &none        &none           &none        &none        &none  &none  &bt BT_CLR_ALL
+   &bootloader  &none        &none        &none        &none           &none        &none        &none  &none &bootloader
+   &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4    &out OUT_USB &out OUT_BLE &none  &none &none
+   &bt BT_CLR   &bt BT_PRV   &bt BT_NXT   &none        &none           &none        &none        &none  &none &bt BT_CLR_ALL
                              &trans       &trans       &trans          &trans       &trans       &trans
 			>;
 		};
 
-		// No mods or layer-taps, for games and other people's hands.
 		extra_layer {
 			display-name = "Extra";
 			bindings = <

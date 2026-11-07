@@ -1,0 +1,110 @@
+// Kagu keymap: the source of truth for config/boards/shields/kagu/kagu.keymap
+// and keymap/keymap.svg. Edit this file, then run `just keymap`.
+// The format comes from denniskempin/dubu36.
+//
+// Every `overlay` and `layer` block is a grid of the 36 keys: three rows of ten
+// keys, then the six thumb keys. Each whitespace separated cell is one key:
+//
+//   LABEL             tap only
+//   TAP/HOLD          taps TAP, holds HOLD (a modifier or a layer)
+//   TAP/HOLD:FLAVOR   ... using an explicit hold-tap flavor
+//   _                 nothing (&none), or "no hold" when used as the hold
+//   TRNS              falls through to the layer below (&trans)
+//
+// FLAVOR picks the hold-tap behavior. A layer hold always uses &lt. A modifier
+// hold uses &mt, or with `hm` the positional home row mods from
+// keymap/template.keymap (&hml on the left half, &hmr on the right).
+//
+// A layer inherits the holds of every overlay listed after its name, unless the
+// cell defines its own hold. Use `LABEL/_` to drop an inherited hold. On a cell
+// with no tap, the inherited hold becomes a plain key press.
+//
+// Labels that clash with the `/`, `:` or `_` syntax are escaped with a
+// backslash: `\/`, `\:`, `\_`, and `\\` for the backslash key itself.
+//
+// A `combos` block is `KEY KEY -> RESULT`. The header names the layers the
+// chords fire on (`combos: base`), and may add `idle=MS` to require that long
+// since the last key press. The two keys are named by what they tap on the
+// first layer listed.
+//
+// The first layer is the default one. Layer names become the BASE, NAV, ...
+// defines the template uses, so keep nav, sym and sys for the tri-layer.
+
+// Home row mods, GACS from the pinky in, mirrored on the right. A mod only
+// fires when the next key is on the other hand or a thumb.
+overlay left_mods
+  _        _        _         _         _          _  _         _         _        _
+  LGUI:hm  LALT:hm  LCTRL:hm  LSHFT:hm  _          _  _         _         _        _
+  _        _        _         _         _          _  _         _         _        _
+                    _         _         _          _  _         _
+
+overlay right_mods
+  _  _  _  _  _          _  _         _         _        _
+  _  _  _  _  _          _  RSHFT:hm  RCTRL:hm  RALT:hm  RGUI:hm
+  _  _  _  _  _          _  _         _         _        _
+        _  _  _          _  _         _
+
+// Colemak-DH. Each thumb taps a key and holds a layer.
+layer base: left_mods, right_mods
+  Q          W          F          P          B          J        L          U          Y          '
+  A          R          S          T          G          M        N          E          I          O
+  Z          X          C          D          V          K        H          ,          .          \/
+                        ESC/media  SPC/nav    TAB/mouse  RET/sym  BSPC/num   DEL/fun
+
+layer media: left_mods
+  _  _  _  _  _          _     _     _     _     _
+  _  _  _  _  _          _     PREV  VOL-  VOL+  NEXT
+  _  _  _  _  _          _     _     _     _     _
+        _  _  _          STOP  PLAY  MUTE
+
+layer nav: left_mods
+  TAB   ESC   RET   DEL   CAPS       PGUP  HOME  UP    END    INS
+  _     _     _     _     _          PGDN  LEFT  DOWN  RIGHT  _
+  PREV  NEXT  VOL-  VOL+  MUTE       PLAY  _     _     _      _
+              TRNS  TRNS  TRNS       TRNS  TRNS  TRNS
+
+layer mouse: left_mods
+  _  _  _  _  _          REDO  PASTE  COPY  CUT   UNDO
+  _  _  _  _  _          _     MS_L   MS_D  MS_U  MS_R
+  _  _  _  _  _          _     WH_L   WH_D  WH_U  WH_R
+        _  _  _          BTN2  BTN1   BTN3
+
+layer sym: right_mods
+  {   &   *   (   }          _  _  _  _  _
+  \:  $   %   ^   +          _  _  _  _  _
+  ~   !   @   #   PIPE       _  _  _  _  _
+          (   )   \_         _  _  _
+
+layer num: right_mods
+  [   7  8  9  ]          _  _  _  _  _
+  ;   4  5  6  =          _  _  _  _  _
+  `   1  2  3  \\         _  _  _  _  _
+         .  0  -          _  _  _
+
+layer fun: right_mods
+  F12  F7  F8   F9   PSCRN       _  _  _  _  _
+  F11  F4  F5   F6   SLCK        _  _  _  _  _
+  F10  F1  F2   F3   PAUSE       _  _  _  _  _
+           APP  SPC  TAB         _  _  _
+
+// Hold nav, then sym. Both halves get their own bootloader key: it resets the
+// half it is pressed on.
+layer sys
+  BOOT    _     _     _     _          _        _        _  _  BOOT
+  BT_0    BT_1  BT_2  BT_3  BT_4       OUT_USB  OUT_BLE  _  _  _
+  BT_CLR  BT_PRV BT_NXT _   _          _        _        _  _  BT_CLR_ALL
+                TRNS  TRNS  TRNS       TRNS     TRNS     TRNS
+
+// No mods or layer-taps, for games and other people's hands.
+layer extra
+  Q  W  F    P    B          J    L     U    Y  '
+  A  R  S    T    G          M    N     E    I  O
+  Z  X  C    D    V          K    H     ,    .  \/
+        ESC  SPC  TAB        RET  BSPC  DEL
+
+// F + U switches to extra, P + L comes back.
+combos: base idle=300
+  F U -> TO_EXTRA
+
+combos: extra
+  P L -> TO_BASE

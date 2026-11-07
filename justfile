@@ -72,6 +72,17 @@ jj-publish VERSION:
     @echo "✅ published v{{ VERSION }}"
 
 
+# Regenerate kagu.keymap and keymap/keymap.svg from keymap.txt
+[group('keymap')]
+keymap:
+    python3 keymap/generate.py
+
+# Test the keymap generator and check its output is up to date
+[group('keymap')]
+keymap-check:
+    python3 -m unittest discover -s keymap
+    python3 keymap/generate.py --check
+
 # Regenerate case geometry from the KiCad PCBs
 [group('case')]
 case-geometry:
