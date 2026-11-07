@@ -72,7 +72,7 @@ jj-publish VERSION:
     @echo "✅ published v{{ VERSION }}"
 
 
-# Regenerate kagu.keymap and keymap/keymap.svg from keymap.txt
+# Regenerate kagu.keymap and the layer diagrams from keymap.txt
 [group('keymap')]
 keymap:
     python3 keymap/generate.py

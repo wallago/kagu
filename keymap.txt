@@ -1,5 +1,5 @@
 // Kagu keymap: the source of truth for config/boards/shields/kagu/kagu.keymap
-// and keymap/keymap.svg. Edit this file, then run `just keymap`.
+// and the diagrams in keymap/diagrams/. Edit this file, then run `just keymap`.
 // The format comes from denniskempin/dubu36.
 //
 // Every `overlay` and `layer` block is a grid of the 36 keys: three rows of ten

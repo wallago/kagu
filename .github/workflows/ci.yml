@@ -111,7 +111,7 @@ jobs:
         uses: actions/checkout@v7
       - name: Test the generator
         run: python3 -m unittest discover -s keymap
-      - name: Check kagu.keymap and keymap.svg are up to date
+      - name: Check kagu.keymap and the diagrams are up to date
         run: python3 keymap/generate.py --check
   typos:
     name: Typos

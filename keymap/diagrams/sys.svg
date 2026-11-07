@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="630" height="218" font-family="sans-serif">
+<rect width="630" height="218" fill="#ffffff"/>
+<rect x="1" y="1" width="56" height="50" rx="5" fill="#f2f2f2" stroke="#c8c8c8"/>
+<text x="29.0" y="28.0" font-size="11" text-anchor="middle" fill="#222222">BOOT</text>
+<rect x="61" y="1" width="56" height="50" rx="5" fill="#fbfbfb" stroke="#c8c8c8"/>
+<text x="89.0" y="28.0" font-size="15" text-anchor="middle" fill="#222222"></text>
+<rect x="121" y="1" width="56" height="50" rx="5" fill="#fbfbfb" stroke="#c8c8c8"/>
+<text x="149.0" y="28.0" font-size="15" text-anchor="middle" fill="#222222"></text>
+<rect x="181" y="1" width="56" height="50" rx="5" fill="#fbfbfb" stroke="#c8c8c8"/>
+<text x="209.0" y="28.0" font-size="15" text-anchor="middle" fill="#222222"></text>
+<rect x="241" y="1" width="56" height="50" rx="5" fill="#fbfbfb" stroke="#c8c8c8"/>
+<text x="269.0" y="28.0" font-size="15" text-anchor="middle" fill="#222222"></text>
+<rect x="329" y="1" width="56" height="50" rx="5" fill="#fbfbfb" stroke="#c8c8c8"/>
+<text x="357.0" y="28.0" font-size="15" text-anchor="middle" fill="#222222"></text>
+<rect x="389" y="1" width="56" height="50" rx="5" fill="#fbfbfb" stroke="#c8c8c8"/>
+<text x="417.0" y="28.0" font-size="15" text-anchor="middle" fill="#222222"></text>
+<rect x="449" y="1" width="56" height="50" rx="5" fill="#fbfbfb" stroke="#c8c8c8"/>
+<text x="477.0" y="28.0" font-size="15" text-anchor="middle" fill="#222222"></text>
+<rect x="509" y="1" width="56" height="50" rx="5" fill="#fbfbfb" stroke="#c8c8c8"/>
+<text x="537.0" y="28.0" font-size="15" text-anchor="middle" fill="#222222"></text>
+<rect x="569" y="1" width="56" height="50" rx="5" fill="#f2f2f2" stroke="#c8c8c8"/>
+<text x="597.0" y="28.0" font-size="11" text-anchor="middle" fill="#222222">BOOT</text>
+<rect x="1" y="55" width="56" height="50" rx="5" fill="#f2f2f2" stroke="#c8c8c8"/>
+<text x="29.0" y="82.0" font-size="11" text-anchor="middle" fill="#222222">BT_0</text>
+<rect x="61" y="55" width="56" height="50" rx="5" fill="#f2f2f2" stroke="#c8c8c8"/>
+<text x="89.0" y="82.0" font-size="11" text-anchor="middle" fill="#222222">BT_1</text>
+<rect x="121" y="55" width="56" height="50" rx="5" fill="#f2f2f2" stroke="#c8c8c8"/>
+<text x="149.0" y="82.0" font-size="11" text-anchor="middle" fill="#222222">BT_2</text>
+<rect x="181" y="55" width="56" height="50" rx="5" fill="#f2f2f2" stroke="#c8c8c8"/>
+<text x="209.0" y="82.0" font-size="11" text-anchor="middle" fill="#222222">BT_3</text>
+<rect x="241" y="55" width="56" height="50" rx="5" fill="#f2f2f2" stroke="#c8c8c8"/>
+<text x="269.0" y="82.0" font-size="11" text-anchor="middle" fill="#222222">BT_4</text>
+<rect x="329" y="55" width="56" height="50" rx="5" fill="#f2f2f2" stroke="#c8c8c8"/>
+<text x="357.0" y="82.0" font-size="8" text-anchor="middle" fill="#222222">OUT_USB</text>
+<rect x="389" y="55" width="56" height="50" rx="5" fill="#f2f2f2" stroke="#c8c8c8"/>
+<text x="417.0" y="82.0" font-size="8" text-anchor="middle" fill="#222222">OUT_BLE</text>
+<rect x="449" y="55" width="56" height="50" rx="5" fill="#fbfbfb" stroke="#c8c8c8"/>
+<text x="477.0" y="82.0" font-size="15" text-anchor="middle" fill="#222222"></text>
+<rect x="509" y="55" width="56" height="50" rx="5" fill="#fbfbfb" stroke="#c8c8c8"/>
+<text x="537.0" y="82.0" font-size="15" text-anchor="middle" fill="#222222"></text>
+<rect x="569" y="55" width="56" height="50" rx="5" fill="#fbfbfb" stroke="#c8c8c8"/>
+<text x="597.0" y="82.0" font-size="15" text-anchor="middle" fill="#222222"></text>
+<rect x="1" y="109" width="56" height="50" rx="5" fill="#f2f2f2" stroke="#c8c8c8"/>
+<text x="29.0" y="136.0" font-size="11" text-anchor="middle" fill="#222222">BT_CLR</text>
+<rect x="61" y="109" width="56" height="50" rx="5" fill="#f2f2f2" stroke="#c8c8c8"/>
+<text x="89.0" y="136.0" font-size="11" text-anchor="middle" fill="#222222">BT_PRV</text>
+<rect x="121" y="109" width="56" height="50" rx="5" fill="#f2f2f2" stroke="#c8c8c8"/>
+<text x="149.0" y="136.0" font-size="11" text-anchor="middle" fill="#222222">BT_NXT</text>
+<rect x="181" y="109" width="56" height="50" rx="5" fill="#fbfbfb" stroke="#c8c8c8"/>
+<text x="209.0" y="136.0" font-size="15" text-anchor="middle" fill="#222222"></text>
+<rect x="241" y="109" width="56" height="50" rx="5" fill="#fbfbfb" stroke="#c8c8c8"/>
+<text x="269.0" y="136.0" font-size="15" text-anchor="middle" fill="#222222"></text>
+<rect x="329" y="109" width="56" height="50" rx="5" fill="#fbfbfb" stroke="#c8c8c8"/>
+<text x="357.0" y="136.0" font-size="15" text-anchor="middle" fill="#222222"></text>
+<rect x="389" y="109" width="56" height="50" rx="5" fill="#fbfbfb" stroke="#c8c8c8"/>
+<text x="417.0" y="136.0" font-size="15" text-anchor="middle" fill="#222222"></text>
+<rect x="449" y="109" width="56" height="50" rx="5" fill="#fbfbfb" stroke="#c8c8c8"/>
+<text x="477.0" y="136.0" font-size="15" text-anchor="middle" fill="#222222"></text>
+<rect x="509" y="109" width="56" height="50" rx="5" fill="#fbfbfb" stroke="#c8c8c8"/>
+<text x="537.0" y="136.0" font-size="15" text-anchor="middle" fill="#222222"></text>
+<rect x="569" y="109" width="56" height="50" rx="5" fill="#f2f2f2" stroke="#c8c8c8"/>
+<text x="597.0" y="136.0" font-size="8" text-anchor="middle" fill="#222222">BT_CLR_ALL</text>
+<rect x="121" y="163" width="56" height="50" rx="5" fill="#fbfbfb" stroke="#c8c8c8"/>
+<text x="149.0" y="190.0" font-size="15" text-anchor="middle" fill="#222222"></text>
+<rect x="181" y="163" width="56" height="50" rx="5" fill="#fbfbfb" stroke="#c8c8c8"/>
+<text x="209.0" y="190.0" font-size="15" text-anchor="middle" fill="#222222"></text>
+<rect x="241" y="163" width="56" height="50" rx="5" fill="#fbfbfb" stroke="#c8c8c8"/>
+<text x="269.0" y="190.0" font-size="15" text-anchor="middle" fill="#222222"></text>
+<rect x="329" y="163" width="56" height="50" rx="5" fill="#fbfbfb" stroke="#c8c8c8"/>
+<text x="357.0" y="190.0" font-size="15" text-anchor="middle" fill="#222222"></text>
+<rect x="389" y="163" width="56" height="50" rx="5" fill="#fbfbfb" stroke="#c8c8c8"/>
+<text x="417.0" y="190.0" font-size="15" text-anchor="middle" fill="#222222"></text>
+<rect x="449" y="163" width="56" height="50" rx="5" fill="#fbfbfb" stroke="#c8c8c8"/>
+<text x="477.0" y="190.0" font-size="15" text-anchor="middle" fill="#222222"></text>
+</svg>
