@@ -153,7 +153,7 @@
 			bindings = <
    &kp Q        &kp W        &kp F         &kp P            &kp B           &kp J        &kp L       &kp U             &kp Y        &kp SQT
    &hml LSHFT A &hml LCTRL R &hml LALT S   &hml LGUI T      &kp G           &kp M        &hmr RGUI N &hmr LALT E       &hmr RCTRL I &hmr RSHFT O
-   &lt SYS Z    &kp X        &lt_app APP C &lt_os OS D      &kp V           &kp K        &lt_os OS H &lt_app APP COMMA &kp DOT      &lt MOU FSLH
+   &lt SYS Z    &lt MOU X    &lt_app APP C &lt_os OS D      &kp V           &kp K        &lt_os OS H &lt_app APP COMMA &kp DOT      &lt SYS FSLH
                              &kp BSPC      &osm LSHFT LSHFT &osl LWR LWR    &osl RSE RSE &kp SPACE   &mo HYP
 			>;
 		};
@@ -223,7 +223,7 @@
 			bindings = <
    &kp LC(Q) &kp LC(W) &none     &none     &none        &none &none &none &none &none
    &none     &none     &kp LC(S) &kp LC(T) &none        &none &none &none &none &none
-   &kp LC(Z) &kp LC(X) &kp LC(C) &none     &kp LC(V)    &none &none &none &none &none
+   &kp LC(Z) &trans    &kp LC(C) &none     &kp LC(V)    &none &none &none &none &none
                        &trans    &none     &none        &none &none &none
 			>;
 		};

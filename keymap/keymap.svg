@@ -319,7 +319,9 @@ path.combo { stroke: #7f7f7f; }
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-22" y="-24" width="44" height="40" class="key"/>
 <text x="0" y="-4" class="key tap">X</text>
-</g>
+<a href="#Mou">
+<text x="0" y="24" class="key hold layer-activator">Mou</text>
+</a></g>
 <g transform="translate(150, 140)" class="key keypos-22">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-22" y="-24" width="44" height="40" class="key"/>
@@ -363,8 +365,8 @@ path.combo { stroke: #7f7f7f; }
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-22" y="-24" width="44" height="40" class="key"/>
 <text x="0" y="-4" class="key tap">/</text>
-<a href="#Mou">
-<text x="0" y="24" class="key hold layer-activator">Mou</text>
+<a href="#Sys">
+<text x="0" y="24" class="key hold layer-activator">Sys</text>
 </a></g>
 <g transform="translate(150, 196)" class="key keypos-30">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key side"/>
@@ -1654,12 +1656,9 @@ path.combo { stroke: #7f7f7f; }
 <tspan x="0" dy="-0.6em">Ctl</tspan><tspan x="0" dy="1.2em">Z</tspan>
 </text>
 </g>
-<g transform="translate(90, 140)" class="key keypos-21">
-<rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key side"/>
-<rect rx="4" ry="4" x="-22" y="-24" width="44" height="40" class="key"/>
-<text x="0" y="-4" class="key tap">
-<tspan x="0" dy="-0.6em">Ctl</tspan><tspan x="0" dy="1.2em">X</tspan>
-</text>
+<g transform="translate(90, 140)" class="key held keypos-21">
+<rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key held side"/>
+<rect rx="4" ry="4" x="-22" y="-24" width="44" height="40" class="key held"/>
 </g>
 <g transform="translate(150, 140)" class="key keypos-22">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key side"/>
@@ -1695,9 +1694,9 @@ path.combo { stroke: #7f7f7f; }
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-22" y="-24" width="44" height="40" class="key"/>
 </g>
-<g transform="translate(600, 140)" class="key held keypos-29">
-<rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key held side"/>
-<rect rx="4" ry="4" x="-22" y="-24" width="44" height="40" class="key held"/>
+<g transform="translate(600, 140)" class="key keypos-29">
+<rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key side"/>
+<rect rx="4" ry="4" x="-22" y="-24" width="44" height="40" class="key"/>
 </g>
 <g transform="translate(150, 196)" class="key trans keypos-30">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key trans side"/>
