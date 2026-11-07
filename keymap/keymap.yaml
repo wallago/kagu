@@ -21,8 +21,8 @@ layers:
     - {t: H, h: Super+os}
     - {t: ',', h: Ctrl+app}
     - .
-    - {t: /, h: Sys}
-  - - {t: '$$mdi:backspace-outline$$', h: Mou}
+    - {t: /, h: Mou}
+  - - $$mdi:backspace-outline$$
     - {t: '$$mdi:apple-keyboard-shift$$', h: '$$mdi:apple-keyboard-shift$$'}
     - {t: Lwr, h: Lwr}
     - {t: Rse, h: Rse}
@@ -139,8 +139,17 @@ layers:
   Mou:
   - [Ctl Q, Ctl W, '', '', '', '', '', '', '', '']
   - ['', '', Ctl S, Ctl T, '', '', '', '', '', '']
-  - [Ctl Z, Ctl X, Ctl C, '', Ctl V, '', '', '', '', '']
-  - - {type: held}
+  - - Ctl Z
+    - Ctl X
+    - Ctl C
+    - ''
+    - Ctl V
+    - ''
+    - ''
+    - ''
+    - ''
+    - {type: held}
+  - - {t: ▽, type: trans}
     - ''
     - ''
     - ''

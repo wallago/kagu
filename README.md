@@ -19,8 +19,8 @@ writing sit on the thumbs, which keeps hold-tap timing out of the way. Some note
 - **rse**: numbers on the left, navigation on the right. **lwr**: symbols.
 - **app** and **os**: held from C and `,` (app) or D and H (os). They keep Ctrl or Super down for
   the whole hold, so every key is sent with that modifier, including the arrows on U N E I.
-- **sys**: Bluetooth profiles, held from Z or `/`.
-- **mou**: held from Bksp. Left-hand Ctrl+Q W S T Z X C V for when the right hand is on the mouse.
+- **sys**: Bluetooth profiles, held from Z.
+- **mou**: held from `/`. Left-hand Ctrl+Q W S T Z X C V for when the right hand is on the mouse.
 - **hyp**: held from the right outer thumb. Every key is sent with Ctrl+Alt+Shift+Super, for niri
   bindings. The HYP_[ HYP_\ HYP_] keys on rse send the same.
 - Combos: W+F types Esc, and U+Y types Enter.
@@ -34,8 +34,8 @@ the six thumbs.
 layer base: left_mods, right_mods
   Q      W        F      P     B          J        L     U      Y     '
   A      R        S      T     G          M        N     E      I     O
-  Z/sys  X        C/app  D/os  V          K        H/os  ,/app  .     \//sys
-                  BSPC/mou  LSHFT/LSHFT  lwr/lwr  rse/rse  SPC   _/hyp
+  Z/sys  X        C/app  D/os  V          K        H/os  ,/app  .     \//mou
+                  BSPC   LSHFT/LSHFT  lwr/lwr     rse/rse  SPC   _/hyp
 ```
 
 ```
