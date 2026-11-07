@@ -64,6 +64,9 @@
                 # case design
                 openscad
                 python3
+
+                # keymap diagrams
+                keymap-drawer
               ]);
           };
 
