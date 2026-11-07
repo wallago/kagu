@@ -1,0 +1,155 @@
+layout: {zmk_keyboard: kagu}
+layers:
+  Base:
+  - [Q, W, F, P, B, J, L, U, Y, '''']
+  - - {t: A, h: '$$mdi:apple-keyboard-shift$$'}
+    - {t: R, h: Ctrl}
+    - {t: S, h: Alt}
+    - {t: T, h: '$$mdi:linux$$'}
+    - G
+    - M
+    - {t: N, h: '$$mdi:linux$$'}
+    - {t: E, h: Alt}
+    - {t: I, h: Ctrl}
+    - {t: O, h: '$$mdi:apple-keyboard-shift$$'}
+  - - {t: Z, h: Sys}
+    - X
+    - {t: C, h: Ctrl+app}
+    - {t: D, h: Super+os}
+    - V
+    - K
+    - {t: H, h: Super+os}
+    - {t: ',', h: Ctrl+app}
+    - .
+    - {t: /, h: Sys}
+  - - {t: '$$mdi:backspace-outline$$', h: Mou}
+    - {t: '$$mdi:apple-keyboard-shift$$', h: '$$mdi:apple-keyboard-shift$$'}
+    - {t: Lwr, h: Lwr}
+    - {t: Rse, h: Rse}
+    - $$mdi:keyboard-space$$
+    - Hyp
+  Rse:
+  - - ''
+    - '7'
+    - '8'
+    - '9'
+    - ''
+    - Home
+    - {t: '$$mdi:arrow-collapse-left$$', s: word}
+    - $$mdi:arrow-up$$
+    - {t: '$$mdi:arrow-collapse-right$$', s: word}
+    - End
+  - - $$mdi:apple-keyboard-shift$$
+    - {t: '4', h: Ctrl}
+    - {t: '5', h: Alt}
+    - {t: '6', h: '$$mdi:linux$$'}
+    - ''
+    - {t: '$$mdi:arrow-u-left-top$$', s: back}
+    - $$mdi:arrow-left$$
+    - $$mdi:arrow-down$$
+    - $$mdi:arrow-right$$
+    - {t: '$$mdi:arrow-u-right-top$$', s: forward}
+  - - '0'
+    - '1'
+    - '2'
+    - '3'
+    - ''
+    - {t: '$$mdi:tab-minus$$', s: prev tab}
+    - ✦ [
+    - ✦ \
+    - ✦ ]
+    - {t: '$$mdi:tab-plus$$', s: next tab}
+  - - $$mdi:keyboard-esc$$
+    - ''
+    - $$mdi:keyboard-return$$
+    - {type: held}
+    - ''
+    - ''
+  Lwr:
+  - ['~', ^, '@', $, '%', '&', /, \, '|', '`']
+  - - {t: '$$mdi:keyboard-esc$$', h: '$$mdi:apple-keyboard-shift$$'}
+    - {t: <, h: Ctrl}
+    - {t: '[', h: Alt}
+    - {t: (, h: '$$mdi:linux$$'}
+    - '{'
+    - '-'
+    - {t: _, h: '$$mdi:linux$$'}
+    - {t: ':', h: Alt}
+    - {t: ;, h: Ctrl}
+    - {t: '#', h: '$$mdi:apple-keyboard-shift$$'}
+  - ['', '>', ']', ), '}', +, '=', '?', '!', '"']
+  - - ''
+    - ''
+    - {type: held}
+    - $$mdi:keyboard-tab-reverse$$
+    - $$mdi:keyboard-tab$$
+    - ''
+  App:
+  - [Q, W, F, P, B, J, ;, '$$mdi:arrow-up$$', '''', '''']
+  - [A, R, S, T, G, '[', '$$mdi:arrow-left$$', '$$mdi:arrow-down$$', '$$mdi:arrow-right$$', ']']
+  - [Z, X, C, D, V, K, H, ',', ., /]
+  - ['$$mdi:backspace-outline$$', '', '', '', '$$mdi:keyboard-space$$', '']
+  Os:
+  - [Q, W, F, P, B, J, ;, '$$mdi:arrow-up$$', '''', '''']
+  - [A, R, S, T, G, '[', '$$mdi:arrow-left$$', '$$mdi:arrow-down$$', '$$mdi:arrow-right$$', ']']
+  - [Z, X, C, D, V, K, H, ',', ., /]
+  - ['$$mdi:backspace-outline$$', '', '', '', '$$mdi:keyboard-space$$', '']
+  Sys:
+  - - {t: '$$mdi:bluetooth$$', s: '0'}
+    - {t: '$$mdi:bluetooth$$', s: '1'}
+    - {t: '$$mdi:bluetooth$$', s: '2'}
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+  - - {t: '$$mdi:bluetooth-off$$', s: clear}
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+  - - {type: held}
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+  - ['', '', '', '', '', '']
+  Hyp:
+  - [✦ Q, ✦ W, ✦ F, ✦ P, ✦ B, ✦ 1, ✦ 2, ✦ 3, ✦ 4, ✦ 5]
+  - [✦ A, ✦ R, ✦ S, ✦ T, ✦ G, '', '✦ $$mdi:arrow-left$$', '✦ $$mdi:arrow-up$$', '✦ $$mdi:arrow-right$$', '']
+  - [✦ Z, ✦ X, ✦ C, ✦ D, ✦ V, '', ✦ ;, '✦ $$mdi:arrow-down$$', ✦ ', '']
+  - - ✦ $$mdi:keyboard-esc$$
+    - ''
+    - ✦ $$mdi:keyboard-tab$$
+    - ✦ $$mdi:keyboard-return$$
+    - ✦ $$mdi:keyboard-space$$
+    - {type: held}
+  Mou:
+  - [Ctl Q, Ctl W, '', '', '', '', '', '', '', '']
+  - ['', '', Ctl S, Ctl T, '', '', '', '', '', '']
+  - [Ctl Z, Ctl X, Ctl C, '', Ctl V, '', '', '', '', '']
+  - - {type: held}
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+combos:
+- p: [1, 2]
+  k: $$mdi:keyboard-esc$$
+  l: [Base, App, Os]
+- p: [7, 8]
+  k: $$mdi:keyboard-return$$
+  l: [Base, App, Os]

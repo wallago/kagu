@@ -1,0 +1,128 @@
+// Kagu keymap: the source of truth for config/boards/shields/kagu/kagu.keymap
+// and, through keymap-drawer, keymap/keymap.svg. Edit this file, then run
+// `just keymap`.
+// The format comes from denniskempin/dubu36.
+//
+// Every `overlay` and `layer` block is a grid of the 36 keys: three rows of ten
+// keys, then the six thumb keys. Each whitespace separated cell is one key:
+//
+//   LABEL             tap only
+//   TAP/HOLD          taps TAP, holds HOLD (a modifier or a layer)
+//   TAP/HOLD:FLAVOR   ... using an explicit hold-tap flavor
+//   _                 nothing (&none), or "no hold" when used as the hold
+//   TRNS              falls through to the layer below (&trans)
+//
+// FLAVOR picks the hold-tap behavior. A layer hold always uses &lt. A modifier
+// hold uses &mt, or with `hm` the positional home row mods from
+// keymap/template.keymap (&hml on the left half, &hmr on the right).
+//
+// A layer inherits the holds of every overlay listed after its name, unless the
+// cell defines its own hold. Use `LABEL/_` to drop an inherited hold. On a cell
+// with no tap, the inherited hold becomes a plain key press.
+//
+// `CTL_X` sends Ctrl+X. `HYP_X` sends X with Ctrl+Alt+Shift+Super held, for
+// niri bindings.
+//
+// Labels that clash with the `/`, `:` or `_` syntax are escaped with a
+// backslash: `\/`, `\:`, `\_`, and `\\` for the backslash key itself.
+//
+// A `combos` block is `KEY KEY -> RESULT`. The header names the layers the
+// chords fire on (`combos: base`), and may add `idle=MS` to require that long
+// since the last key press. The two keys are named by what they tap on the
+// first layer listed.
+//
+// A cell that repeats its label, `LSHFT/LSHFT` or `sym/sym`, is one-shot on
+// tap and momentary on hold. `layer name + MOD` holds MOD for as long as the
+// layer is held from a hold-tap, so every key on it is sent with MOD.
+//
+// The first layer is the default one. Layer names become the BASE, RSE, ...
+// defines in kagu.keymap.
+
+// Layout after dubu36: modifiers used in shortcuts sit on the home row,
+// while shift and the layers used in fluent writing sit on the thumbs, which
+// keeps hold-tap timing out of the way while typing.
+
+// Home row mods, pinky to index: Shift, Ctrl, Alt, Super, mirrored on the
+// right. The right hand holds left Alt, since right Alt is AltGr on Linux. A
+// mod only fires when the next key is on the other hand or a thumb.
+overlay left_mods
+  _         _         _        _        _          _  _  _  _  _
+  LSHFT:hm  LCTRL:hm  LALT:hm  LGUI:hm  _          _  _  _  _  _
+  _         _         _        _        _          _  _  _  _  _
+                      _        _        _          _  _  _
+
+overlay right_mods
+  _  _  _  _  _          _  _        _        _         _
+  _  _  _  _  _          _  RGUI:hm  LALT:hm  RCTRL:hm  RSHFT:hm
+  _  _  _  _  _          _  _        _        _         _
+        _  _  _          _  _        _
+
+// Colemak-DH. Z and / hold sys, C and , hold app (Ctrl), D and H hold os
+// (Super). Bksp (hold: mou), one-shot Shift and one-shot lwr on the left
+// thumbs; one-shot rse, Space and hyp on the right.
+layer base: left_mods, right_mods
+  Q      W        F      P     B          J        L     U      Y     '
+  A      R        S      T     G          M        N     E      I     O
+  Z/sys  X        C/app  D/os  V          K        H/os  ,/app  .     \//sys
+                  BSPC/mou  LSHFT/LSHFT  lwr/lwr  rse/rse  SPC   _/hyp
+
+// Numbers on the left, navigation on the right, with three Hyper keys for
+// niri below the arrows. Esc and Enter on the left thumbs. The arrows drop the home row holds so they repeat when held.
+layer rse: left_mods, right_mods
+  _      7      8      9      _          HOME    WORD_L   UP       WORD_R   END
+  _      4      5      6      _          BACK/_  LEFT/_   DOWN/_   RIGHT/_  FWD/_
+  0      1      2      3      _          TAB_L   HYP_[    HYP_\\   HYP_]    TAB_R
+                ESC    _      RET        _       _        _
+
+// Symbols.
+layer lwr: left_mods, right_mods
+  ~      ^      @      $      %          &      \/     \\     PIPE   `
+  ESC    <      [      (      {          -      \_     \:     ;      #
+  _      >      ]      )      }          +      =      ?      !      "
+                _      _      _          STAB   TAB    _
+
+// Ctrl shortcuts, held from C or ,. Ctrl stays down for the whole hold, so
+// every key here is sent with it, arrows included: N E I U are the same
+// inverted T as rse, with [ and ] on M and O, ; on L and ' on Y.
+layer app + LCTRL
+  Q      W      F      P      B          J      ;      UP     '      '
+  A      R      S      T      G          [      LEFT   DOWN   RIGHT  ]
+  Z      X      C      D      V          K      H      ,      .      \/
+                BSPC   _      _          _      SPC    _
+
+// The same keys with Super held, for niri: focus and workspaces.
+layer os + LGUI
+  Q      W      F      P      B          J      ;      UP     '      '
+  A      R      S      T      G          [      LEFT   DOWN   RIGHT  ]
+  Z      X      C      D      V          K      H      ,      .      \/
+                BSPC   _      _          _      SPC    _
+
+// Bluetooth, held from Z or /.
+layer sys
+  BT_0    BT_1  BT_2  _  _          _  _  _  _  _
+  BT_CLR  _     _     _  _          _  _  _  _  _
+  _       _     _     _  _          _  _  _  _  _
+                _     _  _          _  _  _
+
+// Hyper (Ctrl+Alt+Shift+Super) shortcuts for niri, held from the right
+// outer thumb. Same keys as dubu36's hyp layer: letters on the left, 1-5 on
+// the right, and an inverted T with Up on E.
+layer hyp
+  HYP_Q  HYP_W  HYP_F    HYP_P  HYP_B      HYP_1    HYP_2     HYP_3     HYP_4      HYP_5
+  HYP_A  HYP_R  HYP_S    HYP_T  HYP_G      _        HYP_LEFT  HYP_UP    HYP_RIGHT  _
+  HYP_Z  HYP_X  HYP_C    HYP_D  HYP_V      _        HYP_;     HYP_DOWN  HYP_'      _
+                HYP_ESC  _      HYP_TAB    HYP_RET  HYP_SPC   TRNS
+
+// Left hand only shortcuts, for use with the mouse or trackpad in the right
+// hand. Held from Bksp; same keys as dubu36's mou layer, with Ctrl for Cmd.
+layer mou
+  CTL_Q  CTL_W  _      _      _          _  _  _  _  _
+  _      _      CTL_S  CTL_T  _          _  _  _  _  _
+  CTL_Z  CTL_X  CTL_C  _      CTL_V      _  _  _  _  _
+                TRNS   _      _          _  _  _
+
+// Esc and Enter as chords. W+F and U+Y are pairs Colemak-DH rarely rolls
+// (U+Y does occur in "buy"). They also fire on app and os, with the modifier.
+combos: base, app, os
+  W F -> ESC
+  U Y -> RET
