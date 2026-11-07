@@ -118,7 +118,7 @@ KEY_CODES: dict[str, str] = {
     "RGUI": "RGUI",
 }
 
-MODIFIERS = frozenset(code for code in KEY_CODES if code[1:] in ("SHFT", "CTRL", "ALT", "GUI"))
+MODIFIERS = frozenset(("LSHFT", "LCTRL", "LALT", "LGUI", "RSHFT", "RCTRL", "RALT", "RGUI"))
 
 # Labels that are a ready-made binding rather than a key press.
 SPECIAL: dict[str, str] = {
@@ -405,9 +405,9 @@ class Zmk:
         if key.tap == key.hold:
             # One-shot on tap, momentary on hold.
             if key.hold in self.layer_names:
-                return f"&olt {key.hold} {key.hold}"
+                return f"&osl {key.hold} {key.hold}"
             if key.hold in MODIFIERS:
-                return f"&omt {key.hold} {key.hold}"
+                return f"&osm {key.hold} {key.hold}"
             raise KeyError(f"{key.hold!r} cannot be one-shot")
         tap = key_code(key.tap)
         if tap is None:

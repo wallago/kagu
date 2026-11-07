@@ -61,7 +61,7 @@
 
 		// One-shot keys (`LSHFT/LSHFT`, `sym/sym`): a tap applies the modifier
 		// or layer to the next key press, a hold is momentary.
-		omt: oneshot_mod_tap {
+		osm: oneshot_mod_tap {
 			compatible = "zmk,behavior-hold-tap";
 			#binding-cells = <2>;
 			flavor = "tap-preferred";
@@ -69,7 +69,7 @@
 			bindings = <&kp>, <&sk>;
 		};
 
-		olt: oneshot_layer_tap {
+		osl: oneshot_layer_tap {
 			compatible = "zmk,behavior-hold-tap";
 			#binding-cells = <2>;
 			flavor = "tap-preferred";
@@ -170,7 +170,7 @@
    &kp Q        &kp W        &kp F         &kp P            &kp B           &kp J        &kp L       &kp U             &kp Y        &kp SQT
    &hml LSHFT A &hml LCTRL R &hml LALT S   &hml LGUI T      &kp G           &kp M        &hmr RGUI N &hmr LALT E       &hmr RCTRL I &hmr RSHFT O
    &lt SYS Z    &lt MOUSE X  &lt_app APP C &lt_os OS D      &kp V           &kp K        &lt_os OS H &lt_app APP COMMA &kp DOT      &lt SYS FSLH
-                             &kp BSPC      &omt LSHFT LSHFT &olt LWR LWR    &olt RSE RSE &kp SPACE   &lt FUN DEL
+                             &kp BSPC      &osm LSHFT LSHFT &osl LWR LWR    &osl RSE RSE &kp SPACE   &lt FUN DEL
 			>;
 		};
 

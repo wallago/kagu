@@ -81,10 +81,10 @@ class ZmkTest(unittest.TestCase):
             [
                 "&lt NAV ESC",
                 "&kp SPACE",
-                "&omt LSHFT LSHFT",
+                "&osm LSHFT LSHFT",
                 "&lt_app APP RET",
                 "&kp BSPC",
-                "&olt NAV NAV",
+                "&osl NAV NAV",
             ],
         )
 
