@@ -1,0 +1,149 @@
+# keymap-drawer (https://github.com/caksoylar/keymap-drawer) settings for
+# `just keymap`, which parses the generated kagu.keymap and draws
+# keymap/keymap.svg from it.
+parse_config:
+  # This map replaces keymap-drawer's default one, so its symbols are kept
+  # first, then Kagu's own labels.
+  zmk_keycode_map:
+    EXCLAMATION: '!'
+    EXCL: '!'
+    AT_SIGN: '@'
+    AT: '@'
+    HASH: '#'
+    POUND: '#'
+    DOLLAR: $
+    DLLR: $
+    PERCENT: '%'
+    PRCNT: '%'
+    CARET: ^
+    AMPERSAND: '&'
+    AMPS: '&'
+    ASTERISK: '*'
+    ASTRK: '*'
+    STAR: '*'
+    LEFT_PARENTHESIS: (
+    LPAR: (
+    RIGHT_PARENTHESIS: )
+    RPAR: )
+    EQUAL: '='
+    PLUS: +
+    MINUS: '-'
+    UNDERSCORE: _
+    UNDER: _
+    SLASH: /
+    FSLH: /
+    QUESTION: '?'
+    QMARK: '?'
+    BACKSLASH: \
+    BSLH: \
+    PIPE: '|'
+    NON_US_BACKSLASH: \
+    PIPE2: '|'
+    NON_US_BSLH: '|'
+    SEMICOLON: ;
+    SEMI: ;
+    COLON: ':'
+    SINGLE_QUOTE: ''''
+    SQT: ''''
+    APOSTROPHE: ''''
+    APOS: ''''
+    DOUBLE_QUOTES: '"'
+    DQT: '"'
+    COMMA: ','
+    LESS_THAN: <
+    LT: <
+    PERIOD: .
+    DOT: .
+    GREATER_THAN: '>'
+    GT: '>'
+    LEFT_BRACKET: '['
+    LBKT: '['
+    LEFT_BRACE: '{'
+    LBRC: '{'
+    RIGHT_BRACKET: ']'
+    RBKT: ']'
+    RIGHT_BRACE: '}'
+    RBRC: '}'
+    GRAVE: '`'
+    TILDE: '~'
+    NON_US_HASH: '#'
+    NUHS: '#'
+    TILDE2: '~'
+    LSHFT: "$$mdi:apple-keyboard-shift$$"
+    RSHFT: "$$mdi:apple-keyboard-shift$$"
+    LCTRL: Ctrl
+    RCTRL: Ctrl
+    LALT: Alt
+    RALT: AltGr
+    LGUI: "$$mdi:linux$$"
+    RGUI: "$$mdi:linux$$"
+    SPACE: "$$mdi:keyboard-space$$"
+    BSPC: "$$mdi:backspace-outline$$"
+    DEL: "$$mdi:backspace-reverse-outline$$"
+    RET: "$$mdi:keyboard-return$$"
+    ESC: "$$mdi:keyboard-esc$$"
+    TAB: "$$mdi:keyboard-tab$$"
+    CAPS: "$$mdi:apple-keyboard-caps$$"
+    LEFT: "$$mdi:arrow-left$$"
+    RIGHT: "$$mdi:arrow-right$$"
+    UP: "$$mdi:arrow-up$$"
+    DOWN: "$$mdi:arrow-down$$"
+    HOME: Home
+    END: End
+    PG_UP: PgUp
+    PG_DN: PgDn
+    INS: Ins
+    K_APP: Menu
+    PSCRN: PrtSc
+    SLCK: ScrLk
+    PAUSE_BREAK: Pause
+    C_PREV: "$$mdi:skip-previous$$"
+    C_NEXT: "$$mdi:skip-next$$"
+    C_PP: "$$mdi:play-pause$$"
+    C_STOP: "$$mdi:stop$$"
+    C_MUTE: "$$mdi:volume-off$$"
+    C_VOL_DN: "$$mdi:volume-minus$$"
+    C_VOL_UP: "$$mdi:volume-plus$$"
+  raw_binding_map:
+    # Holds of the `layer name + MOD` layer-taps; the number is the layer.
+    "&mo_app 3": "Ctrl+app"
+    "&mo_os 4": "Super+os"
+    "&kp LS(TAB)": "$$mdi:keyboard-tab-reverse$$"
+    "&kp LC(LEFT)": {t: "$$mdi:arrow-collapse-left$$", s: word}
+    "&kp LC(RIGHT)": {t: "$$mdi:arrow-collapse-right$$", s: word}
+    "&kp LA(LEFT)": {t: "$$mdi:arrow-u-left-top$$", s: back}
+    "&kp LA(RIGHT)": {t: "$$mdi:arrow-u-right-top$$", s: forward}
+    "&kp LC(PG_UP)": {t: "$$mdi:tab-minus$$", s: prev tab}
+    "&kp LC(PG_DN)": {t: "$$mdi:tab-plus$$", s: next tab}
+    "&kp LC(Z)": Undo
+    "&kp LC(LS(Z))": Redo
+    "&kp LC(X)": Cut
+    "&kp LC(C)": Copy
+    "&kp LC(V)": Paste
+    "&mmv MOVE_LEFT": {t: "$$mdi:arrow-left$$", s: mouse}
+    "&mmv MOVE_RIGHT": {t: "$$mdi:arrow-right$$", s: mouse}
+    "&mmv MOVE_UP": {t: "$$mdi:arrow-up$$", s: mouse}
+    "&mmv MOVE_DOWN": {t: "$$mdi:arrow-down$$", s: mouse}
+    "&msc SCRL_LEFT": {t: "$$mdi:arrow-left-bold-outline$$", s: scroll}
+    "&msc SCRL_RIGHT": {t: "$$mdi:arrow-right-bold-outline$$", s: scroll}
+    "&msc SCRL_UP": {t: "$$mdi:arrow-up-bold-outline$$", s: scroll}
+    "&msc SCRL_DOWN": {t: "$$mdi:arrow-down-bold-outline$$", s: scroll}
+    "&mkp MB1": "$$mdi:mouse-left-click$$"
+    "&mkp MB2": "$$mdi:mouse-right-click$$"
+    "&mkp MB3": "$$mdi:mouse-scroll-wheel$$"
+    "&bootloader": Boot
+    "&out OUT_USB": "$$mdi:usb$$"
+    "&out OUT_BLE": "$$mdi:bluetooth$$"
+    "&bt BT_CLR": {t: "$$mdi:bluetooth-off$$", s: clear}
+    "&bt BT_CLR_ALL": {t: "$$mdi:bluetooth-off$$", s: clear all}
+    "&bt BT_PRV": {t: "$$mdi:bluetooth$$", s: prev}
+    "&bt BT_NXT": {t: "$$mdi:bluetooth$$", s: next}
+    "&bt BT_SEL 0": {t: "$$mdi:bluetooth$$", s: "0"}
+    "&bt BT_SEL 1": {t: "$$mdi:bluetooth$$", s: "1"}
+    "&bt BT_SEL 2": {t: "$$mdi:bluetooth$$", s: "2"}
+    "&bt BT_SEL 3": {t: "$$mdi:bluetooth$$", s: "3"}
+    "&bt BT_SEL 4": {t: "$$mdi:bluetooth$$", s: "4"}
+draw_config:
+  dark_mode: auto
+  draw_key_sides: true
+  footer_text: "Generated from keymap.txt with keymap-drawer"

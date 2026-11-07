@@ -3,61 +3,26 @@
 A wireless 36-key split keyboard (3x5+3) on the Seeed XIAO nRF52840, running ZMK.
 
 - `keymap.txt`: the keymap, the only file to edit for layout changes
-- `keymap/`: the generator that turns it into ZMK and the diagrams below
+- `keymap/`: the generator that turns it into ZMK, and the diagram
 - `config/`: ZMK shields and the generated `kagu.keymap`
 - `pcb/`: KiCad projects for both halves
 - `case/`: OpenSCAD trays, top plates and Choc v2 keycap risers
 
 ## Layout
 
+![Kagu keymap](keymap/keymap.svg)
+
 Colemak-DH, after [dubu36](https://github.com/denniskempin/dubu36). Shortcut modifiers sit on the
 home row (pinky to index: Shift, Ctrl, Alt, Super, mirrored). Shift and the layers you use while
-writing sit on the thumbs, which keeps hold-tap timing out of the way. Blue labels are layers held
-from that key, orange ones are modifiers.
+writing sit on the thumbs, which keeps hold-tap timing out of the way. Some notes on the layers:
 
-### base
-
-![base layer](keymap/diagrams/base.svg)
-
-W+F types Esc and U+Y types Enter. F+U switches to `extra`, and P+L comes back.
-
-### rse (numbers and navigation)
-
-![rse layer](keymap/diagrams/rse.svg)
-
-### lwr (symbols)
-
-![lwr layer](keymap/diagrams/lwr.svg)
-
-### app (Ctrl held) and os (Super held)
-
-Held from C and `,` (app) or D and H (os). The modifier stays down for the whole hold, so every
-key is sent with it, including the arrows on U N E I. The os layer is the same grid with Super
-held, for niri.
-
-![app layer](keymap/diagrams/app.svg)
-
-### fun (F-keys and media)
-
-Held from Del. For Ctrl+Alt+F1 (TTY switching), hold Del, I and E, then tap the F-key.
-
-![fun layer](keymap/diagrams/fun.svg)
-
-### mouse
-
-![mouse layer](keymap/diagrams/mouse.svg)
-
-### sys (Bluetooth, output, bootloader)
-
-Held from Z or `/`. Each half's bootloader key resets that half.
-
-![sys layer](keymap/diagrams/sys.svg)
-
-### extra
-
-Has no mods or layer-taps, for games and other people's hands.
-
-![extra layer](keymap/diagrams/extra.svg)
+- **rse**: numbers on the left, navigation on the right. **lwr**: symbols.
+- **app** and **os**: held from C and `,` (app) or D and H (os). They keep Ctrl or Super down for
+  the whole hold, so every key is sent with that modifier, including the arrows on U N E I.
+- **fun**: held from Del. For Ctrl+Alt+F1 (TTY switching), hold Del, I and E, then tap the F-key.
+- **sys**: held from Z or `/`. Each half's bootloader key resets that half.
+- **extra**: no mods or layer-taps, for games. F+U switches to it and P+L comes back.
+- Combos: W+F types Esc, and U+Y types Enter.
 
 ## Editing the keymap
 
@@ -83,7 +48,9 @@ Holds shared by several layers are written once as an `overlay` and listed after
 `layer app + LCTRL` holds Ctrl for as long as the layer is held. Combos are written
 `W F -> ESC`. The header of `keymap.txt` covers the details.
 
-After editing, run `just keymap`. CI fails if `kagu.keymap` or the diagrams are out of date.
+After editing, run `just keymap` in the Nix dev shell. It regenerates `kagu.keymap` and redraws
+the diagram with [keymap-drawer](https://github.com/caksoylar/keymap-drawer). CI fails if
+`kagu.keymap` is out of date.
 
 ## Keycaps
 

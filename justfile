@@ -72,10 +72,15 @@ jj-publish VERSION:
     @echo "✅ published v{{ VERSION }}"
 
 
-# Regenerate kagu.keymap and the layer diagrams from keymap.txt
+# Regenerate kagu.keymap from keymap.txt, then draw keymap/keymap.svg with
+# keymap-drawer (fetches its Material Design icons on first use)
 [group('keymap')]
 keymap:
     python3 keymap/generate.py
+    keymap -c keymap/keymap-drawer.yaml parse -c 10 \
+        -z config/boards/shields/kagu/kagu.keymap -o keymap/keymap.yaml
+    keymap -c keymap/keymap-drawer.yaml draw keymap/keymap.yaml \
+        -n "33333+3 3+33333" -o keymap/keymap.svg
 
 # Test the keymap generator and check its output is up to date
 [group('keymap')]

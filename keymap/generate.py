@@ -1,16 +1,16 @@
-"""Render keymap.txt into the ZMK keymap and one SVG diagram per layer.
+"""Render keymap.txt into the ZMK keymap.
 
 Adapted from the keymap generator in denniskempin/dubu36 (MIT, (c) 2021
-Dennis Kempin), trimmed to ZMK and to Kagu's 36-key matrix.
+Dennis Kempin), trimmed to ZMK and to Kagu's 36-key matrix. The diagrams are
+drawn from the generated keymap by keymap-drawer, see `just keymap`.
 
-    python3 keymap/generate.py           write kagu.keymap and keymap/diagrams/
-    python3 keymap/generate.py --check   fail if either is out of date
+    python3 keymap/generate.py           write kagu.keymap
+    python3 keymap/generate.py --check   fail if it is out of date
 """
 
 from __future__ import annotations
 
 import argparse
-import html
 import re
 import sys
 from collections.abc import Iterable, Sequence
@@ -21,7 +21,6 @@ ROOT = Path(__file__).resolve().parent.parent
 KEYMAP_TXT = ROOT / "keymap.txt"
 TEMPLATE = ROOT / "keymap" / "template.keymap"
 ZMK_OUT = ROOT / "config" / "boards" / "shields" / "kagu" / "kagu.keymap"
-DIAGRAMS = ROOT / "keymap" / "diagrams"
 
 # Keys in each row of the grid: three rows of ten, then the thumbs.
 ROW_SIZES = (10, 10, 10, 6)
@@ -539,56 +538,6 @@ def generate_zmk(layers: list[Layer], combos: list[Combo], template: str) -> str
     return "// Generated from keymap.txt by keymap/generate.py. Do not edit.\n\n" + text
 
 
-# ── SVG ──────────────────────────────────────────────────────────────────────
-
-KW, KH, GAP, SPLIT, TITLE = 56, 50, 4, 28, 30
-
-
-def display(label: str) -> str:
-    return {"SPC": "Space", "BSPC": "Bksp", "PIPE": "|", "TRNS": "▽"}.get(label, label)
-
-
-def render_svg(layer: Layer, layer_names: set[str]) -> str:
-    """One layer as a board of 36 keys: tap label, hold label below it."""
-    width = 10 * (KW + GAP) + SPLIT + 2
-    height = 4 * (KH + GAP) + 2
-    out = [
-        f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" '
-        'font-family="sans-serif">',
-        f'<rect width="{width}" height="{height}" fill="#ffffff"/>',
-    ]
-    for y, row in enumerate(layer.rows):
-        for x, key in enumerate(row):
-            col = x if y < 3 else x + 2
-            # One pixel of margin so the outer strokes are not clipped.
-            kx = 1 + col * (KW + GAP) + (SPLIT if col >= HALF else 0)
-            ky = 1 + y * (KH + GAP)
-            fill = "#f2f2f2" if key.tap or key.hold else "#fbfbfb"
-            out.append(
-                f'<rect x="{kx}" y="{ky}" width="{KW}" height="{KH}" rx="5" '
-                f'fill="{fill}" stroke="#c8c8c8"/>'
-            )
-            tap = display(key.tap) or (display(key.hold) if not key.tap else "")
-            size = 15 if len(tap) <= 3 else 11 if len(tap) <= 6 else 8
-            out.append(
-                f'<text x="{kx + KW / 2}" y="{ky + KH / 2 + 2}" font-size="{size}" '
-                f'text-anchor="middle" fill="#222222">{html.escape(tap)}</text>'
-            )
-            if not (key.tap and key.hold):
-                continue
-            if key.tap == key.hold:
-                hold, color = "one-shot", "#2a6fdb"
-            else:
-                hold = key.hold.lower()
-                color = "#2a6fdb" if hold in layer_names else "#b4531a"
-            out.append(
-                f'<text x="{kx + KW / 2}" y="{ky + KH - 6}" font-size="9" '
-                f'text-anchor="middle" fill="{color}">{html.escape(hold)}</text>'
-            )
-    out.append("</svg>")
-    return "\n".join(out) + "\n"
-
-
 # ── Entry point ──────────────────────────────────────────────────────────────
 
 
@@ -596,10 +545,6 @@ def outputs() -> dict[Path, str]:
     layers, combos = parse_keymap(KEYMAP_TXT.read_text(encoding="utf-8"))
     return {
         ZMK_OUT: generate_zmk(layers, combos, TEMPLATE.read_text(encoding="utf-8")),
-        **{
-            DIAGRAMS / f"{layer.name}.svg": render_svg(layer, {layer.name for layer in layers})
-            for layer in layers
-        },
     }
 
 
@@ -620,7 +565,6 @@ def main(argv: list[str] | None = None) -> int:
         if args.check:
             stale.append(path.relative_to(ROOT))
         else:
-            path.parent.mkdir(exist_ok=True)
             path.write_text(text, encoding="utf-8")
             print(f"wrote {path.relative_to(ROOT)}")
     if stale:
