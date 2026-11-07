@@ -1,0 +1,5 @@
+if(CONFIG_ZMK_DISPLAY_STATUS_SCREEN_CUSTOM)
+  zephyr_library()
+  zephyr_library_include_directories(${APPLICATION_SOURCE_DIR}/include)
+  zephyr_library_sources(src/status_screen.c)
+endif()

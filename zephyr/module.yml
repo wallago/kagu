@@ -1,0 +1,4 @@
+# Makes this repo a Zephyr module, so ZMK's build-user-config workflow
+# builds the custom status screen in src/ alongside the shield.
+build:
+  cmake: .
