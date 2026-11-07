@@ -115,9 +115,14 @@ KEY_CODES: dict[str, str] = {
     "RCTRL": "RCTRL",
     "RALT": "RALT",
     "RGUI": "RGUI",
+    # Session switching
+    "CA_F2": "LC(LA(F2))",
+    "CA_F3": "LC(LA(F3))",
 }
 
-MODIFIERS = frozenset(("LSHFT", "LCTRL", "LALT", "LGUI", "RSHFT", "RCTRL", "RALT", "RGUI"))
+MODIFIERS = frozenset(
+    ("LSHFT", "LCTRL", "LALT", "LGUI", "RSHFT", "RCTRL", "RALT", "RGUI")
+)
 
 # Labels that are a ready-made binding rather than a key press.
 SPECIAL: dict[str, str] = {
@@ -236,7 +241,9 @@ class Parser:
                 self.end_block()
                 self.start_block(keyword, line[len(keyword) :].strip(" :"))
             elif self.block is None:
-                raise self.error(f"expected an overlay, layer or combos block, got {line!r}")
+                raise self.error(
+                    f"expected an overlay, layer or combos block, got {line!r}"
+                )
             elif self.block[0] == "combos":
                 self.combos.append(self.parse_combo(line.split()))
             else:
@@ -336,7 +343,9 @@ class Parser:
         parts = split_unescaped(field, ":")
         flavor = parts[1] if len(parts) > 1 else None
         if flavor is not None and flavor not in FLAVORS:
-            raise self.error(f"unknown flavor {flavor!r}, expected one of {', '.join(FLAVORS)}")
+            raise self.error(
+                f"unknown flavor {flavor!r}, expected one of {', '.join(FLAVORS)}"
+            )
         return parse_label(parts[0]), flavor
 
     def parse_combo(self, cells: Sequence[str]) -> Combo:
@@ -458,7 +467,9 @@ class Zmk:
         nodes = []
         for i, combo in enumerate(combos):
             first = by_name[combo.layers[0]]
-            positions = " ".join(str(find_position(first, label)) for label in (combo.a, combo.b))
+            positions = " ".join(
+                str(find_position(first, label)) for label in (combo.a, combo.b)
+            )
             props = [
                 "timeout-ms = <50>;",
                 f"key-positions = <{positions}>;",
@@ -471,7 +482,11 @@ class Zmk:
             nodes.append(f"\t\tcombo_{i} {{\n{inner}\t\t}};")
         if not nodes:
             return ""
-        return '\tcombos {\n\t\tcompatible = "zmk,combos";\n\n' + "\n\n".join(nodes) + "\n\t};"
+        return (
+            '\tcombos {\n\t\tcompatible = "zmk,combos";\n\n'
+            + "\n\n".join(nodes)
+            + "\n\t};"
+        )
 
 
 def layer_mod_behaviors(layers: list[Layer]) -> str:
@@ -522,7 +537,9 @@ def find_position(layer: Layer, label: str) -> int:
         if key.tap == label
     ]
     if len(found) != 1:
-        raise KeyError(f"{len(found)} keys on layer {layer.name} tap {label!r}, expected 1")
+        raise KeyError(
+            f"{len(found)} keys on layer {layer.name} tap {label!r}, expected 1"
+        )
     return found[0]
 
 
@@ -533,7 +550,9 @@ def indent_block(text: str) -> str:
 
 def generate_zmk(layers: list[Layer], combos: list[Combo], template: str) -> str:
     zmk = Zmk(layers)
-    defines = "\n".join(f"#define {layer.name.upper():<5} {i}" for i, layer in enumerate(layers))
+    defines = "\n".join(
+        f"#define {layer.name.upper():<5} {i}" for i, layer in enumerate(layers)
+    )
     text = (
         template.replace("#LAYER_DEFINES#", defines)
         .replace("#LAYER_MOD_BEHAVIORS#\n", indent_block(layer_mod_behaviors(layers)))
@@ -557,7 +576,9 @@ def outputs() -> dict[Path, str]:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("--check", action="store_true", help="fail if outputs are stale")
+    parser.add_argument(
+        "--check", action="store_true", help="fail if outputs are stale"
+    )
     args = parser.parse_args(argv)
     try:
         files = outputs()
