@@ -374,6 +374,10 @@ def key_code(label: str) -> str | None:
         return f"N{label}"
     if re.fullmatch(r"F([1-9]|1[0-9]|2[0-4])", label):
         return label
+    if label.startswith("HYP_"):
+        # Hyper: Ctrl+Alt+Shift+Super, free for window manager bindings.
+        code = key_code(label.removeprefix("HYP_"))
+        return f"LC(LA(LS(LG({code}))))" if code else None
     return KEY_CODES.get(label)
 
 

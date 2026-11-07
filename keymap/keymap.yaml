@@ -55,9 +55,9 @@ layers:
     - '3'
     - ''
     - {t: '$$mdi:tab-minus$$', s: prev tab}
-    - ''
-    - ''
-    - ''
+    - {t: '[', s: hyper}
+    - {t: \, s: hyper}
+    - {t: ']', s: hyper}
     - {t: '$$mdi:tab-plus$$', s: next tab}
   - - $$mdi:keyboard-esc$$
     - ''

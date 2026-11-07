@@ -20,6 +20,8 @@
 // cell defines its own hold. Use `LABEL/_` to drop an inherited hold. On a cell
 // with no tap, the inherited hold becomes a plain key press.
 //
+// `HYP_X` sends X with Ctrl+Alt+Shift+Super held, for niri bindings.
+//
 // Labels that clash with the `/`, `:` or `_` syntax are escaped with a
 // backslash: `\/`, `\:`, `\_`, and `\\` for the backslash key itself.
 //
@@ -63,12 +65,12 @@ layer base: left_mods, right_mods
   Z/sys  X        C/app  D/os  V          K        H/os  ,/app  .     \//sys
                   BSPC   LSHFT/LSHFT  lwr/lwr     rse/rse  SPC   _
 
-// Numbers on the left, navigation on the right. Esc and Enter on the left
-// thumbs. The arrows drop the home row holds so they repeat when held.
+// Numbers on the left, navigation on the right, with three Hyper keys for
+// niri below the arrows. Esc and Enter on the left thumbs. The arrows drop the home row holds so they repeat when held.
 layer rse: left_mods, right_mods
   _      7      8      9      _          HOME    WORD_L   UP       WORD_R   END
   _      4      5      6      _          BACK/_  LEFT/_   DOWN/_   RIGHT/_  FWD/_
-  0      1      2      3      _          TAB_L   _        _        _        TAB_R
+  0      1      2      3      _          TAB_L   HYP_[    HYP_\\   HYP_]    TAB_R
                 ESC    _      RET        _       _        _
 
 // Symbols.

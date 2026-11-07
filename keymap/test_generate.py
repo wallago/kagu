@@ -94,6 +94,9 @@ class ZmkTest(unittest.TestCase):
         self.assertEqual(self.zmk.key(Key("A", "LGUI", None), 0), "&mt LGUI A")
         self.assertEqual(self.zmk.key(Key("", "LGUI", "hm"), 0), "&kp LGUI")
 
+    def test_hyper(self) -> None:
+        self.assertEqual(self.zmk.binding("HYP_["), "&kp LC(LA(LS(LG(LBKT))))")
+
     def test_blank_and_transparent(self) -> None:
         self.assertEqual(self.zmk.binding(""), "&none")
         self.assertEqual(self.zmk.binding("TRNS"), "&trans")
