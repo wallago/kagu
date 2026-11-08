@@ -117,8 +117,8 @@ layer hyp
 // hand. Held from X; same keys as dubu36's mou layer, with Ctrl for Cmd,
 // minus Ctrl+X, which sits under the held key.
 layer mou
-  CA_F2  CA_F3  _      _      _          _  _  _  _  _
-  _      _      CTL_S  CTL_T  _          _  _  _  _  _
+  CA_F2  _      _      _      _          _  _  _  _  _
+  CA_F3  _      CTL_S  CTL_T  _          _  _  _  _  _
   CTL_Z  TRNS   CTL_C  _      CTL_V      _  _  _  _  _
                 TRNS   _      _          _  _  _
 
