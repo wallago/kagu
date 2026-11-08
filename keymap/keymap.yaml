@@ -109,7 +109,7 @@ layers:
     - ''
     - ''
     - ''
-    - ''
+    - {t: Game, h: toggle}
     - ''
     - ''
     - ''
@@ -155,6 +155,80 @@ layers:
     - ''
     - ''
     - ''
+  Game:
+  - - '1'
+    - '2'
+    - '3'
+    - '4'
+    - '5'
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - '6'
+    - '7'
+    - '8'
+    - '9'
+    - '0'
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - $$mdi:apple-keyboard-shift$$
+    - Ctrl
+    - Alt
+    - $$mdi:keyboard-tab$$
+    - $$mdi:keyboard-return$$
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - $$mdi:keyboard-esc$$
+    - $$mdi:keyboard-space$$
+    - Menu
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  Menu:
+  - - {t: Base, h: toggle}
+    - M
+    - G
+    - F
+    - J
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - I
+    - C
+    - S
+    - Q
+    - H
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+  - - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {type: held}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
 combos:
 - p: [1, 2]
   k: $$mdi:keyboard-esc$$
