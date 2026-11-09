@@ -97,10 +97,10 @@ layer os + LGUI
   Z      X      C      D      V          K      H      ,      .      \/
                 BSPC   _      _          _      SPC    _
 
-// Bluetooth, held from Z or /.
+// Bluetooth, held from Z or /, and G switches to the game layer.
 layer sys
   BT_0    BT_1  BT_2  _  _          _  _  _  _  _
-  BT_CLR  _     _     _  _          _  _  _  _  _
+  BT_CLR  _     _     _  TO_GAME    _  _  _  _  _
   _       _     _     _  _          _  _  _  _  _
                 _     _  _          _  _  _
 
@@ -117,10 +117,30 @@ layer hyp
 // hand. Held from X; same keys as dubu36's mou layer, with Ctrl for Cmd,
 // minus Ctrl+X, which sits under the held key.
 layer mou
-  CA_F2  CA_F3  _      _      _          _  _  _  _  _
-  _      _      CTL_S  CTL_T  _          _  _  _  _  _
+  CA_F2  _      _      _      _          _  _  _  _  _
+  CA_F3  _      CTL_S  CTL_T  _          _  _  _  _  _
   CTL_Z  TRNS   CTL_C  _      CTL_V      _  _  _  _  _
                 TRNS   _      _          _  _  _
+
+// One-handed gaming (Dofus) with the right hand on the mouse, entered from
+// sys (hold Z, tap G). Every left key is a plain press, no hold-tap, so
+// nothing waits on a timer: spells 1-5 on top and 6-0 on the home row, plain
+// Shift, Ctrl and Alt under them, Space ends the turn. The right half falls
+// through to base. Hold the inner thumb for menu.
+layer game
+  1      2      3      4      5          TRNS  TRNS  TRNS  TRNS  TRNS
+  6      7      8      9      0          TRNS  TRNS  TRNS  TRNS  TRNS
+  LSHFT  LCTRL  LALT   TAB    RET        TRNS  TRNS  TRNS  TRNS  TRNS
+                ESC    SPC    MENU       TRNS  TRNS  TRNS
+
+// Dofus window shortcuts, held from the game layer's inner thumb: Inventory,
+// Characteristics, Spells, Quests, Havre-sac on the home row, Map, Guild,
+// Friends, Jobs above. The top left key leaves the game layer.
+layer menu
+  TO_BASE  M     G     F     J          TRNS  TRNS  TRNS  TRNS  TRNS
+  I        C     S     Q     H          TRNS  TRNS  TRNS  TRNS  TRNS
+  TRNS     TRNS  TRNS  TRNS  TRNS       TRNS  TRNS  TRNS  TRNS  TRNS
+                 TRNS  TRNS  TRNS       TRNS  TRNS  TRNS
 
 // Esc and Enter as chords. W+F and U+Y are pairs Colemak-DH rarely rolls
 // (U+Y does occur in "buy"). They also fire on app and os, with the modifier.
