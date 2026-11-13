@@ -150,6 +150,9 @@ SPECIAL: dict[str, str] = {
 
 FLAVORS = ("hm",)
 
+# `TAP|SHIFTED` taps TAP, or SHIFTED (without Shift) while Shift is held.
+SHIFT_MORPH = "|"
+
 # ── Parsing ──────────────────────────────────────────────────────────────────
 
 
@@ -410,6 +413,8 @@ class Zmk:
             return f"&mo {label}"
         if label.startswith("TO_") and label[3:] in self.layer_names:
             return f"&to {label[3:]}"
+        if shift_morph(label):
+            return f"&{morph_name(label)}"
         raise KeyError(f"cannot map label {label!r} to ZMK")
 
     def key(self, key: Key, column: int) -> str:
@@ -528,6 +533,43 @@ def layer_mod_behaviors(layers: list[Layer]) -> str:
     return "\n\n".join(nodes)
 
 
+def shift_morph(label: str) -> tuple[str, str] | None:
+    """The key codes of a `TAP|SHIFTED` label, or None if it is not one."""
+    parts = label.split(SHIFT_MORPH)
+    if len(parts) != 2:
+        return None
+    codes = [key_code(part) for part in parts]
+    if None in codes:
+        raise KeyError(f"{label!r}: both sides of {SHIFT_MORPH!r} must be key presses")
+    return codes[0], codes[1]
+
+
+def morph_name(label: str) -> str:
+    return "sm_" + re.sub(r"\W", "_", label).lower()
+
+
+def shift_morph_behaviors(layers: list[Layer]) -> str:
+    """A mod-morph per `TAP|SHIFTED` label, in the order they first appear."""
+    labels = dict.fromkeys(
+        key.tap for layer in layers for row in layer.rows for key in row
+    )
+    nodes = []
+    for label in labels:
+        codes = shift_morph(label)
+        if not codes:
+            continue
+        name = morph_name(label)
+        nodes.append(
+            f"\t\t{name}: shift_morph_{name[3:]} {{\n"
+            '\t\t\tcompatible = "zmk,behavior-mod-morph";\n'
+            "\t\t\t#binding-cells = <0>;\n"
+            f"\t\t\tbindings = <&kp {codes[0]}>, <&kp {codes[1]}>;\n"
+            "\t\t\tmods = <(MOD_LSFT|MOD_RSFT)>;\n"
+            "\t\t};"
+        )
+    return "\n\n".join(nodes)
+
+
 def find_position(layer: Layer, label: str) -> int:
     """ZMK key position of the only key on `layer` that taps `label`."""
     found = [
@@ -550,12 +592,17 @@ def indent_block(text: str) -> str:
 
 def generate_zmk(layers: list[Layer], combos: list[Combo], template: str) -> str:
     zmk = Zmk(layers)
+    behaviors = "\n\n".join(
+        text
+        for text in (layer_mod_behaviors(layers), shift_morph_behaviors(layers))
+        if text
+    )
     defines = "\n".join(
         f"#define {layer.name.upper():<5} {i}" for i, layer in enumerate(layers)
     )
     text = (
         template.replace("#LAYER_DEFINES#", defines)
-        .replace("#LAYER_MOD_BEHAVIORS#\n", indent_block(layer_mod_behaviors(layers)))
+        .replace("#LAYER_MOD_BEHAVIORS#\n", indent_block(behaviors))
         .replace("#COMBOS#", zmk.combos(layers, combos))
         .replace("#LAYERS#", "\n\n".join(zmk.layer(layer) for layer in layers))
     )
