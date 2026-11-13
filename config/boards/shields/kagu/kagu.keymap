@@ -127,6 +127,76 @@
 				, <&macro_release &mo MACRO_PLACEHOLDER>
 				;
 		};
+
+		sm_1_6: shift_morph_1_6 {
+			compatible = "zmk,behavior-mod-morph";
+			#binding-cells = <0>;
+			bindings = <&kp N1>, <&kp N6>;
+			mods = <(MOD_LSFT|MOD_RSFT)>;
+		};
+
+		sm_2_7: shift_morph_2_7 {
+			compatible = "zmk,behavior-mod-morph";
+			#binding-cells = <0>;
+			bindings = <&kp N2>, <&kp N7>;
+			mods = <(MOD_LSFT|MOD_RSFT)>;
+		};
+
+		sm_3_8: shift_morph_3_8 {
+			compatible = "zmk,behavior-mod-morph";
+			#binding-cells = <0>;
+			bindings = <&kp N3>, <&kp N8>;
+			mods = <(MOD_LSFT|MOD_RSFT)>;
+		};
+
+		sm_4_9: shift_morph_4_9 {
+			compatible = "zmk,behavior-mod-morph";
+			#binding-cells = <0>;
+			bindings = <&kp N4>, <&kp N9>;
+			mods = <(MOD_LSFT|MOD_RSFT)>;
+		};
+
+		sm_5_0: shift_morph_5_0 {
+			compatible = "zmk,behavior-mod-morph";
+			#binding-cells = <0>;
+			bindings = <&kp N5>, <&kp N0>;
+			mods = <(MOD_LSFT|MOD_RSFT)>;
+		};
+
+		sm_ctl_1_ctl_6: shift_morph_ctl_1_ctl_6 {
+			compatible = "zmk,behavior-mod-morph";
+			#binding-cells = <0>;
+			bindings = <&kp LC(N1)>, <&kp LC(N6)>;
+			mods = <(MOD_LSFT|MOD_RSFT)>;
+		};
+
+		sm_ctl_2_ctl_7: shift_morph_ctl_2_ctl_7 {
+			compatible = "zmk,behavior-mod-morph";
+			#binding-cells = <0>;
+			bindings = <&kp LC(N2)>, <&kp LC(N7)>;
+			mods = <(MOD_LSFT|MOD_RSFT)>;
+		};
+
+		sm_ctl_3_ctl_8: shift_morph_ctl_3_ctl_8 {
+			compatible = "zmk,behavior-mod-morph";
+			#binding-cells = <0>;
+			bindings = <&kp LC(N3)>, <&kp LC(N8)>;
+			mods = <(MOD_LSFT|MOD_RSFT)>;
+		};
+
+		sm_ctl_4_ctl_9: shift_morph_ctl_4_ctl_9 {
+			compatible = "zmk,behavior-mod-morph";
+			#binding-cells = <0>;
+			bindings = <&kp LC(N4)>, <&kp LC(N9)>;
+			mods = <(MOD_LSFT|MOD_RSFT)>;
+		};
+
+		sm_ctl_5_ctl_0: shift_morph_ctl_5_ctl_0 {
+			compatible = "zmk,behavior-mod-morph";
+			#binding-cells = <0>;
+			bindings = <&kp LC(N5)>, <&kp LC(N0)>;
+			mods = <(MOD_LSFT|MOD_RSFT)>;
+		};
 	};
 
 	combos {
@@ -233,10 +303,10 @@
 		game_layer {
 			display-name = "Game";
 			bindings = <
-   &kp N1     &kp N2     &kp N3     &kp N4     &kp N5        &trans &trans &trans &trans &trans
-   &kp LC(N1) &kp LC(N2) &kp LC(N3) &kp LC(N4) &kp LC(N5)    &trans &trans &trans &trans &trans
-   &kp LSHFT  &kp LCTRL  &kp LALT   &kp TAB    &kp RET       &trans &trans &trans &trans &trans
-                         &kp ESC    &kp SPACE  &mo MENU      &trans &trans &trans
+   &sm_1_6         &sm_2_7         &sm_3_8         &sm_4_9         &sm_5_0            &trans &trans &trans &trans &trans
+   &sm_ctl_1_ctl_6 &sm_ctl_2_ctl_7 &sm_ctl_3_ctl_8 &sm_ctl_4_ctl_9 &sm_ctl_5_ctl_0    &trans &trans &trans &trans &trans
+   &kp LSHFT       &kp LCTRL       &kp LALT        &kp TAB         &kp RET            &trans &trans &trans &trans &trans
+                                   &kp ESC         &kp SPACE       &mo MENU           &trans &trans &trans
 			>;
 		};
 
