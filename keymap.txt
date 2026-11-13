@@ -129,7 +129,7 @@ layer mou
 // through to base. Hold the inner thumb for menu.
 layer game
   1      2      3      4      5          TRNS  TRNS  TRNS  TRNS  TRNS
-  6      7      8      9      0          TRNS  TRNS  TRNS  TRNS  TRNS
+  CTL_1  CTL_2  CTL_3  CTL_4  CTL_5      TRNS  TRNS  TRNS  TRNS  TRNS
   LSHFT  LCTRL  LALT   TAB    RET        TRNS  TRNS  TRNS  TRNS  TRNS
                 ESC    SPC    MENU       TRNS  TRNS  TRNS
 
