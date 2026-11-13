@@ -166,11 +166,11 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-  - - '6'
-    - '7'
-    - '8'
-    - '9'
-    - '0'
+  - - Ctl 1
+    - Ctl 2
+    - Ctl 3
+    - Ctl 4
+    - Ctl 5
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}

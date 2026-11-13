@@ -124,7 +124,7 @@ layer mou
 
 // One-handed gaming (Dofus) with the right hand on the mouse, entered from
 // sys (hold Z, tap G). Every left key is a plain press, no hold-tap, so
-// nothing waits on a timer: spells 1-5 on top and 6-0 on the home row, plain
+// nothing waits on a timer: spells 1-5 on top and Ctrl+1-5 (second bar) on the home row, plain
 // Shift, Ctrl and Alt under them, Space ends the turn. The right half falls
 // through to base. Hold the inner thumb for menu.
 layer game
