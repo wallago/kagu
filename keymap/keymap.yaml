@@ -187,7 +187,7 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   - - $$mdi:keyboard-esc$$
-    - $$mdi:keyboard-space$$
+    - F1
     - Menu
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
@@ -213,11 +213,11 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-  - - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
+  - - '`'
+    - Z
+    - Ctl S
+    - Sft W
+    - Sft X
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
