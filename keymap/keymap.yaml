@@ -156,21 +156,21 @@ layers:
     - ''
     - ''
   Game:
-  - - '1'
-    - '2'
-    - '3'
-    - '4'
-    - '5'
+  - - {t: '1', s: '6'}
+    - {t: '2', s: '7'}
+    - {t: '3', s: '8'}
+    - {t: '4', s: '9'}
+    - {t: '5', s: '0'}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-  - - '6'
-    - '7'
-    - '8'
-    - '9'
-    - '0'
+  - - {t: Ctl 1, s: Ctl 6}
+    - {t: Ctl 2, s: Ctl 7}
+    - {t: Ctl 3, s: Ctl 8}
+    - {t: Ctl 4, s: Ctl 9}
+    - {t: Ctl 5, s: Ctl 0}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}

@@ -115,6 +115,16 @@ class ZmkTest(unittest.TestCase):
         self.assertIn("layers = <BASE APP>;", text)
         self.assertIn("require-prior-idle-ms = <100>;", text)
 
+    def test_shift_morph(self) -> None:
+        self.assertEqual(self.zmk.binding("CTL_1|CTL_6"), "&sm_ctl_1_ctl_6")
+        top = grid(["1|6 _ _ _ _ _ _ _ _ _"])
+        layers, _ = parse_keymap("layer base\n" + top + EMPTY_ROWS[len(BLANK_ROWS) :])
+        text = generate.shift_morph_behaviors(layers)
+        self.assertIn("sm_1_6: shift_morph_1_6", text)
+        self.assertIn("bindings = <&kp N1>, <&kp N6>;", text)
+        with self.assertRaises(KeyError):
+            self.zmk.binding("1|NOPE")
+
     def test_layer_modifier_macro(self) -> None:
         text = generate.layer_mod_behaviors(self.layers)
         self.assertIn("lt_app: layer_tap_app", text)
