@@ -182,3 +182,111 @@ module lcd_model() {
             cube([lcd_active[0], lcd_active[1], 0.05], center = true);
     }
 }
+
+// ---------------------------------------------------------------------------
+// Folding head -- for a keyboard on a tripod, where the fixed 30 degree cup
+// can't be seen. The screen sits in a shallow "head" that turns on two side
+// pivots on a small base glued behind the far wall. It folds backward: 0 is
+// flat (face up, lying behind the case), 90 stands straight up facing the
+// typist. Each pivot is one M3 bolt: head outside, through the head's ear and
+// the base's cheek, into a nyloc nut trapped in the cheek. Tighten the bolts
+// until the screen holds where you leave it. The bezel is the same part as
+// above.
+// ---------------------------------------------------------------------------
+head_d      = 12;             // head depth under the face: floor + room for
+                              // the wires soldered to the back of the board
+knuckle_r   = 4.5;            // round end of the ears and cheeks
+ear_t       = 3.0;            // head's ears, the outer plates
+cheek_t     = 4.0;            // base's cheeks, the inner plates
+pivot_gap   = 0.3;            // between ear and cheek
+m3_clear    = 3.3;
+nyloc_af    = 5.5 + 0.3;      // M3 nyloc across flats, plus fit
+nyloc_depth = 2.5;            // pocket in the cheek's inner face
+case_gap    = 0.2;            // base front to the case's far wall
+head_angle  = 60;             // for previews only
+
+// Pivot axis, in the head's frame (face at z = 0, front edge at y = 0) and in
+// the world (just behind the far wall, at the top of the case).
+axis_head = [-(knuckle_r + 0.5), -head_d / 2];
+axis_y    = far_y + case_gap + knuckle_r + 1;
+axis_z    = case_top;
+base_top  = axis_z - head_d / 2 - 1;     // under the ears' lowest corner
+
+echo(str("folding screen: head ", pod_w, " x ", face_len, " x ", head_d,
+         ", pivots 2x M3 x 10-12 + nyloc, base ", round(axis_y + knuckle_r - far_y),
+         "mm deep"));
+
+module on_head(a = head_angle) {
+    translate([pod_cx, axis_y, axis_z]) rotate([a, 0, 0])
+        translate([0, -axis_head[0], -axis_head[1]]) children();
+}
+
+module pivot_x(x0, t) {     // a rod along x through the axis, x0..x0+t
+    translate([x0, 0, 0]) rotate([0, 90, 0]) cylinder(r = knuckle_r, h = t);
+}
+
+module screen_head_flat() {   // in the head frame, face up
+    difference() {
+        union() {
+            difference() {
+                translate([0, 0, -head_d]) linear_extrude(head_d) rim_2d();
+                translate([0, 0, -head_d + pod_floor]) linear_extrude(head_d) rim_2d(pod_wall);
+            }
+            intersection() {
+                hole_pts() translate([0, 0, -head_d]) cylinder(d = post_d, h = head_d - lcd_pcb_t);
+                translate([0, 0, -head_d]) linear_extrude(head_d) rim_2d();
+            }
+            // ears: the side walls run forward around the pivot
+            for (sx = [-1, 1]) hull() {
+                translate([0, axis_head[0], axis_head[1]])
+                    pivot_x(sx > 0 ? pod_w / 2 - ear_t : -pod_w / 2, ear_t);
+                translate([sx > 0 ? pod_w / 2 - ear_t : -pod_w / 2, 0, -head_d])
+                    cube([ear_t, corner_r, head_d]);
+            }
+        }
+        hole_pts() translate([0, 0, -lcd_pcb_t - insert_h])
+            cylinder(d = insert_d, h = insert_h + 1);
+        // wire notch in the front rim, closed over by the bezel
+        translate([lcd_holes[0] / 2 - post_d / 2 - 5 - wire_notch[0], -1, -wire_notch[1]])
+            cube([wire_notch[0], pod_wall + 2, wire_notch[1] + 1]);
+        // pivot bolts
+        translate([-pod_w, axis_head[0], axis_head[1]]) rotate([0, 90, 0])
+            cylinder(d = m3_clear, h = 2 * pod_w);
+    }
+}
+
+module screen_head(a = head_angle) { on_head(a) screen_head_flat(); }
+
+module screen_base() {
+    cheek_x = pod_w / 2 - ear_t - pivot_gap;   // outer face of a cheek, from the centre
+    y0 = far_y + case_gap;
+    difference() {
+        union() {
+            translate([pod_x[0], y0, 0]) cube([pod_w, axis_y + knuckle_r - y0, base_top]);
+            for (sx = [-1, 1]) hull() {
+                translate([pod_cx, axis_y, axis_z])
+                    pivot_x(sx > 0 ? cheek_x - cheek_t : -cheek_x, cheek_t);
+                translate([pod_cx + (sx > 0 ? cheek_x - cheek_t : -cheek_x), y0, 0])
+                    cube([cheek_t, axis_y + knuckle_r - y0, 1]);
+            }
+        }
+        translate([pod_x[0] - 1, axis_y, axis_z]) rotate([0, 90, 0])
+            cylinder(d = m3_clear, h = pod_w + 2);
+        // nyloc pockets on the inner faces
+        for (sx = [-1, 1])
+            translate([pod_cx + sx * (cheek_x - cheek_t + nyloc_depth / 2), axis_y, axis_z])
+                rotate([0, 90, 0]) rotate([0, 0, 30])
+                    cylinder(d = nyloc_af / cos(30), h = nyloc_depth + 0.02, center = true, $fn = 6);
+    }
+}
+
+module lcd_on_head(a = head_angle) {
+    on_head(a) translate([0, lcd_v, 0]) {
+        color("royalblue") translate([0, 0, -lcd_pcb_t / 2])
+            cube([lcd_board[0], lcd_board[1], lcd_pcb_t], center = true);
+        color([0.05, 0.05, 0.05]) translate([0, 0, lcd_glass_t / 2])
+            cube([lcd_glass[0], lcd_glass[1], lcd_glass_t], center = true);
+        color([0.15, 0.85, 0.35]) translate([0, 0, lcd_glass_t])
+            cube([lcd_active[0], lcd_active[1], 0.05], center = true);
+    }
+}
