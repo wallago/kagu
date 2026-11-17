@@ -97,6 +97,9 @@ class ZmkTest(unittest.TestCase):
     def test_ctrl(self) -> None:
         self.assertEqual(self.zmk.binding("CTL_Q"), "&kp LC(Q)")
 
+    def test_shift(self) -> None:
+        self.assertEqual(self.zmk.binding("SFT_W"), "&kp LS(W)")
+
     def test_hyper(self) -> None:
         self.assertEqual(self.zmk.binding("HYP_["), "&kp LC(LA(LS(LG(LBKT))))")
 

@@ -306,17 +306,17 @@
    &sm_1_6         &sm_2_7         &sm_3_8         &sm_4_9         &sm_5_0            &trans &trans &trans &trans &trans
    &sm_ctl_1_ctl_6 &sm_ctl_2_ctl_7 &sm_ctl_3_ctl_8 &sm_ctl_4_ctl_9 &sm_ctl_5_ctl_0    &trans &trans &trans &trans &trans
    &kp LSHFT       &kp LCTRL       &kp LALT        &kp TAB         &kp RET            &trans &trans &trans &trans &trans
-                                   &kp ESC         &kp SPACE       &mo MENU           &trans &trans &trans
+                                   &kp ESC         &kp F1          &mo MENU           &trans &trans &trans
 			>;
 		};
 
 		menu_layer {
 			display-name = "Menu";
 			bindings = <
-   &to BASE &kp M  &kp G  &kp F  &kp J     &trans &trans &trans &trans &trans
-   &kp I    &kp C  &kp S  &kp Q  &kp H     &trans &trans &trans &trans &trans
-   &trans   &trans &trans &trans &trans    &trans &trans &trans &trans &trans
-                   &trans &trans &trans    &trans &trans &trans
+   &to BASE  &kp M &kp G     &kp F     &kp J        &trans &trans &trans &trans &trans
+   &kp I     &kp C &kp S     &kp Q     &kp H        &trans &trans &trans &trans &trans
+   &kp GRAVE &kp Z &kp LC(S) &kp LS(W) &kp LS(X)    &trans &trans &trans &trans &trans
+                   &trans    &trans    &trans       &trans &trans &trans
 			>;
 		};
 	};
