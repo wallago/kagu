@@ -94,7 +94,7 @@ module top_shell_2d() {
 
 module plate_profile() {
     difference() {
-        top_shell_2d();
+        shell_2d();
 
         for (s = switches)
             translate([s[0], s[1]])
@@ -122,9 +122,12 @@ module top_plate_in_place() {
                 linear_extrude(pcb_to_plate - skirt_gap)
                     difference() { top_shell_2d(); cavity_2d(); }
             translate([0, 0, plate_z])
-                linear_extrude(plate_t)
+                linear_extrude(plate_t) intersection() {
                     if (min_web > 0) offset(r = min_web) offset(r = -min_web) plate_profile();
                     else plate_profile();
+                    // cut after the web cleanup, so the corner stays square
+                    top_shell_2d();
+                }
             // spacers that let the screws clamp the plate down onto the PCB
             for (p = concat(screws, ledge_pts()))
                 translate([p[0], p[1], tray_h + skirt_gap])
