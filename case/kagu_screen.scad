@@ -328,7 +328,7 @@ module screen_base() {
 // top plate, with two more M3 inserts holding the plate down there. Read by
 // kagu_tray.scad and kagu_top.scad, which leave it empty on the right half.
 ledge = [0, 70, pod_x[0] - wall - pcb_clear - 0.5,
-         axis_y + knuckle_r - wall - pcb_clear];
+         axis_y + knuckle_r - wall];   // its wall ends flush with the base's back
 ledge_screws = [[9, 96], [44, 96]];
 ledge_boss_top = tray_h + skirt_gap;   // meets the plate's spacers
 plate_cut = [ledge[2], tab_y];         // the plate stops here; the base takes over
