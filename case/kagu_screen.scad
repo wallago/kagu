@@ -290,13 +290,20 @@ module screen_base() {
         union() {
             // Runs on into the ledge's wall on the left, filling its rounded
             // corner; the outer corner on the right is rounded like the case.
-            // Up to the top plate's height, stepping back 0.2mm from the
-            // plate's edge above the tray border.
+            // Above the tray border it goes on up to the top plate's height,
+            // 0.2mm clear of the plate. Over the ledge's right wall it takes
+            // the plate's place (plate_cut), so base and ledge meet square.
             difference() {
-                linear_extrude(base_top) base_2d(y0);
+                union() {
+                    linear_extrude(tray_h) base_2d(y0);
+                    translate([0, 0, tray_h]) linear_extrude(base_top - tray_h)
+                        difference() {
+                            base_2d(y0);
+                            offset(delta = 0.2) profile(wall + pcb_clear);
+                            translate([-big, -big]) square([big + ledge[2] + 0.2, 2 * big]);
+                        }
+                }
                 translate([0, 0, floor_t]) linear_extrude(base_top) cavity_2d();
-                translate([0, 0, tray_h]) linear_extrude(base_top)
-                    offset(delta = 0.2) shell_2d();
             }
             for (sx = [-1, 1]) hull() {
                 translate([pod_cx, axis_y, axis_z])
@@ -324,6 +331,7 @@ ledge = [0, 70, pod_x[0] - wall - pcb_clear - 0.5,
          axis_y + knuckle_r - wall - pcb_clear];
 ledge_screws = [[9, 96], [44, 96]];
 ledge_boss_top = tray_h + skirt_gap;   // meets the plate's spacers
+plate_cut = [ledge[2], tab_y];         // the plate stops here; the base takes over
 
 module lcd_on_head(a = head_angle) {
     on_head(a) translate([0, lcd_v, 0]) {

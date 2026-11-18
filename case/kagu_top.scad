@@ -83,9 +83,18 @@ module rect(r, c = 0) {
         square([r[2] - r[0] + 2 * c, r[3] - r[1] + 2 * c]);
 }
 
-module plate_profile() {
+// The case outline the plate covers. kagu_screen.scad can set `plate_cut`
+// [x, y]: everything past both is left to the screen base on the left half.
+module top_shell_2d() {
     difference() {
         shell_2d();
+        if (!is_undef(plate_cut)) translate(plate_cut) square(big);
+    }
+}
+
+module plate_profile() {
+    difference() {
+        top_shell_2d();
 
         for (s = switches)
             translate([s[0], s[1]])
@@ -111,7 +120,7 @@ module top_plate_in_place() {
             // skirt, the same skin as the tray border
             translate([0, 0, tray_h + skirt_gap])
                 linear_extrude(pcb_to_plate - skirt_gap)
-                    difference() { shell_2d(); cavity_2d(); }
+                    difference() { top_shell_2d(); cavity_2d(); }
             translate([0, 0, plate_z])
                 linear_extrude(plate_t)
                     if (min_web > 0) offset(r = min_web) offset(r = -min_web) plate_profile();
