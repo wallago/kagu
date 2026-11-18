@@ -186,12 +186,13 @@ module lcd_model() {
 // ---------------------------------------------------------------------------
 // Folding head -- for a keyboard on a tripod, where the fixed 30 degree cup
 // can't be seen. The screen sits in a shallow "head" that turns on two side
-// pivots on a small base glued behind the far wall. It folds backward: 0 is
+// pivots on a small base behind the far wall. It folds backward: 0 is
 // flat (face up, lying behind the case), 90 stands straight up facing the
 // typist. Each pivot is one M3 bolt: head outside, through the head's ear and
 // the base's cheek, into a nyloc nut trapped in the cheek. Tighten the bolts
 // until the screen holds where you leave it. The bezel is the same part as
-// above.
+// above. The base is printed as part of the left tray (screen_fold in
+// left_tray.scad), fused to the back of the far wall.
 // ---------------------------------------------------------------------------
 head_d      = 12;             // head depth under the face: floor + room for
                               // the wires soldered to the back of the board
@@ -202,13 +203,15 @@ pivot_gap   = 0.3;            // between ear and cheek
 m3_clear    = 3.3;
 nyloc_af    = 5.5 + 0.3;      // M3 nyloc across flats, plus fit
 nyloc_depth = 2.5;            // pocket in the cheek's inner face
-case_gap    = 0.2;            // base front to the case's far wall
+tab_y       = 91.5 + pcb_clear + wall;   // back of the case's tab just left of
+                              // the pod: the left ear swings over it
+tab_gap     = 0.5;
 head_angle  = 60;             // for previews only
 
 // Pivot axis, in the head's frame (face at z = 0, front edge at y = 0) and in
 // the world (just behind the far wall, at the top of the case).
 axis_head = [-(knuckle_r + 0.5), -head_d / 2];
-axis_y    = far_y + case_gap + knuckle_r + 1;
+axis_y    = tab_y + tab_gap + knuckle_r;
 axis_z    = case_top;
 base_top  = axis_z - head_d / 2 - 1;     // under the ears' lowest corner
 
@@ -259,15 +262,16 @@ module screen_head(a = head_angle) { on_head(a) screen_head_flat(); }
 
 module screen_base() {
     cheek_x = pod_w / 2 - ear_t - pivot_gap;   // outer face of a cheek, from the centre
-    y0 = far_y + case_gap;
+    y0 = far_y - 1;                            // 1mm into the far wall
+    cy = axis_y - knuckle_r;                   // cheeks stay behind the case
     difference() {
         union() {
             translate([pod_x[0], y0, 0]) cube([pod_w, axis_y + knuckle_r - y0, base_top]);
             for (sx = [-1, 1]) hull() {
                 translate([pod_cx, axis_y, axis_z])
                     pivot_x(sx > 0 ? cheek_x - cheek_t : -cheek_x, cheek_t);
-                translate([pod_cx + (sx > 0 ? cheek_x - cheek_t : -cheek_x), y0, 0])
-                    cube([cheek_t, axis_y + knuckle_r - y0, 1]);
+                translate([pod_cx + (sx > 0 ? cheek_x - cheek_t : -cheek_x), cy, 0])
+                    cube([cheek_t, 2 * knuckle_r, 1]);
             }
         }
         translate([pod_x[0] - 1, axis_y, axis_z]) rotate([0, 90, 0])

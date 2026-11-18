@@ -112,14 +112,13 @@ screen: case-geometry
     openscad -o case/build/kagu_left_screen_pod.stl case/left_screen_pod.scad
     openscad -o case/build/kagu_left_screen_bezel.stl case/left_screen_bezel.scad
 
-# Render the folding screen (head + base) into case/build/
-# For a keyboard on a tripod: the screen head turns on two M3 friction pivots
-# on a base glued behind the far wall, flat (0) to upright (90+). Same bezel.
+# Render the folding screen head and its bezel into case/build/
+# For a keyboard on a tripod: the head turns on two M3 friction pivots on a
+# base that is part of the left tray (`just trays`), flat (0) to upright (90+).
 [group('case')]
 screen-fold: case-geometry
     mkdir -p case/build
     openscad -o case/build/kagu_left_screen_head.stl case/left_screen_head.scad
-    openscad -o case/build/kagu_left_screen_base.stl case/left_screen_base.scad
     openscad -o case/build/kagu_left_screen_bezel.stl case/left_screen_bezel.scad
 
 # Render the Choc v2 keycap risers into case/build/
