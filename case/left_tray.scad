@@ -8,5 +8,10 @@ include <kagu_screen.scad>
 screen_fold = true;   // the folding screen's base, behind the far wall
                       // (the ledge comes with kagu_screen.scad either way)
 
-bottom_tray();
-if (screen_fold) screen_base();
+difference() {
+    union() {
+        bottom_tray();
+        if (screen_fold) screen_base();
+    }
+    if (screen_fold) wire_path();   // through the far wall too
+}

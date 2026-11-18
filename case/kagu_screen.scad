@@ -265,16 +265,33 @@ module screen_head_flat() {   // in the head frame, face up
 
 module screen_head(a = head_angle) { on_head(a) screen_head_flat(); }
 
+module base_2d(y0) {
+    r  = wall + pcb_clear;                     // the case's outer corners
+    x0 = pod_x[0] - wall - pcb_clear - 1;
+    y1 = axis_y + knuckle_r;
+    translate([x0, y0]) square([pod_x[1] - r - x0, y1 - y0]);
+    translate([pod_x[1] - r - 0.01, y0]) square([r + 0.01, y1 - r - y0]);
+    translate([pod_x[1] - r, y1 - r]) circle(r = r);
+}
+
+// The wire path: a trench under the head's wire notch, from the back of the
+// base through the far wall into the tray, under the PCB. Cut from the base
+// and the tray together (left_tray.scad).
+module wire_path() {
+    translate([pod_cx + wire_x[0], far_y - wall - 1, wire_floor])
+        cube([wire_x[1] - wire_x[0], axis_y + knuckle_r - far_y + wall + 2, tray_h]);
+}
+
 module screen_base() {
     cheek_x = pod_w / 2 - ear_t - pivot_gap;   // outer face of a cheek, from the centre
     y0 = far_y - 1;                            // 1mm into the far wall
     cy = axis_y - knuckle_r;                   // cheeks stay behind the case
     difference() {
         union() {
-            // 1mm into the ledge's wall on the left too
+            // Runs on into the ledge's wall on the left, filling its rounded
+            // corner; the outer corner on the right is rounded like the case.
             difference() {
-                translate([pod_x[0] - 1, y0, 0])
-                    cube([pod_w + 1, axis_y + knuckle_r - y0, base_top]);
+                linear_extrude(base_top) base_2d(y0);
                 translate([0, 0, floor_t]) linear_extrude(base_top) cavity_2d();
             }
             for (sx = [-1, 1]) hull() {
@@ -286,10 +303,7 @@ module screen_base() {
         }
         translate([pod_x[0] - 1, axis_y, axis_z]) rotate([0, 90, 0])
             cylinder(d = m3_clear, h = pod_w + 2);
-        // wire path: a trench under the head's wire notch, from the back of
-        // the base through the far wall into the tray, under the PCB
-        translate([pod_cx + wire_x[0], far_y - wall - 1, wire_floor])
-            cube([wire_x[1] - wire_x[0], axis_y + knuckle_r - far_y + wall + 2, tray_h]);
+        wire_path();
         // nyloc pockets on the inner faces
         for (sx = [-1, 1])
             translate([pod_cx + sx * (cheek_x - cheek_t + nyloc_depth / 2), axis_y, axis_z])
