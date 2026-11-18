@@ -213,8 +213,8 @@ head_angle  = 60;             // for previews only
 // the world (just behind the far wall, at the top of the case).
 axis_head = [-(knuckle_r + 0.5), -head_d / 2];
 axis_y    = tab_y + tab_gap + knuckle_r;
-axis_z    = case_top;
-base_top  = axis_z - head_d / 2 - 1;     // under the ears' lowest corner
+base_top  = case_top;                    // flush with the assembled case
+axis_z    = base_top + 0.5 + head_d / 2; // the ears ride just over the base
 // wire trench under the head's notch, across the pod (from its centre)
 wire_x     = [lcd_holes[0] / 2 - post_d / 2 - 5 - wire_notch[0] - 1,
               lcd_holes[0] / 2 - post_d / 2 - 5 + 1];
@@ -290,9 +290,13 @@ module screen_base() {
         union() {
             // Runs on into the ledge's wall on the left, filling its rounded
             // corner; the outer corner on the right is rounded like the case.
+            // Up to the top plate's height, stepping back 0.2mm from the
+            // plate's edge above the tray border.
             difference() {
                 linear_extrude(base_top) base_2d(y0);
                 translate([0, 0, floor_t]) linear_extrude(base_top) cavity_2d();
+                translate([0, 0, tray_h]) linear_extrude(base_top)
+                    offset(delta = 0.2) shell_2d();
             }
             for (sx = [-1, 1]) hull() {
                 translate([pod_cx, axis_y, axis_z])
