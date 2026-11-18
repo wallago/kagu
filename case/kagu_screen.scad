@@ -31,7 +31,8 @@ lcd_active  = [32.4, 17.4];   // visible pixels
 // ---------------------------------------------------------------------------
 // Pod
 // ---------------------------------------------------------------------------
-pod_x     = [61.5, 104.5];    // stops short of the USB-C notch on the right
+pod_x     = [51.5, 94.5];     // 10mm clear of the USB-C notch on the right, so
+                              // a cable's overmoulded plug fits beside the pod
 face_tilt = 30;               // face angle from the desk
 face_len  = 40;               // rim, along the slope; leaves room at the back
                               // for the back inserts, which lean into it
@@ -214,6 +215,10 @@ axis_head = [-(knuckle_r + 0.5), -head_d / 2];
 axis_y    = tab_y + tab_gap + knuckle_r;
 axis_z    = case_top;
 base_top  = axis_z - head_d / 2 - 1;     // under the ears' lowest corner
+// wire trench under the head's notch, across the pod (from its centre)
+wire_x     = [lcd_holes[0] / 2 - post_d / 2 - 5 - wire_notch[0] - 1,
+              lcd_holes[0] / 2 - post_d / 2 - 5 + 1];
+wire_floor = floor_t + 3;
 
 echo(str("folding screen: head ", pod_w, " x ", face_len, " x ", head_d,
          ", pivots 2x M3 x 10-12 + nyloc, base ", round(axis_y + knuckle_r - far_y),
@@ -266,7 +271,12 @@ module screen_base() {
     cy = axis_y - knuckle_r;                   // cheeks stay behind the case
     difference() {
         union() {
-            translate([pod_x[0], y0, 0]) cube([pod_w, axis_y + knuckle_r - y0, base_top]);
+            // 1mm into the ledge's wall on the left too
+            difference() {
+                translate([pod_x[0] - 1, y0, 0])
+                    cube([pod_w + 1, axis_y + knuckle_r - y0, base_top]);
+                translate([0, 0, floor_t]) linear_extrude(base_top) cavity_2d();
+            }
             for (sx = [-1, 1]) hull() {
                 translate([pod_cx, axis_y, axis_z])
                     pivot_x(sx > 0 ? cheek_x - cheek_t : -cheek_x, cheek_t);
@@ -276,6 +286,10 @@ module screen_base() {
         }
         translate([pod_x[0] - 1, axis_y, axis_z]) rotate([0, 90, 0])
             cylinder(d = m3_clear, h = pod_w + 2);
+        // wire path: a trench under the head's wire notch, from the back of
+        // the base through the far wall into the tray, under the PCB
+        translate([pod_cx + wire_x[0], far_y - wall - 1, wire_floor])
+            cube([wire_x[1] - wire_x[0], axis_y + knuckle_r - far_y + wall + 2, tray_h]);
         // nyloc pockets on the inner faces
         for (sx = [-1, 1])
             translate([pod_cx + sx * (cheek_x - cheek_t + nyloc_depth / 2), axis_y, axis_z])
@@ -283,6 +297,15 @@ module screen_base() {
                     cylinder(d = nyloc_af / cos(30), h = nyloc_depth + 0.02, center = true, $fn = 6);
     }
 }
+
+// The ledge -- the case filled out behind the left keys, from the left edge to
+// the base, so the back is one straight line with the base. Hollow, under the
+// top plate, with two more M3 inserts holding the plate down there. Read by
+// kagu_tray.scad and kagu_top.scad, which leave it empty on the right half.
+ledge = [0, 70, pod_x[0] - wall - pcb_clear - 0.5,
+         axis_y + knuckle_r - wall - pcb_clear];
+ledge_screws = [[9, 96], [44, 96]];
+ledge_boss_top = tray_h + skirt_gap;   // meets the plate's spacers
 
 module lcd_on_head(a = head_angle) {
     on_head(a) translate([0, lcd_v, 0]) {

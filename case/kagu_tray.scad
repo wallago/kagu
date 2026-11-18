@@ -85,6 +85,14 @@ nut_h        = 5.56 + 0.2;   // 7/32"
 nut_floor    = 2.0;          // plastic under the nut
 mount_wall   = 2.4;
 
+// ---------------------------------------------------------------------------
+// Ledge -- an optional hollow extension of the case, [x0, y0, x1, y1], with
+// its own inserts for the top plate. Set by kagu_screen.scad on the left half
+// (`ledge`, `ledge_screws`); left out, there is none.
+// ---------------------------------------------------------------------------
+function ledge_rect() = is_undef(ledge) ? [] : ledge;
+function ledge_pts()  = is_undef(ledge_screws) ? [] : ledge_screws;
+
 $fn = 64;
 eps = 0.01;
 big = 500;
@@ -143,6 +151,8 @@ module cable_relief_2d() {
 module cavity_2d() {
     profile(pcb_clear);
     cable_relief_2d();
+    l = ledge_rect();
+    if (len(l) == 4) translate([l[0], l[1]]) square([l[2] - l[0], l[3] - l[1]]);
 }
 
 // Grown from the cavity rather than from the outline a second time, so the
@@ -166,6 +176,10 @@ module bosses() {
     for (p = screws)
         translate([p[0], p[1], floor_t])
             cylinder(d = boss_d, h = standoff);
+    // no PCB on the ledge: these come up to meet the plate's spacers
+    for (p = ledge_pts())
+        translate([p[0], p[1], floor_t])
+            cylinder(d = boss_d, h = ledge_boss_top - floor_t);
 }
 
 module insert_holes() {
@@ -174,6 +188,12 @@ module insert_holes() {
         translate([p[0], p[1], pcb_z - hole_h])
             cylinder(d = insert_hole_d, h = hole_h + eps);
         translate([p[0], p[1], pcb_z - insert_relief_h])
+            cylinder(d = insert_relief_d, h = insert_relief_h + eps);
+    }
+    for (p = ledge_pts()) {
+        translate([p[0], p[1], ledge_boss_top - hole_h])
+            cylinder(d = insert_hole_d, h = hole_h + eps);
+        translate([p[0], p[1], ledge_boss_top - insert_relief_h])
             cylinder(d = insert_relief_d, h = insert_relief_h + eps);
     }
 }

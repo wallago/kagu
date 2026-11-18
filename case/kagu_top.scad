@@ -117,14 +117,14 @@ module top_plate_in_place() {
                     if (min_web > 0) offset(r = min_web) offset(r = -min_web) plate_profile();
                     else plate_profile();
             // spacers that let the screws clamp the plate down onto the PCB
-            for (p = screws)
+            for (p = concat(screws, ledge_pts()))
                 translate([p[0], p[1], tray_h + skirt_gap])
                     cylinder(d = spacer_d, h = top_h - skirt_gap);
             for (p = support_pts)
                 translate([p[0], p[1], tray_h + skirt_gap])
                     cylinder(d = support_d, h = top_h - skirt_gap);
         }
-        for (p = screws)
+        for (p = concat(screws, ledge_pts()))
             translate([p[0], p[1], 0]) {
                 translate([0, 0, tray_h - eps])
                     cylinder(d = screw_clear_d, h = top_h + 2 * eps);
