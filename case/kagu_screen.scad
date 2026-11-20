@@ -213,7 +213,8 @@ head_angle  = 60;             // for previews only
 // the world (just behind the far wall, at the top of the case).
 axis_head = [-(knuckle_r + 0.5), -head_d / 2];
 axis_y    = tab_y + tab_gap + knuckle_r;
-base_top  = case_top;                    // flush with the assembled case
+base_top  = case_top - skirt_gap;        // flush with the plate once the screws
+                                         // pull it down onto the tray border
 axis_z    = base_top + 0.5 + head_d / 2; // the ears ride just over the base
 // wire trench under the head's notch, across the pod (from its centre)
 wire_x     = [lcd_holes[0] / 2 - post_d / 2 - 5 - wire_notch[0] - 1,
@@ -330,7 +331,8 @@ module screen_base() {
 ledge = [0, 70, pod_x[0] - wall - pcb_clear - 0.5,
          axis_y + knuckle_r - wall];   // its wall ends flush with the base's back
 ledge_screws = [[9, 96], [44, 96]];
-ledge_boss_top = tray_h + skirt_gap;   // meets the plate's spacers
+ledge_boss_top = tray_h;   // like the PCB: the spacers stop skirt_gap above, so
+                           // the screws pull the plate down onto the border
 plate_cut = [ledge[2], tab_y];         // the plate stops here; the base takes over
 
 module lcd_on_head(a = head_angle) {
