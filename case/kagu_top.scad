@@ -126,6 +126,7 @@ module top_plate_in_place() {
         // USB-C: the tray's notch, carried through the skirt and the plate.
         translate([0, 0, tray_h - eps])
             linear_extrude(top_h + 2 * eps) usb_slot_2d();
+        if (trackpad) trackpad_pocket(plate_z + plate_t);
     }
 }
 

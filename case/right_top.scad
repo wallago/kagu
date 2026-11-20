@@ -4,4 +4,6 @@ include <kagu_right_geom.scad>
 include <kagu_tray.scad>
 include <kagu_top.scad>
 
+trackpad = true;
+
 top_plate();

@@ -89,6 +89,8 @@ $fn = 64;
 eps = 0.01;
 big = 500;
 
+include <kagu_trackpad.scad>
+
 // ---------------------------------------------------------------------------
 // Derived
 // ---------------------------------------------------------------------------
@@ -143,6 +145,7 @@ module cable_relief_2d() {
 module cavity_2d() {
     profile(pcb_clear);
     cable_relief_2d();
+    if (trackpad) trackpad_cavity_2d();
 }
 
 // Grown from the cavity rather than from the outline a second time, so the
@@ -208,6 +211,8 @@ module bottom_tray() {
             }
             bosses();
             mount_boss();
+            // the plate's stack comes from kagu_top.scad, included alongside
+            if (trackpad) trackpad_posts(plate_z + plate_t);
         }
         insert_holes();
         mount_cut();
