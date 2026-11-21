@@ -17,6 +17,11 @@
 // ---------------------------------------------------------------------------
 pcb_to_plate = 2.2;   // PCB top -> plate underside, set by the Choc switch body
 plate_t      = 1.3;   // Choc clips want 1.2-1.3mm
+skirt_gap    = 1.0;   // the skirt stops this far above the tray border, so the
+                      // screws clamp plate, switches and PCB together instead of
+                      // the skirt landing on the border first (on the first print
+                      // some hotswap sockets lost contact). The screw spacers
+                      // stop at the same height.
 
 // ---------------------------------------------------------------------------
 // Openings
@@ -39,6 +44,9 @@ csk_d         = 6.2;  // head diameter plus a little, so it lands flush
 // the outer columns and next to the battery connector. All land on bare PCB: the diodes and hotswap
 // sockets are on the back, and none of these spots touch a front pad.
 // ---------------------------------------------------------------------------
+use_supports = true;   // they stop skirt_gap short of the PCB, like the skirt
+                       // and the screw spacers, so they cannot hold the PCB
+                       // off the switch pins
 support_d = 2.4;
 supports  = [
     [24, 39.5], [24, 53.5], [24, 67.5],
@@ -61,7 +69,8 @@ min_web = 0.3;
 // ---------------------------------------------------------------------------
 plate_z = tray_h + pcb_to_plate;   // plate underside
 top_h   = pcb_to_plate + plate_t;  // overall height of this part
-support_pts = chip_right ? supports : [for (p = supports) [board_w - p[0], p[1]]];
+support_pts = !use_supports ? []
+            : chip_right ? supports : [for (p = supports) [board_w - p[0], p[1]]];
 
 echo(str("top: skirt ", pcb_to_plate, " + plate ", plate_t, " = ", top_h,
          "mm,  case ", tray_h + top_h, "mm tall assembled,  screws M3 x 8 csk"));
@@ -72,6 +81,15 @@ echo(str("top: skirt ", pcb_to_plate, " + plate ", plate_t, " = ", top_h,
 module rect(r, c = 0) {
     translate([r[0] - c, r[1] - c])
         square([r[2] - r[0] + 2 * c, r[3] - r[1] + 2 * c]);
+}
+
+// The case outline the plate covers. kagu_screen.scad can set `plate_cut`
+// [x, y]: everything past both is left to the screen base on the left half.
+module top_shell_2d() {
+    difference() {
+        shell_2d();
+        if (!is_undef(plate_cut)) translate(plate_cut) square(big);
+    }
 }
 
 module plate_profile() {
@@ -100,22 +118,25 @@ module top_plate_in_place() {
     difference() {
         union() {
             // skirt, the same skin as the tray border
-            translate([0, 0, tray_h])
-                linear_extrude(pcb_to_plate)
-                    difference() { shell_2d(); cavity_2d(); }
+            translate([0, 0, tray_h + skirt_gap])
+                linear_extrude(pcb_to_plate - skirt_gap)
+                    difference() { top_shell_2d(); cavity_2d(); }
             translate([0, 0, plate_z])
-                linear_extrude(plate_t)
+                linear_extrude(plate_t) intersection() {
                     if (min_web > 0) offset(r = min_web) offset(r = -min_web) plate_profile();
                     else plate_profile();
+                    // cut after the web cleanup, so the corner stays square
+                    top_shell_2d();
+                }
             // spacers that let the screws clamp the plate down onto the PCB
-            for (p = screws)
-                translate([p[0], p[1], tray_h])
-                    cylinder(d = spacer_d, h = top_h);
+            for (p = concat(screws, ledge_pts()))
+                translate([p[0], p[1], tray_h + skirt_gap])
+                    cylinder(d = spacer_d, h = top_h - skirt_gap);
             for (p = support_pts)
-                translate([p[0], p[1], tray_h])
-                    cylinder(d = support_d, h = top_h);
+                translate([p[0], p[1], tray_h + skirt_gap])
+                    cylinder(d = support_d, h = top_h - skirt_gap);
         }
-        for (p = screws)
+        for (p = concat(screws, ledge_pts()))
             translate([p[0], p[1], 0]) {
                 translate([0, 0, tray_h - eps])
                     cylinder(d = screw_clear_d, h = top_h + 2 * eps);

@@ -3,5 +3,6 @@
 include <kagu_left_geom.scad>
 include <kagu_tray.scad>
 include <kagu_top.scad>
+include <kagu_screen.scad>   // the ledge behind the keys
 
 top_plate();
