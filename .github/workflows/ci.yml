@@ -55,14 +55,14 @@ jobs:
           fetch-depth: 0
       - name: Run committed
         if: github.event_name != 'pull_request'
-        uses: crate-ci/committed@v1.1.9
+        uses: crate-ci/committed@v1.1.12
         with:
           args: "-vv"
           commits: "HEAD"
       # rebase merge replays every branch commit onto main, so check the range
       - name: Run committed
         if: github.event_name == 'pull_request'
-        uses: crate-ci/committed@v1.1.9
+        uses: crate-ci/committed@v1.1.12
         with:
           args: "-vv"
           commits: "${{ github.event.pull_request.base.sha }}..HEAD"
@@ -103,6 +103,16 @@ jobs:
           failIfEmpty: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  keymap:
+    name: Keymap generated from keymap.txt
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v7
+      - name: Test the generator
+        run: python3 -m unittest discover -s keymap
+      - name: Check kagu.keymap is up to date
+        run: python3 keymap/generate.py --check
   typos:
     name: Typos
     runs-on: ubuntu-latest

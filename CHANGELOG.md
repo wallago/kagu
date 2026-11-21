@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.3.0 - 2026-11-07
+
+### 🚀 Features
+
+- *(keymap)* Add session switch f2/f3 by @wallago
+- *(keymap)* Add session switch f2/f3 by @wallago
+- *(keymap)* Generate the keymap from keymap.txt and adopt a dubu36-style layout  by @wallago in [#20](https://github.com/wallago/kagu/pull/20)
+- *(firmware)* Drive a 1.47" ST7789 status screen on the left half  by @wallago in [#11](https://github.com/wallago/kagu/pull/11)
+- *(keymap)* Add home row mods and a Miryoku-style layer set  by @wallago in [#16](https://github.com/wallago/kagu/pull/16)
+
+### 🛡️ Security
+
+- *(deps)* Bump actions/download-artifact from 4 to 8  by @dependabot[bot] in [#1](https://github.com/wallago/kagu/pull/1)
+
+
+## New Contributors
+* @dependabot[bot] made their first contribution in [#5](https://github.com/wallago/kagu/pull/5)
+
+**Full Changelog**: https://github.com/wallago/kagu/compare/v0.2.0...v0.3.0
+
 ## 0.2.0 - 2026-10-31
 
 ### 🚀 Features
@@ -53,6 +73,7 @@
 
 ### ⚙️ Miscellaneous Tasks
 
+- *(release)* V0.2.0 by @wallago
 - *(case)* Drop the tilter and the old one-piece case by @claude in [#10](https://github.com/wallago/kagu/pull/10)
 - *(rebase)* Resolve to conflict by @wallago
 - *(gitignore)* Update kicad ignored files by @wallago

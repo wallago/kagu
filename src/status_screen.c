@@ -1,0 +1,303 @@
+/*
+ * Kagu status screen for the 1.47" 320x172 ST7789 on the left half.
+ *
+ *   KAGU                 o o o            [BT] o
+ *   ----------------------------------------
+ *                     BASE
+ *      L       91%             R       88%
+ *      [=========---]          [========----]
+ *   ----------------------------------------
+ *    BT 1        |    USB     |    LAYER 0
+ *
+ * Everything is sized to be readable on the small 1.47" panel.
+ */
+
+#include <zephyr/kernel.h>
+#include <zephyr/logging/log.h>
+#include <lvgl.h>
+
+#include <zmk/battery.h>
+#include <zmk/ble.h>
+#include <zmk/display.h>
+#include <zmk/display/status_screen.h>
+#include <zmk/endpoints.h>
+#include <zmk/event_manager.h>
+#include <zmk/events/battery_state_changed.h>
+#include <zmk/events/ble_active_profile_changed.h>
+#include <zmk/events/endpoint_changed.h>
+#include <zmk/events/layer_state_changed.h>
+#include <zmk/keymap.h>
+#include <zmk/split/central.h>
+
+#include "icons.h"
+
+LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
+
+/* Hugo's theme */
+#define WHITE lv_color_hex(0xffffff) /* text-primary */
+#define GREY lv_color_hex(0x8b96a8)  /* text-secondary */
+#define DARK lv_color_hex(0x303945)  /* track / divider */
+#define MINT lv_color_hex(0x36efa6)
+#define CYAN lv_color_hex(0x27d9f5)
+#define BLUE lv_color_hex(0x168bff)
+#define GREEN lv_color_hex(0x36d98b)
+#define AMBER lv_color_hex(0xffb000)
+
+#define W 320
+#define H 172
+
+#define BAR_X 24
+#define BAR_W 116
+#define BAR_Y 114
+#define BAR_H 10
+
+static lv_obj_t *profile_dot[ZMK_BLE_PROFILE_COUNT];
+static lv_obj_t *link_dot;
+static lv_obj_t *layer_name_label;
+static lv_obj_t *bar_fill[2];
+static lv_obj_t *bar_label[2];
+static lv_obj_t *bt_icon, *bt_label;
+static lv_obj_t *usb_icon, *usb_label;
+static lv_obj_t *layer_index_label;
+
+/* Helpers */
+
+static lv_obj_t *text(lv_obj_t *parent, const lv_font_t *font, lv_color_t color, const char *s) {
+    lv_obj_t *label = lv_label_create(parent);
+    lv_obj_set_style_text_font(label, font, LV_PART_MAIN);
+    lv_obj_set_style_text_color(label, color, LV_PART_MAIN);
+    lv_label_set_text(label, s);
+    return label;
+}
+
+static lv_obj_t *dot(lv_obj_t *parent, int32_t size, lv_color_t color) {
+    lv_obj_t *obj = lv_obj_create(parent);
+    lv_obj_remove_style_all(obj);
+    lv_obj_set_size(obj, size, size);
+    lv_obj_set_style_radius(obj, LV_RADIUS_CIRCLE, LV_PART_MAIN);
+    lv_obj_set_style_bg_opa(obj, LV_OPA_COVER, LV_PART_MAIN);
+    lv_obj_set_style_bg_color(obj, color, LV_PART_MAIN);
+    return obj;
+}
+
+static lv_obj_t *rect(lv_obj_t *parent, int32_t x, int32_t y, int32_t w, int32_t h, lv_color_t color) {
+    lv_obj_t *obj = lv_obj_create(parent);
+    lv_obj_remove_style_all(obj);
+    lv_obj_set_pos(obj, x, y);
+    lv_obj_set_size(obj, w, h);
+    lv_obj_set_style_radius(obj, h / 2, LV_PART_MAIN);
+    lv_obj_set_style_bg_opa(obj, LV_OPA_COVER, LV_PART_MAIN);
+    lv_obj_set_style_bg_color(obj, color, LV_PART_MAIN);
+    return obj;
+}
+
+static lv_obj_t *icon(lv_obj_t *parent, const lv_image_dsc_t *src, lv_color_t color) {
+    lv_obj_t *img = lv_image_create(parent);
+    lv_image_set_src(img, src);
+    lv_obj_set_style_image_recolor(img, color, LV_PART_MAIN);
+    lv_obj_set_style_image_recolor_opa(img, LV_OPA_COVER, LV_PART_MAIN);
+    return img;
+}
+
+/* Layer */
+
+struct layer_state {
+    zmk_keymap_layer_index_t index;
+    const char *name;
+};
+
+static struct layer_state layer_get_state(const zmk_event_t *eh) {
+    zmk_keymap_layer_index_t index = zmk_keymap_highest_layer_active();
+    return (struct layer_state){
+        .index = index,
+        .name = zmk_keymap_layer_name(zmk_keymap_layer_index_to_id(index)),
+    };
+}
+
+static void layer_update_cb(struct layer_state state) {
+    char name[16];
+    if (state.name == NULL || state.name[0] == '\0') {
+        snprintf(name, sizeof(name), "LAYER %d", state.index);
+    } else {
+        int i = 0;
+        for (; state.name[i] != '\0' && i < sizeof(name) - 1; i++) {
+            char c = state.name[i];
+            name[i] = (c >= 'a' && c <= 'z') ? c - 'a' + 'A' : c;
+        }
+        name[i] = '\0';
+    }
+    lv_label_set_text(layer_name_label, name);
+    lv_label_set_text_fmt(layer_index_label, "LAYER %d", state.index);
+}
+
+ZMK_DISPLAY_WIDGET_LISTENER(kagu_layer, struct layer_state, layer_update_cb, layer_get_state)
+ZMK_SUBSCRIPTION(kagu_layer, zmk_layer_state_changed);
+
+/* Output: active BLE profile, its link state, and USB vs BLE */
+
+struct output_state {
+    struct zmk_endpoint_instance selected;
+    enum zmk_transport preferred;
+    uint8_t profile;
+    bool connected;
+    bool bonded;
+};
+
+static struct output_state output_get_state(const zmk_event_t *eh) {
+    return (struct output_state){
+        .selected = zmk_endpoint_get_selected(),
+        .preferred = zmk_endpoint_get_preferred_transport(),
+        .profile = zmk_ble_active_profile_index(),
+        .connected = zmk_ble_active_profile_is_connected(),
+        .bonded = !zmk_ble_active_profile_is_open(),
+    };
+}
+
+static void output_update_cb(struct output_state state) {
+    for (int i = 0; i < ZMK_BLE_PROFILE_COUNT; i++) {
+        lv_obj_set_style_bg_color(profile_dot[i], i == state.profile ? MINT : DARK, LV_PART_MAIN);
+    }
+
+    lv_color_t link = state.connected ? GREEN : (state.bonded ? DARK : AMBER);
+    lv_obj_set_style_bg_color(link_dot, link, LV_PART_MAIN);
+
+    enum zmk_transport transport = state.selected.transport;
+    if (transport == ZMK_TRANSPORT_NONE) {
+        transport = state.preferred;
+    }
+    bool ble = transport == ZMK_TRANSPORT_BLE;
+
+    lv_label_set_text_fmt(bt_label, "BT %d", state.profile + 1);
+    lv_obj_set_style_image_recolor(bt_icon, ble ? BLUE : GREY, LV_PART_MAIN);
+    lv_obj_set_style_text_color(bt_label, ble ? WHITE : GREY, LV_PART_MAIN);
+    lv_obj_set_style_image_recolor(usb_icon, ble ? GREY : WHITE, LV_PART_MAIN);
+    lv_obj_set_style_text_color(usb_label, ble ? GREY : WHITE, LV_PART_MAIN);
+}
+
+ZMK_DISPLAY_WIDGET_LISTENER(kagu_output, struct output_state, output_update_cb, output_get_state)
+ZMK_SUBSCRIPTION(kagu_output, zmk_endpoint_changed);
+ZMK_SUBSCRIPTION(kagu_output, zmk_ble_active_profile_changed);
+
+/* Batteries: [0] is this (left) half, [1] the right half */
+
+struct battery_state {
+    uint8_t level[2];
+};
+
+static struct battery_state battery_cache;
+
+static struct battery_state battery_get_state(const zmk_event_t *eh) {
+    const struct zmk_battery_state_changed *own = as_zmk_battery_state_changed(eh);
+    const struct zmk_peripheral_battery_state_changed *peer =
+        as_zmk_peripheral_battery_state_changed(eh);
+
+    if (own != NULL) {
+        battery_cache.level[0] = own->state_of_charge;
+    } else if (peer != NULL) {
+        if (peer->source == 0) {
+            battery_cache.level[1] = peer->state_of_charge;
+        }
+    } else {
+        battery_cache.level[0] = zmk_battery_state_of_charge();
+        zmk_split_central_get_peripheral_battery_level(0, &battery_cache.level[1]);
+    }
+    return battery_cache;
+}
+
+static void battery_update_cb(struct battery_state state) {
+    for (int g = 0; g < 2; g++) {
+        uint8_t level = MIN(state.level[g], 100);
+        lv_obj_set_width(bar_fill[g], BAR_W * level / 100);
+        if (level == 0) {
+            lv_label_set_text(bar_label[g], "--");
+        } else {
+            lv_label_set_text_fmt(bar_label[g], "%d%%", level);
+        }
+    }
+}
+
+ZMK_DISPLAY_WIDGET_LISTENER(kagu_battery, struct battery_state, battery_update_cb,
+                            battery_get_state)
+ZMK_SUBSCRIPTION(kagu_battery, zmk_battery_state_changed);
+ZMK_SUBSCRIPTION(kagu_battery, zmk_peripheral_battery_state_changed);
+
+/* Layout */
+
+static void top_bar(lv_obj_t *screen) {
+    lv_obj_t *name = text(screen, &lv_font_montserrat_24, WHITE, "KAGU");
+    lv_obj_set_style_text_letter_space(name, 2, LV_PART_MAIN);
+    lv_obj_set_pos(name, 12, 3);
+
+    const int32_t size = 10, gap = 18;
+    int32_t x0 = W / 2 - (ZMK_BLE_PROFILE_COUNT - 1) * gap / 2 - size / 2;
+    for (int i = 0; i < ZMK_BLE_PROFILE_COUNT; i++) {
+        profile_dot[i] = dot(screen, size, DARK);
+        lv_obj_set_pos(profile_dot[i], x0 + i * gap, 10);
+    }
+
+    lv_obj_t *bt = icon(screen, &icon_bt, BLUE);
+    lv_obj_set_pos(bt, W - 50, 4);
+    link_dot = dot(screen, 12, DARK);
+    lv_obj_set_pos(link_dot, W - 22, 9);
+
+    rect(screen, 6, 31, W - 12, 2, DARK);
+}
+
+static void battery_bar(lv_obj_t *screen, int g, int32_t x, lv_color_t color, const char *side) {
+    lv_obj_t *tag = text(screen, &lv_font_montserrat_28, WHITE, side);
+    lv_obj_set_pos(tag, x + 4, BAR_Y - 34);
+
+    bar_label[g] = text(screen, &lv_font_montserrat_28, WHITE, "--");
+    lv_obj_align(bar_label[g], LV_ALIGN_TOP_RIGHT, -(W - x - BAR_W), BAR_Y - 34);
+
+    rect(screen, x, BAR_Y, BAR_W, BAR_H, DARK);
+    bar_fill[g] = rect(screen, x, BAR_Y, 0, BAR_H, color);
+}
+
+static void bottom_bar(lv_obj_t *screen) {
+    /* Columns sized to their text: "BT 1" | "USB" | "LAYER 0". */
+    const int32_t y = 142, sep1 = 92, sep2 = 192;
+    rect(screen, 6, 132, W - 12, 2, DARK);
+    rect(screen, sep1, 139, 2, 26, DARK);
+    rect(screen, sep2, 139, 2, 26, DARK);
+
+    bt_icon = icon(screen, &icon_bt, BLUE);
+    lv_obj_set_pos(bt_icon, 8, y - 1);
+    bt_label = text(screen, &lv_font_montserrat_20, WHITE, "BT 1");
+    lv_obj_set_pos(bt_label, 36, y);
+
+    usb_icon = icon(screen, &icon_usb, GREY);
+    lv_obj_set_pos(usb_icon, sep1 + 10, y - 1);
+    usb_label = text(screen, &lv_font_montserrat_20, GREY, "USB");
+    lv_obj_set_pos(usb_label, sep1 + 38, y);
+
+    lv_obj_t *layers = icon(screen, &icon_layers, MINT);
+    lv_obj_set_pos(layers, sep2 + 8, y - 1);
+    layer_index_label = text(screen, &lv_font_montserrat_20, WHITE, "");
+    lv_obj_set_pos(layer_index_label, sep2 + 36, y);
+}
+
+lv_obj_t *zmk_display_status_screen() {
+    lv_obj_t *screen = lv_obj_create(NULL);
+    lv_obj_set_style_bg_color(screen, lv_color_hex(0x000000), LV_PART_MAIN);
+    lv_obj_set_style_bg_opa(screen, LV_OPA_COVER, LV_PART_MAIN);
+    lv_obj_set_style_pad_all(screen, 0, LV_PART_MAIN);
+    lv_obj_remove_flag(screen, LV_OBJ_FLAG_SCROLLABLE);
+
+    top_bar(screen);
+
+    layer_name_label = text(screen, &lv_font_montserrat_40, WHITE, "");
+    lv_obj_set_style_text_letter_space(layer_name_label, 3, LV_PART_MAIN);
+    lv_obj_align(layer_name_label, LV_ALIGN_TOP_MID, 0, 34);
+
+    battery_bar(screen, 0, BAR_X, MINT, "L");
+    battery_bar(screen, 1, W - BAR_X - BAR_W, CYAN, "R");
+
+    bottom_bar(screen);
+
+    kagu_layer_init();
+    kagu_output_init();
+    kagu_battery_init();
+
+    return screen;
+}

@@ -8,3 +8,6 @@
 
 # Rendered case models
 case/build/
+
+# Python bytecode from the keymap generator
+__pycache__/
