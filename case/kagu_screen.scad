@@ -204,8 +204,8 @@ pivot_gap   = 0.3;            // between ear and cheek
 m3_clear    = 3.3;
 pivot_csk_d = 6.2;            // 90 degree chamfer on the ears' outer faces, fits
                               // an M3 flat head (DIN 965) flush, or eases a pan head
-head_notch  = [9, 4];         // the head's wire hole: w x depth, round-bottomed,
-                              // 1mm over wire_notch each way
+head_notch  = [9.5, 4.5];     // the head's wire hole: w x depth, round-bottomed,
+                              // 1.5mm over wire_notch each way
 nyloc_af    = 5.5 + 0.3;      // M3 nyloc across flats, plus fit
 nyloc_depth = 2.5;            // pocket in the cheek's inner face
 tab_y       = 91.5 + pcb_clear + wall;   // back of the case's tab just left of
