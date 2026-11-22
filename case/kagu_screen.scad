@@ -202,6 +202,10 @@ ear_t       = 3.0;            // head's ears, the outer plates
 cheek_t     = 4.0;            // base's cheeks, the inner plates
 pivot_gap   = 0.3;            // between ear and cheek
 m3_clear    = 3.3;
+pivot_csk_d = 6.2;            // 90 degree chamfer on the ears' outer faces, fits
+                              // an M3 flat head (DIN 965) flush, or eases a pan head
+head_notch  = [9, 4];         // the head's wire hole: w x depth, round-bottomed,
+                              // 1mm over wire_notch each way
 nyloc_af    = 5.5 + 0.3;      // M3 nyloc across flats, plus fit
 nyloc_depth = 2.5;            // pocket in the cheek's inner face
 tab_y       = 91.5 + pcb_clear + wall;   // back of the case's tab just left of
@@ -255,12 +259,22 @@ module screen_head_flat() {   // in the head frame, face up
         }
         hole_pts() translate([0, 0, -lcd_pcb_t - insert_h])
             cylinder(d = insert_d, h = insert_h + 1);
-        // wire notch in the front rim, closed over by the bezel
-        translate([lcd_holes[0] / 2 - post_d / 2 - 5 - wire_notch[0], -1, -wire_notch[1]])
-            cube([wire_notch[0], pod_wall + 2, wire_notch[1] + 1]);
-        // pivot bolts
+        // wire hole in the front rim, round at the bottom, closed over by the
+        // bezel; centred where the old square notch was
+        let(r = head_notch[0] / 2,
+            cx = lcd_holes[0] / 2 - post_d / 2 - 5 - wire_notch[0] / 2)
+            translate([cx, -1, 0]) rotate([-90, 0, 0])
+                linear_extrude(pod_wall + 2) hull() {
+                    translate([0, head_notch[1] - r]) circle(r = r);
+                    translate([-r, -1]) square([2 * r, 1]);
+                }
+        // pivot bolts, chamfered on the outer faces
         translate([-pod_w, axis_head[0], axis_head[1]]) rotate([0, 90, 0])
             cylinder(d = m3_clear, h = 2 * pod_w);
+        for (sx = [-1, 1])
+            translate([sx * (pod_w / 2 + 0.01), axis_head[0], axis_head[1]])
+                rotate([0, sx * 90, 0]) mirror([0, 0, 1])
+                    cylinder(d1 = pivot_csk_d, d2 = 0, h = pivot_csk_d / 2);
     }
 }
 
