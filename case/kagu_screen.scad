@@ -42,7 +42,7 @@ pod_wall  = 2.0;              // leaves ~0.75mm each side of the board inside:
 pod_floor = 2.0;
 
 bezel_t     = 3.4;            // glass pocket + lip in front of the glass
-bezel_lip   = 1.0;
+bezel_lip   = 1.9;            // glass pocket 1.5mm deep (bezel_t - bezel_lip)
 glass_clear = 0.3;
 glass_side_clear = 2.0;       // extra each side, left and right: the glass
                               // would not go in with glass_clear alone
