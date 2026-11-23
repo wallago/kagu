@@ -52,7 +52,7 @@ window_len  = 32.7;           // long side of the window
 window_shift = -1.75;         // the panel's pixels sit off-centre, away from the
                               // flex end (+x): a print showed pixels cut at -x
                               // and a 2mm dark strip at +x with the window at +0.25
-header_relief = [23, 2.6];    // pocket for the pin header's solder joints on the
+header_relief = [23, 1.5];    // pocket for the pin header's solder joints on the
                               // board front: length x depth, on both long edges
                               // so the board can go in either way up
 
