@@ -61,6 +61,8 @@ insert_d    = 3.2;            // M2 heat-set insert, ~3.5mm OD
 insert_h    = 4.5;
 m2_clear    = 2.6;
 m2_head_d   = 4.4;            // shallow 90 degree countersink for the screw head
+screw_sink  = bezel_t / 4;    // heads sit this far down in the bezel, so an
+                              // M2 x 6 reaches further into the insert
 
 wire_notch  = [8, 3];         // in the rim at the XIAO end: w x depth
 
@@ -161,8 +163,9 @@ module screen_bezel_flat() {   // in the face frame, sitting on z = 0
         // M2 screws, heads sunk into the top
         hole_pts() {
             translate([0, 0, -1]) cylinder(d = m2_clear, h = bezel_t + 2);
-            translate([0, 0, bezel_t - (m2_head_d - m2_clear) / 2])
+            translate([0, 0, bezel_t - screw_sink - (m2_head_d - m2_clear) / 2])
                 cylinder(d1 = m2_clear, d2 = m2_head_d, h = (m2_head_d - m2_clear) / 2 + 0.01);
+            translate([0, 0, bezel_t - screw_sink]) cylinder(d = m2_head_d, h = screw_sink + 1);
         }
     }
 }
