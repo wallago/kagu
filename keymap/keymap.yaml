@@ -213,7 +213,7 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-  - - Alt 8
+  - - Gui 8
     - Ctl+Sft A
     - Ctl+Sft E
     - Ctl+Sft C

@@ -315,7 +315,7 @@
 			bindings = <
    &to BASE   &kp M         &kp G         &kp F         &kp J     &trans &trans &trans &trans &trans
    &kp I      &kp C         &kp S         &kp Q         &kp H     &trans &trans &trans &trans &trans
-   &kp LA(N8) &kp LC(LS(A)) &kp LC(LS(E)) &kp LC(LS(C)) &trans    &trans &trans &trans &trans &trans
+   &kp LG(N8) &kp LC(LS(A)) &kp LC(LS(E)) &kp LC(LS(C)) &trans    &trans &trans &trans &trans &trans
                             &trans        &trans        &trans    &trans &trans &trans
 			>;
 		};

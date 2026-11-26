@@ -100,8 +100,8 @@ class ZmkTest(unittest.TestCase):
     def test_ctrl_shift(self) -> None:
         self.assertEqual(self.zmk.binding("CS_A"), "&kp LC(LS(A))")
 
-    def test_alt(self) -> None:
-        self.assertEqual(self.zmk.binding("ALT_8"), "&kp LA(N8)")
+    def test_gui(self) -> None:
+        self.assertEqual(self.zmk.binding("GUI_8"), "&kp LG(N8)")
 
     def test_hyper(self) -> None:
         self.assertEqual(self.zmk.binding("HYP_["), "&kp LC(LA(LS(LG(LBKT))))")
