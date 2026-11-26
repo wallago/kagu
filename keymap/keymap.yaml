@@ -217,7 +217,7 @@ layers:
     - Z
     - Ctl S
     - Sft W
-    - Sft X
+    - Alt 8
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}

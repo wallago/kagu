@@ -389,6 +389,9 @@ def key_code(label: str) -> str | None:
     if label.startswith("CTL_"):
         code = key_code(label.removeprefix("CTL_"))
         return f"LC({code})" if code else None
+    if label.startswith("ALT_"):
+        code = key_code(label.removeprefix("ALT_"))
+        return f"LA({code})" if code else None
     if label.startswith("SFT_"):
         code = key_code(label.removeprefix("SFT_"))
         return f"LS({code})" if code else None

@@ -313,10 +313,10 @@
 		menu_layer {
 			display-name = "Menu";
 			bindings = <
-   &to BASE  &kp M &kp G     &kp F     &kp J        &trans &trans &trans &trans &trans
-   &kp I     &kp C &kp S     &kp Q     &kp H        &trans &trans &trans &trans &trans
-   &kp GRAVE &kp Z &kp LC(S) &kp LS(W) &kp LS(X)    &trans &trans &trans &trans &trans
-                   &trans    &trans    &trans       &trans &trans &trans
+   &to BASE  &kp M &kp G     &kp F     &kp J         &trans &trans &trans &trans &trans
+   &kp I     &kp C &kp S     &kp Q     &kp H         &trans &trans &trans &trans &trans
+   &kp GRAVE &kp Z &kp LC(S) &kp LS(W) &kp LA(N8)    &trans &trans &trans &trans &trans
+                   &trans    &trans    &trans        &trans &trans &trans
 			>;
 		};
 	};
