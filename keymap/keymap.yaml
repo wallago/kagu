@@ -213,11 +213,11 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-  - - '`'
-    - Z
-    - Ctl S
-    - Sft W
-    - Alt 8
+  - - Alt 8
+    - Ctl+Sft A
+    - Ctl+Sft E
+    - Ctl+Sft C
+    - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}

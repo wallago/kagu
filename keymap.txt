@@ -20,7 +20,7 @@
 // cell defines its own hold. Use `LABEL/_` to drop an inherited hold. On a cell
 // with no tap, the inherited hold becomes a plain key press.
 //
-// `CTL_X` sends Ctrl+X, `SFT_X` Shift+X, `ALT_X` Alt+X. `HYP_X` sends X with Ctrl+Alt+Shift+Super held, for
+// `CTL_X` sends Ctrl+X, `ALT_X` Alt+X, `CS_X` Ctrl+Shift+X. `HYP_X` sends X with Ctrl+Alt+Shift+Super held, for
 // niri bindings. `TAP|SHIFTED` taps TAP, or SHIFTED (without Shift) while
 // Shift is held.
 //
@@ -137,14 +137,12 @@ layer game
 
 // Dofus window shortcuts, held from the game layer's inner thumb: Inventory,
 // Characteristics, Spells, Quests, Havre-sac on the home row, Map, Guild,
-// Friends, Jobs above. The top left key leaves the game layer. Combat on the
-// bottom row, as bound in Dofus: melee attack (`), permanent ping (Z),
-// temporary ping (Ctrl+S), show states (Shift+W), and Alt+8, to bind to
-// "highlight all ground marks", which has no default key.
+// Friends, Jobs above. The top left key leaves the game layer. Alt+8 and
+// Ctrl+Shift+A, E and C on the bottom row, for binds set in Dofus.
 layer menu
   TO_BASE  M     G      F      J          TRNS  TRNS  TRNS  TRNS  TRNS
   I        C     S      Q      H          TRNS  TRNS  TRNS  TRNS  TRNS
-  `        Z     CTL_S  SFT_W  ALT_8      TRNS  TRNS  TRNS  TRNS  TRNS
+  ALT_8    CS_A  CS_E   CS_C   TRNS       TRNS  TRNS  TRNS  TRNS  TRNS
                  TRNS   TRNS   TRNS       TRNS  TRNS  TRNS
 
 // Esc and Enter as chords. W+F and U+Y are pairs Colemak-DH rarely rolls
