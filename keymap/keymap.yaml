@@ -50,7 +50,7 @@ layers:
     - ✦ \
     - ✦ ]
     - {t: '$$mdi:tab-plus$$', s: next tab}
-  - - {t: Game, h: toggle}
+  - - ''
     - '0'
     - {t: '$$mdi:bluetooth-off$$', s: clear}
     - {type: held}
@@ -60,7 +60,7 @@ layers:
   - ['~', ^, '@', $, '%', '&', /, \, '|', '`']
   - ['$$mdi:keyboard-esc$$', <, '[', (, '{', '-', _, ':', ;, '#']
   - ['*', '>', ']', ), '}', +, '=', '?', '!', '"']
-  - - ''
+  - - {t: Game, h: toggle}
     - ''
     - {type: held}
     - $$mdi:keyboard-tab-reverse$$

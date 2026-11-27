@@ -16,7 +16,8 @@ Colemak-DH, after [dubu36](https://github.com/denniskempin/dubu36). Shortcut mod
 home row (pinky to index: Shift, Ctrl, Alt, Super, mirrored). Shift and the layers you use while
 writing sit on the thumbs, which keeps hold-tap timing out of the way. Some notes on the layers:
 
-- **rse**: numbers on the left, navigation on the right, Bluetooth profiles and the game switch. **lwr**: symbols.
+- **rse**: numbers on the left, navigation on the right, Bluetooth profiles. **lwr**: symbols and
+  the game switch.
 - **hyp**: held from the right outer thumb. Every key is sent with Ctrl+Alt+Shift+Super, for niri
   bindings: workspaces, moving and focusing columns, window sizes. The HYP_[ HYP_\ HYP_] keys on
   rse send the same.

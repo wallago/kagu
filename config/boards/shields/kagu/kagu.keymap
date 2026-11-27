@@ -163,10 +163,10 @@
 		rse_layer {
 			display-name = "Rse";
 			bindings = <
-   &none &kp N7 &kp N8   &kp N9 &bt BT_SEL 0    &kp HOME      &kp LC(LEFT)             &kp UP                   &kp LC(RIGHT)            &kp END
-   &none &kp N4 &kp N5   &kp N6 &bt BT_SEL 1    &kp LA(LEFT)  &kp LEFT                 &kp DOWN                 &kp RIGHT                &kp LA(RIGHT)
-   &none &kp N1 &kp N2   &kp N3 &bt BT_SEL 2    &kp LC(PG_UP) &kp LC(LA(LS(LG(LBKT)))) &kp LC(LA(LS(LG(BSLH)))) &kp LC(LA(LS(LG(RBKT)))) &kp LC(PG_DN)
-                &to GAME &kp N0 &bt BT_CLR      &none         &none                    &none
+   &none &kp N7 &kp N8 &kp N9 &bt BT_SEL 0    &kp HOME      &kp LC(LEFT)             &kp UP                   &kp LC(RIGHT)            &kp END
+   &none &kp N4 &kp N5 &kp N6 &bt BT_SEL 1    &kp LA(LEFT)  &kp LEFT                 &kp DOWN                 &kp RIGHT                &kp LA(RIGHT)
+   &none &kp N1 &kp N2 &kp N3 &bt BT_SEL 2    &kp LC(PG_UP) &kp LC(LA(LS(LG(LBKT)))) &kp LC(LA(LS(LG(BSLH)))) &kp LC(LA(LS(LG(RBKT)))) &kp LC(PG_DN)
+                &none  &kp N0 &bt BT_CLR      &none         &none                    &none
 			>;
 		};
 
@@ -176,7 +176,7 @@
    &kp TILDE &kp CARET &kp AT   &kp DLLR &kp PRCNT    &kp AMPS    &kp FSLH  &kp BSLH  &kp PIPE &kp GRAVE
    &kp ESC   &kp LT    &kp LBKT &kp LPAR &kp LBRC     &kp MINUS   &kp UNDER &kp COLON &kp SEMI &kp HASH
    &kp STAR  &kp GT    &kp RBKT &kp RPAR &kp RBRC     &kp PLUS    &kp EQUAL &kp QMARK &kp EXCL &kp DQT
-                       &none    &none    &none        &kp LS(TAB) &kp TAB   &none
+                       &to GAME &none    &none        &kp LS(TAB) &kp TAB   &none
 			>;
 		};
 
