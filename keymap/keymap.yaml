@@ -67,17 +67,8 @@ layers:
     - ''
   Lwr:
   - ['~', ^, '@', $, '%', '&', /, \, '|', '`']
-  - - {t: '$$mdi:keyboard-esc$$', h: '$$mdi:apple-keyboard-shift$$'}
-    - {t: <, h: Ctrl}
-    - {t: '[', h: Alt}
-    - {t: (, h: '$$mdi:linux$$'}
-    - '{'
-    - '-'
-    - {t: _, h: '$$mdi:linux$$'}
-    - {t: ':', h: Alt}
-    - {t: ;, h: Ctrl}
-    - {t: '#', h: '$$mdi:apple-keyboard-shift$$'}
-  - ['', '>', ']', ), '}', +, '=', '?', '!', '"']
+  - ['$$mdi:keyboard-esc$$', <, '[', (, '{', '-', _, ':', ;, '#']
+  - ['*', '>', ']', ), '}', +, '=', '?', '!', '"']
   - - ''
     - ''
     - {type: held}

@@ -76,11 +76,11 @@ layer rse
   _      1      2      3      _          TAB_L   HYP_[    HYP_\\   HYP_]    TAB_R
                 _      0      _          _       _        _
 
-// Symbols.
-layer lwr: left_mods, right_mods
+// Symbols, with no home row holds.
+layer lwr
   ~      ^      @      $      %          &      \/     \\     PIPE   `
   ESC    <      [      (      {          -      \_     \:     ;      #
-  _      >      ]      )      }          +      =      ?      !      "
+  *      >      ]      )      }          +      =      ?      !      "
                 _      _      _          STAB   TAB    _
 
 // Ctrl shortcuts, held from C or ,. Ctrl stays down for the whole hold, so

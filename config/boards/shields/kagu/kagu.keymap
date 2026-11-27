@@ -227,10 +227,10 @@
 		lwr_layer {
 			display-name = "Lwr";
 			bindings = <
-   &kp TILDE      &kp CARET     &kp AT         &kp DLLR       &kp PRCNT    &kp AMPS    &kp FSLH        &kp BSLH        &kp PIPE        &kp GRAVE
-   &hml LSHFT ESC &hml LCTRL LT &hml LALT LBKT &hml LGUI LPAR &kp LBRC     &kp MINUS   &hmr RGUI UNDER &hmr LALT COLON &hmr RCTRL SEMI &hmr RSHFT HASH
-   &none          &kp GT        &kp RBKT       &kp RPAR       &kp RBRC     &kp PLUS    &kp EQUAL       &kp QMARK       &kp EXCL        &kp DQT
-                                &none          &none          &none        &kp LS(TAB) &kp TAB         &none
+   &kp TILDE &kp CARET &kp AT   &kp DLLR &kp PRCNT    &kp AMPS    &kp FSLH  &kp BSLH  &kp PIPE &kp GRAVE
+   &kp ESC   &kp LT    &kp LBKT &kp LPAR &kp LBRC     &kp MINUS   &kp UNDER &kp COLON &kp SEMI &kp HASH
+   &kp STAR  &kp GT    &kp RBKT &kp RPAR &kp RBRC     &kp PLUS    &kp EQUAL &kp QMARK &kp EXCL &kp DQT
+                       &none    &none    &none        &kp LS(TAB) &kp TAB   &none
 			>;
 		};
 
