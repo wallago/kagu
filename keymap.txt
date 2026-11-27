@@ -58,12 +58,12 @@ overlay right_mods
   _  _  _  _  _          _  _        _        _         _
         _  _  _          _  _        _
 
-// Colemak-DH. X holds mou. Bksp, Enter (Shift on hold) and
+// Colemak-DH. Bksp, Enter (Shift on hold) and
 // one-shot lwr on the left thumbs; one-shot rse, Space and hyp on the right.
 layer base: left_mods, right_mods
   Q      W        F      P     B          J        L     U      Y     '
   A      R        S      T     G          M        N     E      I     O
-  Z      X/mou    C      D     V          K        H     ,      .     \/
+  Z      X        C      D     V          K        H     ,      .     \/
                   BSPC   RET/LSHFT    lwr/lwr     rse/rse  SPC   _/hyp
 
 // Numbers on the left, navigation on the right, with three Hyper keys for
@@ -85,41 +85,37 @@ layer lwr
                 _      _      _          STAB   TAB    _
 
 // Hyper (Ctrl+Alt+Shift+Super) shortcuts for niri, held from the right
-// outer thumb. Same keys as dubu36's hyp layer: letters on the left, 1-5 on
-// the right, and an inverted T with Up on E.
+// outer thumb; niri binds each one to an action. Left: workspaces 1-9 and 0
+// as a numpad, move column (top) and focus column (home) on the outer
+// columns, terminal (T) and launcher (D) below, consume/expel ([ ]) on the
+// thumbs. Right: arrows move the column (left, right) and the window inside
+// it (up, down); C center, Q close, O overview, F maximize, R width preset,
+// V float, - and = width, W tabbed column, M fullscreen, P screenshot.
 layer hyp
-  HYP_Q  HYP_W  HYP_F    HYP_P  HYP_B      HYP_1    HYP_2     HYP_3     HYP_4      HYP_5
-  HYP_A  HYP_R  HYP_S    HYP_T  HYP_G      _        HYP_LEFT  HYP_UP    HYP_RIGHT  _
-  HYP_Z  HYP_X  HYP_C    HYP_D  HYP_V      _        HYP_;     HYP_DOWN  HYP_'      _
-                HYP_ESC  _      HYP_TAB    HYP_RET  HYP_SPC   TRNS
-
-// Left hand only shortcuts, for use with the mouse or trackpad in the right
-// hand. Held from X; same keys as dubu36's mou layer, with Ctrl for Cmd,
-// minus Ctrl+X, which sits under the held key.
-layer mou
-  CA_F2  _      _      _      _          _  _  _  _  _
-  CA_F3  _      CTL_S  CTL_T  _          _  _  _  _  _
-  CTL_Z  TRNS   CTL_C  _      CTL_V      _  _  _  _  _
-                TRNS   _      _          _  _  _
+  HYP_LEFT  HYP_7  HYP_8  HYP_9  HYP_RIGHT      HYP_C      HYP_Q      HYP_UP     HYP_O      HYP_F
+  HYP_H     HYP_4  HYP_5  HYP_6  HYP_L          HYP_R      HYP_LEFT   HYP_DOWN   HYP_RIGHT  HYP_V
+  HYP_T     HYP_1  HYP_2  HYP_3  HYP_D          HYP_-      HYP_=      HYP_W      HYP_M      HYP_P
+                   HYP_[  HYP_0  HYP_]          _          _          TRNS
 
 // One-handed gaming (Dofus) with the right hand on the mouse, entered from
 // rse (outer left thumb). Every left key is a plain press, no hold-tap, so
 // nothing waits on a timer: spells 1-5 on top and Ctrl+1-5 (second spell bar)
-// on the home row, plain Shift, Ctrl and Alt under them, F1 on the middle
-// thumb ends the turn. Hold Shift for 6-0 and Ctrl+6-0 instead. The right
-// half falls through to base. Hold the inner thumb for menu.
+// on the home row, ~ below them, plain Shift on the outer thumb, F1 on the
+// middle thumb ends the turn. Hold Shift for 6-0 and Ctrl+6-0 instead. The
+// right half falls through to base. Hold the inner thumb for menu.
 layer game
   1|6          2|7          3|8          4|9          5|0            TRNS  TRNS  TRNS  TRNS  TRNS
   CTL_1|CTL_6  CTL_2|CTL_7  CTL_3|CTL_8  CTL_4|CTL_9  CTL_5|CTL_0    TRNS  TRNS  TRNS  TRNS  TRNS
-  LSHFT        LCTRL        LALT         TAB          RET            TRNS  TRNS  TRNS  TRNS  TRNS
-                            ESC          F1           MENU           TRNS  TRNS  TRNS
+  ~            _            _            _            _              TRNS  TRNS  TRNS  TRNS  TRNS
+                            LSHFT        F1           MENU           TRNS  TRNS  TRNS
 
 // Dofus window shortcuts, held from the game layer's inner thumb: Inventory,
 // Characteristics, Spells, Quests, Havre-sac on the home row, Map, Guild,
-// Friends, Jobs above. The top left key leaves the game layer. Super+8 and
-// Ctrl+Shift+A, E and C on the bottom row, for binds set in Dofus.
+// Friends, Jobs above, Esc top left. Super+8 and Ctrl+Shift+A, E and C on the
+// bottom row, for binds set in Dofus; the bottom right key leaves the game
+// layer.
 layer menu
-  TO_BASE  M     G      F      J          TRNS  TRNS  TRNS  TRNS  TRNS
+  ESC      M     G      F      J          TRNS  TRNS  TRNS  TRNS  TRNS
   I        C     S      Q      H          TRNS  TRNS  TRNS  TRNS  TRNS
-  GUI_8    CS_A  CS_E   CS_C   TRNS       TRNS  TRNS  TRNS  TRNS  TRNS
+  GUI_8    CS_A  CS_E   CS_C   TO_BASE    TRNS  TRNS  TRNS  TRNS  TRNS
                  TRNS   TRNS   TRNS       TRNS  TRNS  TRNS

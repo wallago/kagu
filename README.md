@@ -17,9 +17,9 @@ home row (pinky to index: Shift, Ctrl, Alt, Super, mirrored). Shift and the laye
 writing sit on the thumbs, which keeps hold-tap timing out of the way. Some notes on the layers:
 
 - **rse**: numbers on the left, navigation on the right, Bluetooth profiles and the game switch. **lwr**: symbols.
-- **mou**: held from X. Left-hand Ctrl+Q W S T Z C V for when the right hand is on the mouse.
 - **hyp**: held from the right outer thumb. Every key is sent with Ctrl+Alt+Shift+Super, for niri
-  bindings. The HYP_[ HYP_\ HYP_] keys on rse send the same.
+  bindings: workspaces, moving and focusing columns, window sizes. The HYP_[ HYP_\ HYP_] keys on
+  rse send the same.
 
 ## Editing the keymap
 
@@ -30,12 +30,11 @@ the six thumbs.
 layer base: left_mods, right_mods
   Q      W        F      P     B          J        L     U      Y     '
   A      R        S      T     G          M        N     E      I     O
-  Z      X/mou    C      D     V          K        H     ,      .     \/
+  Z      X        C      D     V          K        H     ,      .     \/
                   BSPC   RET/LSHFT    lwr/lwr     rse/rse  SPC   _/hyp
 ```
 
 ```
-  X/mou         tap X, hold the mou layer
   T/LGUI:hm     tap T, hold Super, as a positional home-row mod
   LSHFT/LSHFT   one-shot Shift on tap, plain Shift on hold
   _ / TRNS      nothing / fall through to the layer below

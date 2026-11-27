@@ -12,16 +12,7 @@ layers:
     - {t: E, h: Alt}
     - {t: I, h: Ctrl}
     - {t: O, h: '$$mdi:apple-keyboard-shift$$'}
-  - - Z
-    - {t: X, h: Mou}
-    - C
-    - D
-    - V
-    - K
-    - H
-    - ','
-    - .
-    - /
+  - [Z, X, C, D, V, K, H, ',', ., /]
   - - $$mdi:backspace-outline$$
     - {t: '$$mdi:keyboard-return$$', h: '$$mdi:apple-keyboard-shift$$'}
     - {t: Lwr, h: Lwr}
@@ -76,34 +67,15 @@ layers:
     - $$mdi:keyboard-tab$$
     - ''
   Hyp:
-  - [✦ Q, ✦ W, ✦ F, ✦ P, ✦ B, ✦ 1, ✦ 2, ✦ 3, ✦ 4, ✦ 5]
-  - [✦ A, ✦ R, ✦ S, ✦ T, ✦ G, '', '✦ $$mdi:arrow-left$$', '✦ $$mdi:arrow-up$$', '✦ $$mdi:arrow-right$$', '']
-  - [✦ Z, ✦ X, ✦ C, ✦ D, ✦ V, '', ✦ ;, '✦ $$mdi:arrow-down$$', ✦ ', '']
-  - - ✦ $$mdi:keyboard-esc$$
+  - ['✦ $$mdi:arrow-left$$', ✦ 7, ✦ 8, ✦ 9, '✦ $$mdi:arrow-right$$', ✦ C, ✦ Q, '✦ $$mdi:arrow-up$$', ✦ O, ✦ F]
+  - [✦ H, ✦ 4, ✦ 5, ✦ 6, ✦ L, ✦ R, '✦ $$mdi:arrow-left$$', '✦ $$mdi:arrow-down$$', '✦ $$mdi:arrow-right$$', ✦ V]
+  - [✦ T, ✦ 1, ✦ 2, ✦ 3, ✦ D, ✦ -, ✦ =, ✦ W, ✦ M, ✦ P]
+  - - ✦ [
+    - ✦ 0
+    - ✦ ]
     - ''
-    - ✦ $$mdi:keyboard-tab$$
-    - ✦ $$mdi:keyboard-return$$
-    - ✦ $$mdi:keyboard-space$$
+    - ''
     - {type: held}
-  Mou:
-  - [Ctl+Alt F2, '', '', '', '', '', '', '', '', '']
-  - [Ctl+Alt F3, '', Ctl S, Ctl T, '', '', '', '', '', '']
-  - - Ctl Z
-    - {type: held}
-    - Ctl C
-    - ''
-    - Ctl V
-    - ''
-    - ''
-    - ''
-    - ''
-    - ''
-  - - {t: ▽, type: trans}
-    - ''
-    - ''
-    - ''
-    - ''
-    - ''
   Game:
   - - {t: '1', s: '6'}
     - {t: '2', s: '7'}
@@ -125,24 +97,24 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
+  - - '~'
+    - ''
+    - ''
+    - ''
+    - ''
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
   - - $$mdi:apple-keyboard-shift$$
-    - Ctrl
-    - Alt
-    - $$mdi:keyboard-tab$$
-    - $$mdi:keyboard-return$$
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-  - - $$mdi:keyboard-esc$$
     - F1
     - Menu
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   Menu:
-  - - {t: Base, h: toggle}
+  - - $$mdi:keyboard-esc$$
     - M
     - G
     - F
@@ -166,7 +138,7 @@ layers:
     - Ctl+Sft A
     - Ctl+Sft E
     - Ctl+Sft C
-    - {t: ▽, type: trans}
+    - {t: Base, h: toggle}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}

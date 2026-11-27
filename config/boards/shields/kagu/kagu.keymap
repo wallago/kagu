@@ -10,9 +10,8 @@
 #define RSE   1
 #define LWR   2
 #define HYP   3
-#define MOU   4
-#define GAME  5
-#define MENU  6
+#define GAME  4
+#define MENU  5
 
 // Key positions (see the matrix transform in kagu.dtsi):
 //   0  1  2  3  4     5  6  7  8  9
@@ -156,7 +155,7 @@
 			bindings = <
    &kp Q        &kp W        &kp F       &kp P         &kp B           &kp J        &kp L       &kp U       &kp Y        &kp SQT
    &hml LSHFT A &hml LCTRL R &hml LALT S &hml LGUI T   &kp G           &kp M        &hmr RGUI N &hmr LALT E &hmr RCTRL I &hmr RSHFT O
-   &kp Z        &lt MOU X    &kp C       &kp D         &kp V           &kp K        &kp H       &kp COMMA   &kp DOT      &kp FSLH
+   &kp Z        &kp X        &kp C       &kp D         &kp V           &kp K        &kp H       &kp COMMA   &kp DOT      &kp FSLH
                              &kp BSPC    &mt LSHFT RET &osl LWR LWR    &osl RSE RSE &kp SPACE   &mo HYP
 			>;
 		};
@@ -184,20 +183,10 @@
 		hyp_layer {
 			display-name = "Hyp";
 			bindings = <
-   &kp LC(LA(LS(LG(Q)))) &kp LC(LA(LS(LG(W)))) &kp LC(LA(LS(LG(F))))   &kp LC(LA(LS(LG(P)))) &kp LC(LA(LS(LG(B))))      &kp LC(LA(LS(LG(N1))))  &kp LC(LA(LS(LG(N2))))    &kp LC(LA(LS(LG(N3))))   &kp LC(LA(LS(LG(N4))))    &kp LC(LA(LS(LG(N5))))
-   &kp LC(LA(LS(LG(A)))) &kp LC(LA(LS(LG(R)))) &kp LC(LA(LS(LG(S))))   &kp LC(LA(LS(LG(T)))) &kp LC(LA(LS(LG(G))))      &none                   &kp LC(LA(LS(LG(LEFT))))  &kp LC(LA(LS(LG(UP))))   &kp LC(LA(LS(LG(RIGHT)))) &none
-   &kp LC(LA(LS(LG(Z)))) &kp LC(LA(LS(LG(X)))) &kp LC(LA(LS(LG(C))))   &kp LC(LA(LS(LG(D)))) &kp LC(LA(LS(LG(V))))      &none                   &kp LC(LA(LS(LG(SEMI))))  &kp LC(LA(LS(LG(DOWN)))) &kp LC(LA(LS(LG(SQT))))   &none
-                                               &kp LC(LA(LS(LG(ESC)))) &none                 &kp LC(LA(LS(LG(TAB))))    &kp LC(LA(LS(LG(RET)))) &kp LC(LA(LS(LG(SPACE)))) &trans
-			>;
-		};
-
-		mou_layer {
-			display-name = "Mou";
-			bindings = <
-   &kp LC(LA(F2)) &none  &none     &none     &none        &none &none &none &none &none
-   &kp LC(LA(F3)) &none  &kp LC(S) &kp LC(T) &none        &none &none &none &none &none
-   &kp LC(Z)      &trans &kp LC(C) &none     &kp LC(V)    &none &none &none &none &none
-                         &trans    &none     &none        &none &none &none
+   &kp LC(LA(LS(LG(LEFT)))) &kp LC(LA(LS(LG(N7)))) &kp LC(LA(LS(LG(N8))))   &kp LC(LA(LS(LG(N9)))) &kp LC(LA(LS(LG(RIGHT))))    &kp LC(LA(LS(LG(C))))     &kp LC(LA(LS(LG(Q))))     &kp LC(LA(LS(LG(UP))))   &kp LC(LA(LS(LG(O))))     &kp LC(LA(LS(LG(F))))
+   &kp LC(LA(LS(LG(H))))    &kp LC(LA(LS(LG(N4)))) &kp LC(LA(LS(LG(N5))))   &kp LC(LA(LS(LG(N6)))) &kp LC(LA(LS(LG(L))))        &kp LC(LA(LS(LG(R))))     &kp LC(LA(LS(LG(LEFT))))  &kp LC(LA(LS(LG(DOWN)))) &kp LC(LA(LS(LG(RIGHT)))) &kp LC(LA(LS(LG(V))))
+   &kp LC(LA(LS(LG(T))))    &kp LC(LA(LS(LG(N1)))) &kp LC(LA(LS(LG(N2))))   &kp LC(LA(LS(LG(N3)))) &kp LC(LA(LS(LG(D))))        &kp LC(LA(LS(LG(MINUS)))) &kp LC(LA(LS(LG(EQUAL)))) &kp LC(LA(LS(LG(W))))    &kp LC(LA(LS(LG(M))))     &kp LC(LA(LS(LG(P))))
+                                                   &kp LC(LA(LS(LG(LBKT)))) &kp LC(LA(LS(LG(N0)))) &kp LC(LA(LS(LG(RBKT))))     &none                     &none                     &trans
 			>;
 		};
 
@@ -206,18 +195,18 @@
 			bindings = <
    &sm_1_6         &sm_2_7         &sm_3_8         &sm_4_9         &sm_5_0            &trans &trans &trans &trans &trans
    &sm_ctl_1_ctl_6 &sm_ctl_2_ctl_7 &sm_ctl_3_ctl_8 &sm_ctl_4_ctl_9 &sm_ctl_5_ctl_0    &trans &trans &trans &trans &trans
-   &kp LSHFT       &kp LCTRL       &kp LALT        &kp TAB         &kp RET            &trans &trans &trans &trans &trans
-                                   &kp ESC         &kp F1          &mo MENU           &trans &trans &trans
+   &kp TILDE       &none           &none           &none           &none              &trans &trans &trans &trans &trans
+                                   &kp LSHFT       &kp F1          &mo MENU           &trans &trans &trans
 			>;
 		};
 
 		menu_layer {
 			display-name = "Menu";
 			bindings = <
-   &to BASE   &kp M         &kp G         &kp F         &kp J     &trans &trans &trans &trans &trans
-   &kp I      &kp C         &kp S         &kp Q         &kp H     &trans &trans &trans &trans &trans
-   &kp LG(N8) &kp LC(LS(A)) &kp LC(LS(E)) &kp LC(LS(C)) &trans    &trans &trans &trans &trans &trans
-                            &trans        &trans        &trans    &trans &trans &trans
+   &kp ESC    &kp M         &kp G         &kp F         &kp J       &trans &trans &trans &trans &trans
+   &kp I      &kp C         &kp S         &kp Q         &kp H       &trans &trans &trans &trans &trans
+   &kp LG(N8) &kp LC(LS(A)) &kp LC(LS(E)) &kp LC(LS(C)) &to BASE    &trans &trans &trans &trans &trans
+                            &trans        &trans        &trans      &trans &trans &trans
 			>;
 		};
 	};
