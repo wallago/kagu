@@ -195,7 +195,7 @@
 			bindings = <
    &sm_1_6         &sm_2_7         &sm_3_8         &sm_4_9         &sm_5_0            &trans &trans &trans &trans &trans
    &sm_ctl_1_ctl_6 &sm_ctl_2_ctl_7 &sm_ctl_3_ctl_8 &sm_ctl_4_ctl_9 &sm_ctl_5_ctl_0    &trans &trans &trans &trans &trans
-   &none           &none           &none           &none           &none              &trans &trans &trans &trans &trans
+   &kp TILDE       &none           &none           &none           &none              &trans &trans &trans &trans &trans
                                    &kp LSHFT       &kp F1          &mo MENU           &trans &trans &trans
 			>;
 		};
