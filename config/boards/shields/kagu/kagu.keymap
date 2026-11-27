@@ -10,9 +10,8 @@
 #define RSE   1
 #define LWR   2
 #define HYP   3
-#define MOU   4
-#define GAME  5
-#define MENU  6
+#define GAME  4
+#define MENU  5
 
 // Key positions (see the matrix transform in kagu.dtsi):
 //   0  1  2  3  4     5  6  7  8  9
@@ -156,7 +155,7 @@
 			bindings = <
    &kp Q        &kp W        &kp F       &kp P         &kp B           &kp J        &kp L       &kp U       &kp Y        &kp SQT
    &hml LSHFT A &hml LCTRL R &hml LALT S &hml LGUI T   &kp G           &kp M        &hmr RGUI N &hmr LALT E &hmr RCTRL I &hmr RSHFT O
-   &kp Z        &lt MOU X    &kp C       &kp D         &kp V           &kp K        &kp H       &kp COMMA   &kp DOT      &kp FSLH
+   &kp Z        &kp X        &kp C       &kp D         &kp V           &kp K        &kp H       &kp COMMA   &kp DOT      &kp FSLH
                              &kp BSPC    &mt LSHFT RET &osl LWR LWR    &osl RSE RSE &kp SPACE   &mo HYP
 			>;
 		};
@@ -188,16 +187,6 @@
    &kp LC(LA(LS(LG(H))))    &kp LC(LA(LS(LG(N4)))) &kp LC(LA(LS(LG(N5))))   &kp LC(LA(LS(LG(N6)))) &kp LC(LA(LS(LG(L))))        &kp LC(LA(LS(LG(R))))     &kp LC(LA(LS(LG(LEFT))))  &kp LC(LA(LS(LG(DOWN)))) &kp LC(LA(LS(LG(RIGHT)))) &kp LC(LA(LS(LG(V))))
    &kp LC(LA(LS(LG(T))))    &kp LC(LA(LS(LG(N1)))) &kp LC(LA(LS(LG(N2))))   &kp LC(LA(LS(LG(N3)))) &kp LC(LA(LS(LG(D))))        &kp LC(LA(LS(LG(MINUS)))) &kp LC(LA(LS(LG(EQUAL)))) &kp LC(LA(LS(LG(W))))    &kp LC(LA(LS(LG(M))))     &kp LC(LA(LS(LG(P))))
                                                    &kp LC(LA(LS(LG(LBKT)))) &kp LC(LA(LS(LG(N0)))) &kp LC(LA(LS(LG(RBKT))))     &none                     &none                     &trans
-			>;
-		};
-
-		mou_layer {
-			display-name = "Mou";
-			bindings = <
-   &kp LC(LA(F2)) &none  &none     &none     &none        &none &none &none &none &none
-   &kp LC(LA(F3)) &none  &kp LC(S) &kp LC(T) &none        &none &none &none &none &none
-   &kp LC(Z)      &trans &kp LC(C) &none     &kp LC(V)    &none &none &none &none &none
-                         &trans    &none     &none        &none &none &none
 			>;
 		};
 
