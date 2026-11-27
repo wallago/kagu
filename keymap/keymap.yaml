@@ -23,7 +23,7 @@ layers:
     - .
     - {t: /, h: Sys}
   - - $$mdi:backspace-outline$$
-    - {t: '$$mdi:apple-keyboard-shift$$', h: '$$mdi:apple-keyboard-shift$$'}
+    - {t: '$$mdi:keyboard-return$$', h: '$$mdi:apple-keyboard-shift$$'}
     - {t: Lwr, h: Lwr}
     - {t: Rse, h: Rse}
     - $$mdi:keyboard-space$$
@@ -229,10 +229,3 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
-combos:
-- p: [1, 2]
-  k: $$mdi:keyboard-esc$$
-  l: [Base, App, Os]
-- p: [7, 8]
-  k: $$mdi:keyboard-return$$
-  l: [Base, App, Os]
