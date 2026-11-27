@@ -184,10 +184,10 @@
 		hyp_layer {
 			display-name = "Hyp";
 			bindings = <
-   &kp LC(LA(LS(LG(Q)))) &kp LC(LA(LS(LG(W)))) &kp LC(LA(LS(LG(F))))   &kp LC(LA(LS(LG(P)))) &kp LC(LA(LS(LG(B))))      &kp LC(LA(LS(LG(N1))))  &kp LC(LA(LS(LG(N2))))    &kp LC(LA(LS(LG(N3))))   &kp LC(LA(LS(LG(N4))))    &kp LC(LA(LS(LG(N5))))
-   &kp LC(LA(LS(LG(A)))) &kp LC(LA(LS(LG(R)))) &kp LC(LA(LS(LG(S))))   &kp LC(LA(LS(LG(T)))) &kp LC(LA(LS(LG(G))))      &none                   &kp LC(LA(LS(LG(LEFT))))  &kp LC(LA(LS(LG(UP))))   &kp LC(LA(LS(LG(RIGHT)))) &none
-   &kp LC(LA(LS(LG(Z)))) &kp LC(LA(LS(LG(X)))) &kp LC(LA(LS(LG(C))))   &kp LC(LA(LS(LG(D)))) &kp LC(LA(LS(LG(V))))      &none                   &kp LC(LA(LS(LG(SEMI))))  &kp LC(LA(LS(LG(DOWN)))) &kp LC(LA(LS(LG(SQT))))   &none
-                                               &kp LC(LA(LS(LG(ESC)))) &none                 &kp LC(LA(LS(LG(TAB))))    &kp LC(LA(LS(LG(RET)))) &kp LC(LA(LS(LG(SPACE)))) &trans
+   &kp LC(LA(LS(LG(LEFT)))) &kp LC(LA(LS(LG(N7)))) &kp LC(LA(LS(LG(N8))))   &kp LC(LA(LS(LG(N9)))) &kp LC(LA(LS(LG(RIGHT))))    &kp LC(LA(LS(LG(C))))     &kp LC(LA(LS(LG(Q))))     &kp LC(LA(LS(LG(UP))))   &kp LC(LA(LS(LG(O))))     &kp LC(LA(LS(LG(F))))
+   &kp LC(LA(LS(LG(H))))    &kp LC(LA(LS(LG(N4)))) &kp LC(LA(LS(LG(N5))))   &kp LC(LA(LS(LG(N6)))) &kp LC(LA(LS(LG(L))))        &kp LC(LA(LS(LG(R))))     &kp LC(LA(LS(LG(LEFT))))  &kp LC(LA(LS(LG(DOWN)))) &kp LC(LA(LS(LG(RIGHT)))) &kp LC(LA(LS(LG(V))))
+   &kp LC(LA(LS(LG(T))))    &kp LC(LA(LS(LG(N1)))) &kp LC(LA(LS(LG(N2))))   &kp LC(LA(LS(LG(N3)))) &kp LC(LA(LS(LG(D))))        &kp LC(LA(LS(LG(MINUS)))) &kp LC(LA(LS(LG(EQUAL)))) &kp LC(LA(LS(LG(W))))    &kp LC(LA(LS(LG(M))))     &kp LC(LA(LS(LG(P))))
+                                                   &kp LC(LA(LS(LG(LBKT)))) &kp LC(LA(LS(LG(N0)))) &kp LC(LA(LS(LG(RBKT))))     &none                     &none                     &trans
 			>;
 		};
 

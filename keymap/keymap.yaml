@@ -76,14 +76,14 @@ layers:
     - $$mdi:keyboard-tab$$
     - ''
   Hyp:
-  - [✦ Q, ✦ W, ✦ F, ✦ P, ✦ B, ✦ 1, ✦ 2, ✦ 3, ✦ 4, ✦ 5]
-  - [✦ A, ✦ R, ✦ S, ✦ T, ✦ G, '', '✦ $$mdi:arrow-left$$', '✦ $$mdi:arrow-up$$', '✦ $$mdi:arrow-right$$', '']
-  - [✦ Z, ✦ X, ✦ C, ✦ D, ✦ V, '', ✦ ;, '✦ $$mdi:arrow-down$$', ✦ ', '']
-  - - ✦ $$mdi:keyboard-esc$$
+  - ['✦ $$mdi:arrow-left$$', ✦ 7, ✦ 8, ✦ 9, '✦ $$mdi:arrow-right$$', ✦ C, ✦ Q, '✦ $$mdi:arrow-up$$', ✦ O, ✦ F]
+  - [✦ H, ✦ 4, ✦ 5, ✦ 6, ✦ L, ✦ R, '✦ $$mdi:arrow-left$$', '✦ $$mdi:arrow-down$$', '✦ $$mdi:arrow-right$$', ✦ V]
+  - [✦ T, ✦ 1, ✦ 2, ✦ 3, ✦ D, ✦ -, ✦ =, ✦ W, ✦ M, ✦ P]
+  - - ✦ [
+    - ✦ 0
+    - ✦ ]
     - ''
-    - ✦ $$mdi:keyboard-tab$$
-    - ✦ $$mdi:keyboard-return$$
-    - ✦ $$mdi:keyboard-space$$
+    - ''
     - {type: held}
   Mou:
   - [Ctl+Alt F2, '', '', '', '', '', '', '', '', '']

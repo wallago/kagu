@@ -19,7 +19,8 @@ writing sit on the thumbs, which keeps hold-tap timing out of the way. Some note
 - **rse**: numbers on the left, navigation on the right, Bluetooth profiles and the game switch. **lwr**: symbols.
 - **mou**: held from X. Left-hand Ctrl+Q W S T Z C V for when the right hand is on the mouse.
 - **hyp**: held from the right outer thumb. Every key is sent with Ctrl+Alt+Shift+Super, for niri
-  bindings. The HYP_[ HYP_\ HYP_] keys on rse send the same.
+  bindings: workspaces, moving and focusing columns, window sizes. The HYP_[ HYP_\ HYP_] keys on
+  rse send the same.
 
 ## Editing the keymap
 

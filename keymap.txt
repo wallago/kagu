@@ -85,13 +85,17 @@ layer lwr
                 _      _      _          STAB   TAB    _
 
 // Hyper (Ctrl+Alt+Shift+Super) shortcuts for niri, held from the right
-// outer thumb. Same keys as dubu36's hyp layer: letters on the left, 1-5 on
-// the right, and an inverted T with Up on E.
+// outer thumb; niri binds each one to an action. Left: workspaces 1-9 and 0
+// as a numpad, move column (top) and focus column (home) on the outer
+// columns, terminal (T) and launcher (D) below, consume/expel ([ ]) on the
+// thumbs. Right: arrows move the column (left, right) and the window inside
+// it (up, down); C center, Q close, O overview, F maximize, R width preset,
+// V float, - and = width, W tabbed column, M fullscreen, P screenshot.
 layer hyp
-  HYP_Q  HYP_W  HYP_F    HYP_P  HYP_B      HYP_1    HYP_2     HYP_3     HYP_4      HYP_5
-  HYP_A  HYP_R  HYP_S    HYP_T  HYP_G      _        HYP_LEFT  HYP_UP    HYP_RIGHT  _
-  HYP_Z  HYP_X  HYP_C    HYP_D  HYP_V      _        HYP_;     HYP_DOWN  HYP_'      _
-                HYP_ESC  _      HYP_TAB    HYP_RET  HYP_SPC   TRNS
+  HYP_LEFT  HYP_7  HYP_8  HYP_9  HYP_RIGHT      HYP_C      HYP_Q      HYP_UP     HYP_O      HYP_F
+  HYP_H     HYP_4  HYP_5  HYP_6  HYP_L          HYP_R      HYP_LEFT   HYP_DOWN   HYP_RIGHT  HYP_V
+  HYP_T     HYP_1  HYP_2  HYP_3  HYP_D          HYP_-      HYP_=      HYP_W      HYP_M      HYP_P
+                   HYP_[  HYP_0  HYP_]          _          _          TRNS
 
 // Left hand only shortcuts, for use with the mouse or trackpad in the right
 // hand. Held from X; same keys as dubu36's mou layer, with Ctrl for Cmd,
