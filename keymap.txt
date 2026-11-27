@@ -100,9 +100,9 @@ layer hyp
 // One-handed gaming (Dofus) with the right hand on the mouse, entered from
 // rse (outer left thumb). Every left key is a plain press, no hold-tap, so
 // nothing waits on a timer: spells 1-5 on top and Ctrl+1-5 (second spell bar)
-// on the home row, ~ below them, plain Shift on the outer thumb, F1 on the middle thumb
-// ends the turn. Hold Shift for 6-0 and Ctrl+6-0 instead. The right half
-// falls through to base. Hold the inner thumb for menu.
+// on the home row, ~ below them, plain Shift on the outer thumb, F1 on the
+// middle thumb ends the turn. Hold Shift for 6-0 and Ctrl+6-0 instead. The
+// right half falls through to base. Hold the inner thumb for menu.
 layer game
   1|6          2|7          3|8          4|9          5|0            TRNS  TRNS  TRNS  TRNS  TRNS
   CTL_1|CTL_6  CTL_2|CTL_7  CTL_3|CTL_8  CTL_4|CTL_9  CTL_5|CTL_0    TRNS  TRNS  TRNS  TRNS  TRNS
