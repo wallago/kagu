@@ -14,12 +14,12 @@ layers:
     - {t: O, h: '$$mdi:apple-keyboard-shift$$'}
   - - {t: Z, h: Sys}
     - {t: X, h: Mou}
-    - {t: C, h: Ctrl+app}
-    - {t: D, h: Super+os}
+    - C
+    - D
     - V
     - K
-    - {t: H, h: Super+os}
-    - {t: ',', h: Ctrl+app}
+    - H
+    - ','
     - .
     - {t: /, h: Sys}
   - - $$mdi:backspace-outline$$
@@ -39,17 +39,17 @@ layers:
     - $$mdi:arrow-up$$
     - {t: '$$mdi:arrow-collapse-right$$', s: word}
     - End
-  - - $$mdi:apple-keyboard-shift$$
-    - {t: '4', h: Ctrl}
-    - {t: '5', h: Alt}
-    - {t: '6', h: '$$mdi:linux$$'}
+  - - ''
+    - '4'
+    - '5'
+    - '6'
     - ''
     - {t: '$$mdi:arrow-u-left-top$$', s: back}
     - $$mdi:arrow-left$$
     - $$mdi:arrow-down$$
     - $$mdi:arrow-right$$
     - {t: '$$mdi:arrow-u-right-top$$', s: forward}
-  - - '0'
+  - - ''
     - '1'
     - '2'
     - '3'
@@ -59,41 +59,22 @@ layers:
     - ✦ \
     - ✦ ]
     - {t: '$$mdi:tab-plus$$', s: next tab}
-  - - $$mdi:keyboard-esc$$
+  - - ''
+    - '0'
     - ''
-    - $$mdi:keyboard-return$$
     - {type: held}
     - ''
     - ''
   Lwr:
   - ['~', ^, '@', $, '%', '&', /, \, '|', '`']
-  - - {t: '$$mdi:keyboard-esc$$', h: '$$mdi:apple-keyboard-shift$$'}
-    - {t: <, h: Ctrl}
-    - {t: '[', h: Alt}
-    - {t: (, h: '$$mdi:linux$$'}
-    - '{'
-    - '-'
-    - {t: _, h: '$$mdi:linux$$'}
-    - {t: ':', h: Alt}
-    - {t: ;, h: Ctrl}
-    - {t: '#', h: '$$mdi:apple-keyboard-shift$$'}
-  - ['', '>', ']', ), '}', +, '=', '?', '!', '"']
+  - ['$$mdi:keyboard-esc$$', <, '[', (, '{', '-', _, ':', ;, '#']
+  - ['*', '>', ']', ), '}', +, '=', '?', '!', '"']
   - - ''
     - ''
     - {type: held}
     - $$mdi:keyboard-tab-reverse$$
     - $$mdi:keyboard-tab$$
     - ''
-  App:
-  - [Q, W, F, P, B, J, ;, '$$mdi:arrow-up$$', '''', '''']
-  - [A, R, S, T, G, '[', '$$mdi:arrow-left$$', '$$mdi:arrow-down$$', '$$mdi:arrow-right$$', ']']
-  - [Z, X, C, D, V, K, H, ',', ., /]
-  - ['$$mdi:backspace-outline$$', '', '', '', '$$mdi:keyboard-space$$', '']
-  Os:
-  - [Q, W, F, P, B, J, ;, '$$mdi:arrow-up$$', '''', '''']
-  - [A, R, S, T, G, '[', '$$mdi:arrow-left$$', '$$mdi:arrow-down$$', '$$mdi:arrow-right$$', ']']
-  - [Z, X, C, D, V, K, H, ',', ., /]
-  - ['$$mdi:backspace-outline$$', '', '', '', '$$mdi:keyboard-space$$', '']
   Sys:
   - - {t: '$$mdi:bluetooth$$', s: '0'}
     - {t: '$$mdi:bluetooth$$', s: '1'}
