@@ -17,8 +17,6 @@ home row (pinky to index: Shift, Ctrl, Alt, Super, mirrored). Shift and the laye
 writing sit on the thumbs, which keeps hold-tap timing out of the way. Some notes on the layers:
 
 - **rse**: numbers on the left, navigation on the right. **lwr**: symbols.
-- **app** and **os**: held from C and `,` (app) or D and H (os). They keep Ctrl or Super down for
-  the whole hold, so every key is sent with that modifier, including the arrows on U N E I.
 - **sys**: Bluetooth profiles, held from Z or `/`.
 - **mou**: held from X. Left-hand Ctrl+Q W S T Z C V for when the right hand is on the mouse.
 - **hyp**: held from the right outer thumb. Every key is sent with Ctrl+Alt+Shift+Super, for niri
@@ -33,7 +31,7 @@ the six thumbs.
 layer base: left_mods, right_mods
   Q      W        F      P     B          J        L     U      Y     '
   A      R        S      T     G          M        N     E      I     O
-  Z/sys  X/mou    C/app  D/os  V          K        H/os  ,/app  .     \//sys
+  Z/sys  X/mou    C      D     V          K        H     ,      .     \//sys
                   BSPC   RET/LSHFT    lwr/lwr     rse/rse  SPC   _/hyp
 ```
 

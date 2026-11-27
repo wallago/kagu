@@ -103,9 +103,6 @@ parse_config:
     HOME: Home
     END: End
   raw_binding_map:
-    # Holds of the `layer name + MOD` layer-taps; the number is the layer.
-    "&mo_app 3": "Ctrl+app"
-    "&mo_os 4": "Super+os"
     "&kp LS(TAB)": "$$mdi:keyboard-tab-reverse$$"
     "&kp LC(LEFT)": {t: "$$mdi:arrow-collapse-left$$", s: word}
     "&kp LC(RIGHT)": {t: "$$mdi:arrow-collapse-right$$", s: word}

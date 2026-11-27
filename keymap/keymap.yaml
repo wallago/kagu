@@ -14,12 +14,12 @@ layers:
     - {t: O, h: '$$mdi:apple-keyboard-shift$$'}
   - - {t: Z, h: Sys}
     - {t: X, h: Mou}
-    - {t: C, h: Ctrl+app}
-    - {t: D, h: Super+os}
+    - C
+    - D
     - V
     - K
-    - {t: H, h: Super+os}
-    - {t: ',', h: Ctrl+app}
+    - H
+    - ','
     - .
     - {t: /, h: Sys}
   - - $$mdi:backspace-outline$$
@@ -75,16 +75,6 @@ layers:
     - $$mdi:keyboard-tab-reverse$$
     - $$mdi:keyboard-tab$$
     - ''
-  App:
-  - [Q, W, F, P, B, J, ;, '$$mdi:arrow-up$$', '''', '''']
-  - [A, R, S, T, G, '[', '$$mdi:arrow-left$$', '$$mdi:arrow-down$$', '$$mdi:arrow-right$$', ']']
-  - [Z, X, C, D, V, K, H, ',', ., /]
-  - ['$$mdi:backspace-outline$$', '', '', '', '$$mdi:keyboard-space$$', '']
-  Os:
-  - [Q, W, F, P, B, J, ;, '$$mdi:arrow-up$$', '''', '''']
-  - [A, R, S, T, G, '[', '$$mdi:arrow-left$$', '$$mdi:arrow-down$$', '$$mdi:arrow-right$$', ']']
-  - [Z, X, C, D, V, K, H, ',', ., /]
-  - ['$$mdi:backspace-outline$$', '', '', '', '$$mdi:keyboard-space$$', '']
   Sys:
   - - {t: '$$mdi:bluetooth$$', s: '0'}
     - {t: '$$mdi:bluetooth$$', s: '1'}
