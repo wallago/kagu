@@ -68,21 +68,21 @@ layer base: left_mods, right_mods
 
 // Numbers on the left, navigation on the right, with three Hyper keys for
 // niri below the arrows. 0 on the middle left thumb. Bluetooth profiles 0-2
-// down the inner column and BT_CLR on the inner thumb; the outer thumb
-// switches to the game layer. No home row holds here, so digits and arrows
-// repeat when held.
+// down the inner column and BT_CLR on the inner thumb. No home row holds
+// here, so digits and arrows repeat when held.
 layer rse
   _      7      8      9      BT_0       HOME    WORD_L   UP       WORD_R   END
   _      4      5      6      BT_1       BACK    LEFT     DOWN     RIGHT    FWD
   _      1      2      3      BT_2       TAB_L   HYP_[    HYP_\\   HYP_]    TAB_R
-                TO_GAME 0     BT_CLR     _       _        _
+                _      0      BT_CLR     _       _        _
 
-// Symbols, with no home row holds.
+// Symbols, with no home row holds. The outer left thumb switches to the
+// game layer.
 layer lwr
   ~      ^      @      $      %          &      \/     \\     PIPE   `
   ESC    <      [      (      {          -      \_     \:     ;      #
   *      >      ]      )      }          +      =      ?      !      "
-                _      _      _          STAB   TAB    _
+                TO_GAME _     _          STAB   TAB    _
 
 // Hyper (Ctrl+Alt+Shift+Super) shortcuts for niri, held from the right
 // outer thumb; niri binds each one to an action. Left: workspaces 1-9 and 0
@@ -98,7 +98,7 @@ layer hyp
                    HYP_[  HYP_0  HYP_]          _          _          TRNS
 
 // One-handed gaming (Dofus) with the right hand on the mouse, entered from
-// rse (outer left thumb). Every left key is a plain press, no hold-tap, so
+// lwr (outer left thumb). Every left key is a plain press, no hold-tap, so
 // nothing waits on a timer: spells 1-5 on top and Ctrl+1-5 (second spell bar)
 // on the home row, ~ below them, plain Shift on the outer thumb, F1 on the
 // middle thumb ends the turn. Hold Shift for 6-0 and Ctrl+6-0 instead. The
