@@ -48,8 +48,9 @@ glass_side_clear = 2.0;       // extra each side, left and right: the glass
                               // would not go in with glass_clear alone
 window_margin = 0.4;
 window_r    = 2.0;            // rounded window corners
-window_len  = 32.7;           // long side of the window
-window_shift = -1.75;         // the panel's pixels sit off-centre, away from the
+window_len  = 31.7;           // long side of the window (1.0 off the -x end:
+                              // the pixels stopped short of it on a print)
+window_shift = -1.25;         // the panel's pixels sit off-centre, away from the
                               // flex end (+x): a print showed pixels cut at -x
                               // and a 2mm dark strip at +x with the window at +0.25
 header_relief = [23, 1.5];    // pocket for the pin header's solder joints on the
