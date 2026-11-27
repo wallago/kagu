@@ -97,8 +97,11 @@ class ZmkTest(unittest.TestCase):
     def test_ctrl(self) -> None:
         self.assertEqual(self.zmk.binding("CTL_Q"), "&kp LC(Q)")
 
-    def test_shift(self) -> None:
-        self.assertEqual(self.zmk.binding("SFT_W"), "&kp LS(W)")
+    def test_ctrl_shift(self) -> None:
+        self.assertEqual(self.zmk.binding("CS_A"), "&kp LC(LS(A))")
+
+    def test_gui(self) -> None:
+        self.assertEqual(self.zmk.binding("GUI_8"), "&kp LG(N8)")
 
     def test_hyper(self) -> None:
         self.assertEqual(self.zmk.binding("HYP_["), "&kp LC(LA(LS(LG(LBKT))))")
