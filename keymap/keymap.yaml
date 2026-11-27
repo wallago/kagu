@@ -97,24 +97,24 @@ layers:
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
+  - - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
+    - {t: ▽, type: trans}
   - - $$mdi:apple-keyboard-shift$$
-    - Ctrl
-    - Alt
-    - $$mdi:keyboard-tab$$
-    - $$mdi:keyboard-return$$
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-    - {t: ▽, type: trans}
-  - - $$mdi:keyboard-esc$$
     - F1
     - Menu
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
   Menu:
-  - - {t: Base, h: toggle}
+  - - $$mdi:keyboard-esc$$
     - M
     - G
     - F
@@ -138,7 +138,7 @@ layers:
     - Ctl+Sft A
     - Ctl+Sft E
     - Ctl+Sft C
-    - {t: ▽, type: trans}
+    - {t: Base, h: toggle}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
