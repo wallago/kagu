@@ -376,7 +376,7 @@ path.combo { stroke: #7f7f7f; }
 <g transform="translate(210, 196)" class="key keypos-31">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-22" y="-24" width="44" height="40" class="key"/>
-<use href="#mdi:apple-keyboard-shift" xlink:href="#mdi:apple-keyboard-shift" x="-7" y="-11" height="14" width="14.0" class="key tap glyph mdi:apple-keyboard-shift"/>
+<use href="#mdi:keyboard-return" xlink:href="#mdi:keyboard-return" x="-7" y="-11" height="14" width="14.0" class="key tap glyph mdi:keyboard-return"/>
 <use href="#mdi:apple-keyboard-shift" xlink:href="#mdi:apple-keyboard-shift" x="-6" y="12" height="12" width="12.0" class="key hold glyph mdi:apple-keyboard-shift"/>
 </g>
 <g transform="translate(270, 196)" class="key keypos-32">
@@ -406,14 +406,6 @@ path.combo { stroke: #7f7f7f; }
 <a href="#Hyp">
 <text x="0" y="-4" class="key tap layer-activator">Hyp</text>
 </a></g>
-<g class="combo combopos-0">
-<rect rx="6" ry="6" x="106" y="15" width="28" height="26" class="combo"/>
-<use href="#mdi:keyboard-esc" xlink:href="#mdi:keyboard-esc" x="113" y="21" height="14" width="14.0" class="combo tap glyph mdi:keyboard-esc"/>
-</g>
-<g class="combo combopos-1">
-<rect rx="6" ry="6" x="496" y="15" width="28" height="26" class="combo"/>
-<use href="#mdi:keyboard-return" xlink:href="#mdi:keyboard-return" x="503" y="21" height="14" width="14.0" class="combo tap glyph mdi:keyboard-return"/>
-</g>
 </g>
 </g>
 <g transform="translate(30, 280)" class="layer-Rse">
@@ -975,14 +967,6 @@ path.combo { stroke: #7f7f7f; }
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-22" y="-24" width="44" height="40" class="key"/>
 </g>
-<g class="combo combopos-0">
-<rect rx="6" ry="6" x="106" y="15" width="28" height="26" class="combo"/>
-<use href="#mdi:keyboard-esc" xlink:href="#mdi:keyboard-esc" x="113" y="21" height="14" width="14.0" class="combo tap glyph mdi:keyboard-esc"/>
-</g>
-<g class="combo combopos-1">
-<rect rx="6" ry="6" x="496" y="15" width="28" height="26" class="combo"/>
-<use href="#mdi:keyboard-return" xlink:href="#mdi:keyboard-return" x="503" y="21" height="14" width="14.0" class="combo tap glyph mdi:keyboard-return"/>
-</g>
 </g>
 </g>
 <g transform="translate(30, 1120)" class="layer-Os">
@@ -1163,14 +1147,6 @@ path.combo { stroke: #7f7f7f; }
 <g transform="translate(480, 196)" class="key keypos-35">
 <rect rx="6" ry="6" x="-28" y="-26" width="56" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-22" y="-24" width="44" height="40" class="key"/>
-</g>
-<g class="combo combopos-0">
-<rect rx="6" ry="6" x="106" y="15" width="28" height="26" class="combo"/>
-<use href="#mdi:keyboard-esc" xlink:href="#mdi:keyboard-esc" x="113" y="21" height="14" width="14.0" class="combo tap glyph mdi:keyboard-esc"/>
-</g>
-<g class="combo combopos-1">
-<rect rx="6" ry="6" x="496" y="15" width="28" height="26" class="combo"/>
-<use href="#mdi:keyboard-return" xlink:href="#mdi:keyboard-return" x="503" y="21" height="14" width="14.0" class="combo tap glyph mdi:keyboard-return"/>
 </g>
 </g>
 </g>

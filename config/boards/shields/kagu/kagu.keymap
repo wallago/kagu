@@ -199,23 +199,7 @@
 		};
 	};
 
-	combos {
-		compatible = "zmk,combos";
 
-		combo_0 {
-			timeout-ms = <50>;
-			key-positions = <1 2>;
-			bindings = <&kp ESC>;
-			layers = <BASE APP OS>;
-		};
-
-		combo_1 {
-			timeout-ms = <50>;
-			key-positions = <7 8>;
-			bindings = <&kp RET>;
-			layers = <BASE APP OS>;
-		};
-	};
 
 	keymap {
 		compatible = "zmk,keymap";
@@ -223,10 +207,10 @@
 		base_layer {
 			display-name = "Base";
 			bindings = <
-   &kp Q        &kp W        &kp F         &kp P            &kp B           &kp J        &kp L       &kp U             &kp Y        &kp SQT
-   &hml LSHFT A &hml LCTRL R &hml LALT S   &hml LGUI T      &kp G           &kp M        &hmr RGUI N &hmr LALT E       &hmr RCTRL I &hmr RSHFT O
-   &lt SYS Z    &lt MOU X    &lt_app APP C &lt_os OS D      &kp V           &kp K        &lt_os OS H &lt_app APP COMMA &kp DOT      &lt SYS FSLH
-                             &kp BSPC      &osm LSHFT LSHFT &osl LWR LWR    &osl RSE RSE &kp SPACE   &mo HYP
+   &kp Q        &kp W        &kp F         &kp P         &kp B           &kp J        &kp L       &kp U             &kp Y        &kp SQT
+   &hml LSHFT A &hml LCTRL R &hml LALT S   &hml LGUI T   &kp G           &kp M        &hmr RGUI N &hmr LALT E       &hmr RCTRL I &hmr RSHFT O
+   &lt SYS Z    &lt MOU X    &lt_app APP C &lt_os OS D   &kp V           &kp K        &lt_os OS H &lt_app APP COMMA &kp DOT      &lt SYS FSLH
+                             &kp BSPC      &mt LSHFT RET &osl LWR LWR    &osl RSE RSE &kp SPACE   &mo HYP
 			>;
 		};
 
