@@ -58,22 +58,24 @@ overlay right_mods
   _  _  _  _  _          _  _        _        _         _
         _  _  _          _  _        _
 
-// Colemak-DH. Z and / hold sys, X holds mou. Bksp, Enter (Shift on hold) and
+// Colemak-DH. X holds mou. Bksp, Enter (Shift on hold) and
 // one-shot lwr on the left thumbs; one-shot rse, Space and hyp on the right.
 layer base: left_mods, right_mods
   Q      W        F      P     B          J        L     U      Y     '
   A      R        S      T     G          M        N     E      I     O
-  Z/sys  X/mou    C      D     V          K        H     ,      .     \//sys
+  Z      X/mou    C      D     V          K        H     ,      .     \/
                   BSPC   RET/LSHFT    lwr/lwr     rse/rse  SPC   _/hyp
 
 // Numbers on the left, navigation on the right, with three Hyper keys for
-// niri below the arrows. 0 on the middle left thumb. No home row holds here,
-// so digits and arrows repeat when held.
+// niri below the arrows. 0 on the middle left thumb. Bluetooth profiles 0-2
+// down the inner column and BT_CLR on the inner thumb; the outer thumb
+// switches to the game layer. No home row holds here, so digits and arrows
+// repeat when held.
 layer rse
-  _      7      8      9      _          HOME    WORD_L   UP       WORD_R   END
-  _      4      5      6      _          BACK    LEFT     DOWN     RIGHT    FWD
-  _      1      2      3      _          TAB_L   HYP_[    HYP_\\   HYP_]    TAB_R
-                _      0      _          _       _        _
+  _      7      8      9      BT_0       HOME    WORD_L   UP       WORD_R   END
+  _      4      5      6      BT_1       BACK    LEFT     DOWN     RIGHT    FWD
+  _      1      2      3      BT_2       TAB_L   HYP_[    HYP_\\   HYP_]    TAB_R
+                TO_GAME 0     BT_CLR     _       _        _
 
 // Symbols, with no home row holds.
 layer lwr
@@ -81,13 +83,6 @@ layer lwr
   ESC    <      [      (      {          -      \_     \:     ;      #
   *      >      ]      )      }          +      =      ?      !      "
                 _      _      _          STAB   TAB    _
-
-// Bluetooth, held from Z or /, and G switches to the game layer.
-layer sys
-  BT_0    BT_1  BT_2  _  _          _  _  _  _  _
-  BT_CLR  _     _     _  TO_GAME    _  _  _  _  _
-  _       _     _     _  _          _  _  _  _  _
-                _     _  _          _  _  _
 
 // Hyper (Ctrl+Alt+Shift+Super) shortcuts for niri, held from the right
 // outer thumb. Same keys as dubu36's hyp layer: letters on the left, 1-5 on
@@ -108,7 +103,7 @@ layer mou
                 TRNS   _      _          _  _  _
 
 // One-handed gaming (Dofus) with the right hand on the mouse, entered from
-// sys (hold Z, tap G). Every left key is a plain press, no hold-tap, so
+// rse (outer left thumb). Every left key is a plain press, no hold-tap, so
 // nothing waits on a timer: spells 1-5 on top and Ctrl+1-5 (second spell bar)
 // on the home row, plain Shift, Ctrl and Alt under them, F1 on the middle
 // thumb ends the turn. Hold Shift for 6-0 and Ctrl+6-0 instead. The right
