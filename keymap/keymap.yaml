@@ -137,7 +137,7 @@ layers:
   - - Gui 8
     - Ctl+Sft A
     - Ctl+Sft E
-    - Ctl+Sft C
+    - Gui 4
     - {t: Base, h: toggle}
     - {t: ▽, type: trans}
     - {t: ▽, type: trans}
