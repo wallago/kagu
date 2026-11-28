@@ -111,11 +111,11 @@ layer game
 
 // Dofus window shortcuts, held from the game layer's inner thumb: Inventory,
 // Characteristics, Spells, Quests, Havre-sac on the home row, Map, Guild,
-// Friends, Jobs above, Esc top left. Super+8 and Ctrl+Shift+A, E and C on the
-// bottom row, for binds set in Dofus; the bottom right key leaves the game
-// layer.
+// Friends, Jobs above, Esc top left. Super+8, Ctrl+Shift+A, Ctrl+Shift+E and
+// Super+4 on the bottom row, for binds set in Dofus; the bottom right key
+// leaves the game layer.
 layer menu
   ESC      M     G      F      J          TRNS  TRNS  TRNS  TRNS  TRNS
   I        C     S      Q      H          TRNS  TRNS  TRNS  TRNS  TRNS
-  GUI_8    CS_A  CS_E   CS_C   TO_BASE    TRNS  TRNS  TRNS  TRNS  TRNS
+  GUI_8    CS_A  CS_E   GUI_4  TO_BASE    TRNS  TRNS  TRNS  TRNS  TRNS
                  TRNS   TRNS   TRNS       TRNS  TRNS  TRNS
