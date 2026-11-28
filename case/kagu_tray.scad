@@ -82,7 +82,8 @@ mount_pos    = [60, 51];
 mount_hole_d = 6.6;          // 1/4" = 6.35mm
 nut_af       = 11.11 + 0.3;  // 7/16" across flats, plus fit
 nut_h        = 5.56 + 0.2;   // 7/32"
-nut_floor    = 2.0;          // plastic under the nut
+nut_floor    = 1.0;          // plastic under the nut, thin so a short
+                             // tripod screw still reaches the nut
 mount_wall   = 2.4;
 
 // ---------------------------------------------------------------------------
